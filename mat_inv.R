@@ -1,29 +1,53 @@
-######## fun_mat_inv() #### return the inverse of a square matrix
+######## mat_inv() #### return the inverse of a square matrix
+
+# todo list check OK
+# Check r_debugging_tools-v1.4.R 
+# Check fun_test() 20201107 (see cute_checks.docx) 
+# example sheet 
+# check all and any OK
+# -> clear to go Apollo
+# -> transferred into the cute package
 
 
-fun_mat_inv <- function(mat){
-    # AIM
-    # return the inverse of a square matrix when solve() cannot
-    # ARGUMENTS:
-    # mat: a square numeric matrix without NULL, NA, Inf or single case (dimension 1, 1) of 0
-    # RETURN
-    # the inversed matrix
-    # REQUIRED PACKAGES
-    # none
-    # REQUIRED FUNCTIONS FROM CUTE_LITTLE_R_FUNCTION
-    # fun_check()
-    # EXAMPLES
-    # mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; fun_mat_inv(mat = mat1) # use solve()
-    # mat1 = matrix(c(0,0,0,0,0,0,0,0,0), ncol = 3) ; fun_mat_inv(mat = mat1) # use the trick
-    # mat1 = matrix(c(1,1,1,2,Inf,5,9,8,9), ncol = 3) ; fun_mat_inv(mat = mat1)
-    # mat1 = matrix(c(1,1,1,2,NA,5,9,8,9), ncol = 3) ; fun_mat_inv(mat = mat1)
-    # mat1 = matrix(c(1,2), ncol = 1) ; fun_mat_inv(mat = mat1)
-    # mat1 = matrix(0, ncol = 1) ; fun_mat_inv(mat = mat1)
-    # mat1 = matrix(2, ncol = 1) ; fun_mat_inv(mat = mat1)
+#' @title mat_inv
+#' @description
+#' Return the inverse of a square matrix when solve() cannot.
+#' @param mat A square numeric matrix without NULL, NA, Inf or single case (dimension 1, 1) of 0.
+#' @returns The inversed matrix.
+#' @details
+#' REQUIRED PACKAGES
+#' 
+#' none
+#' 
+#' REQUIRED FUNCTIONS FROM CUTE_LITTLE_R_FUNCTION
+#' 
+#' check()
+#' 
+#' @examples
+#' mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1) # use solve()
+#' 
+#' mat1 = matrix(c(0,0,0,0,0,0,0,0,0), ncol = 3) ; mat_inv(mat = mat1) # use the trick
+#' 
+#' mat1 = matrix(c(1,1,1,2,Inf,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1)
+#' 
+#' mat1 = matrix(c(1,1,1,2,NA,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1)
+#' 
+#' mat1 = matrix(c(1,2), ncol = 1) ; mat_inv(mat = mat1)
+#' 
+#' mat1 = matrix(0, ncol = 1) ; mat_inv(mat = mat1)
+#' 
+#' mat1 = matrix(2, ncol = 1) ; mat_inv(mat = mat1)
+#' @seealso The page pkgdown html.
+#' @export
+mat_inv <- function(
+        mat
+){
     # DEBUGGING
     # mat = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) # for function debugging
     # function name
     function.name <- paste0(as.list(match.call(expand.dots = FALSE))[[1]], "()")
+    arg.names <- names(formals(fun = sys.function(sys.parent(n = 2)))) # names of all the arguments
+    arg.user.setting <- as.list(match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
     # required function checking
     if(length(utils::find("fun_check", mode = "function")) == 0L){

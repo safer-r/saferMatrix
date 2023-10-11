@@ -1,31 +1,64 @@
-######## fun_mat_fill() #### fill the empty half part of a symmetric square matrix
+######## mat_fill() #### fill the empty half part of a symmetric square matrix
 
+#' @title mat_fill
+#' @description
+#' Detect the empty half part of a symmetric square matrix (either topleft, topright, bottomleft or bottomright).
+#' 
+#' Fill this empty half part using the other symmetric half part of the matrix.
+#' @param mat A numeric or character square matrix with the half part (according to the grand diagonal) filled with NA (any kind of matrix), "0" (character matrix) or 0 (numeric matrix) exclusively (not a mix of 0 and NA in the empty part).
+#' @param empty.cell.string A numeric, character or NA (no quotes) indicating what empty cells are filled with.
+#' @param warn.print Logical. Print warnings at the end of the execution? No print if no warning messages.
+#' @returns
+#' A list containing:
+#' $mat: The filled matrix.
+#' $warn: The warning messages. Use cat() for proper display. NULL if no warning.
+#' @details
+#' WARNINGS
+#' 
+#' A plot verification using gg_heatmap() is recommanded.
+#' 
+#' REQUIRED PACKAGES
+#' 
+#' none
+#' 
+#' REQUIRED FUNCTIONS FROM CUTE_LITTLE_R_FUNCTION
+#' 
+#' check()
+#' 
+#' @examples
+#' mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; 
+#' mat1 ; 
+#' mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
+#' # bottomleft example
+#' 
+#' mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; 
+#' mat1 ; 
+#' mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
+#' # error example
+#' 
+#' mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; 
+#' mat1 ; 
+#' mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
+#' # bottomright example
+#' 
+#' mat1 = matrix(c(1,1,1,2, "a",2,3,NA, "a","a",0,0, "a","a","a",0), ncol = 4) ; 
+#' mat1 ; 
+#' mat_fill(mat = mat1, empty.cell.string = "a", warn.print = TRUE) 
+#' # topright example
+#' 
+#' mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; 
+#' mat1 ; 
+#' mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
+#' # topleft example
+#' 
+#' mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,0, 5,0,0,0), ncol = 4) ; 
+#' mat1 ; 
+#' mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
+#' # error example
+#' @seealso The page pkgdown html.
+#' @export
+mat_fill <- function(mat, empty.cell.string = 0, warn.print = FALSE){
 
-fun_mat_fill <- function(mat, empty.cell.string = 0, warn.print = FALSE){
-    # AIM
-    # detect the empty half part of a symmetric square matrix (either topleft, topright, bottomleft or bottomright)
-    # fill this empty half part using the other symmetric half part of the matrix
-    # WARNINGS
-    # a plot verification using fun_gg_heatmap() is recommanded
-    # ARGUMENTS:
-    # mat: a numeric or character square matrix with the half part (according to the grand diagonal) filled with NA (any kind of matrix), "0" (character matrix) or 0 (numeric matrix) exclusively (not a mix of 0 and NA in the empty part)
-    # empty.cell.string: a numeric, character or NA (no quotes) indicating what empty cells are filled with
-    # warn.print: logical. Print warnings at the end of the execution? No print if no warning messages
-    # RETURN
-    # a list containing:
-    # $mat: the filled matrix
-    # $warn: the warning messages. Use cat() for proper display. NULL if no warning
-    # REQUIRED PACKAGES
-    # none
-    # REQUIRED FUNCTIONS FROM CUTE_LITTLE_R_FUNCTION
-    # fun_check()
-    # EXAMPLES
-    # mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; mat1 ; fun_mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) # bottomleft example
-    # mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; mat1 ; fun_mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) # error example
-    # mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; mat1 ; fun_mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) # bottomright example
-    # mat1 = matrix(c(1,1,1,2, "a",2,3,NA, "a","a",0,0, "a","a","a",0), ncol = 4) ; mat1 ; fun_mat_fill(mat = mat1, empty.cell.string = "a", warn.print = TRUE) # topright example
-    # mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; mat1 ; fun_mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) # topleft example
-    # mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,0, 5,0,0,0), ncol = 4) ; mat1 ; fun_mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) # error example
     # DEBUGGING
     # mat = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; empty.cell.string = NA ; warn.print = TRUE # for function debugging
     # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; empty.cell.string = 0 ; warn.print = TRUE # for function debugging # topleft example
