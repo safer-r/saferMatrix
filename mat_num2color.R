@@ -135,12 +135,12 @@ mat_num2color <- function(
     
     # management of NULL arguments
     tempo.arg <-c(
-        "mat1"
-        # "mat.hsv.h", # inactivated because can be null 
-        # "notch", # inactivated because can be null 
-        # "s", # inactivated because can be null 
-        # "v", # inactivated because can be null 
-        # "forced.color", # inactivated because can be null 
+        "mat1",
+        "mat.hsv.h",
+        "notch",  
+        "s", 
+        "v"
+        # "forced.color" # inactivated because can be null 
     )
     tempo.log <- sapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.null)
     if(any(tempo.log) == TRUE){# normally no NA with is.null()

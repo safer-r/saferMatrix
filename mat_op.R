@@ -162,8 +162,8 @@ mat_op <- function(
     
     # management of NULL arguments
     tempo.arg <-c(
-        "mat.list"
-        # "kind.of.operation", # inactivated because can be null 
+        "mat.list",
+        "kind.of.operation"
     )
     tempo.log <- sapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.null)
     if(any(tempo.log) == TRUE){# normally no NA with is.null()
