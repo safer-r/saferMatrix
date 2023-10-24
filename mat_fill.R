@@ -25,14 +25,15 @@
 #' 
 #' A plot verification using gg_heatmap() is recommanded.
 #' 
+#' 
 #' REQUIRED PACKAGES
 #' 
 #' none
 #' 
+#' 
 #' REQUIRED FUNCTIONS FROM CUTE_LITTLE_R_FUNCTION
 #' 
 #' check()
-#' 
 #' @examples
 #' mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; 
 #' mat1 ; 

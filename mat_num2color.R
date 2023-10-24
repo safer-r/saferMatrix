@@ -14,8 +14,8 @@
 #' @param mat1 Matrix 1 of non negative numerical values that has to be colored (matrix class). NA allowed.
 #' @param mat.hsv.h Single logical value. Is mat1 the h of hsv colors ? (if TRUE, mat1 must be between zero and 1). If FALSE, mat1 must be made of positive integer values without 0.
 #' @param notch Single value between 0 and 1 to shift the successive colors on the hsv circle by + notch.
-#' @param s S argument of hsv(). Must be between 0 and 1.
-#' @param v V argument of hsv(). Must be between 0 and 1.
+#' @param s S argument of hsv(). Single numeric value between 0 and 1.
+#' @param v V argument of hsv(). Single numeric value between 0 and 1.
 #' @param forced.color Must be NULL or hexadecimal color code or name given by colors(). The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.
 #' @returns
 #' A list containing:
@@ -112,7 +112,7 @@ mat_num2color <- function(
             paste0("\n\n================\n\n", paste(tempo$text[tempo$problem], collapse = "\n"))
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
-        if( ! all(forced.color %in% colors() | grepl(pattern = "^#", forced.color))){ # check that all strings of forced.color start by #
+        if( ! all(forced.color %in% colors() | grepl(pattern = "^#", forced.color), na.rm = TRUE)){ # check that all strings of forced.color start by #
             tempo.cat <- paste0("ERROR IN ", function.name, ": forced.color ARGUMENT MUST BE A HEXADECIMAL COLOR VECTOR STARTING BY # AND/OR COLOR NAMES GIVEN BY colors()")
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
