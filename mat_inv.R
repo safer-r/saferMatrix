@@ -1,14 +1,3 @@
-######## mat_inv() #### return the inverse of a square matrix
-
-# todo list check OK
-# Check r_debugging_tools-v1.4.R 
-# Check fun_test() 20201107 (see cute_checks.docx) 
-# example sheet 
-# check all and any OK
-# -> clear to go Apollo
-# -> transferred into the cute package
-
-
 #' @title mat_inv
 #' @description
 #' Return the inverse of a square matrix when solve() cannot.
