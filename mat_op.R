@@ -1,13 +1,3 @@
-######## fun_mat_op() #### assemble several matrices with operation
-
-# todo list check OK
-# Check r_debugging_tools-v1.4.R 
-# Check fun_test() 20201107 (see cute_checks.docx) 
-# example sheet 
-# check all and any OK
-# -> clear to go Apollo
-# -> transferred into the cute package
-
 #' @title mat_op
 #' @description
 #' assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula

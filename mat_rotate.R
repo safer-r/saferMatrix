@@ -1,13 +1,3 @@
-######## mat_rotate() #### 90° clockwise matrix rotation
-
-# todo list check OK
-# Check r_debugging_tools-v1.4.R 
-# Check fun_test() 20201107 (see cute_checks.docx) 
-# example sheet 
-# check all and any OK
-# -> clear to go Apollo
-# -> transferred into the cute package
-
 #' @title mat_rotate
 #' @description
 #' 90° clockwise matrix rotation.

@@ -1,13 +1,3 @@
-######## mat_num2color() #### convert a numeric matrix into hexadecimal color matrix
-
-# todo list check OK
-# Check r_debugging_tools-v1.4.R 
-# Check fun_test() 20201107 (see cute_checks.docx) 
-# example sheet 
-# check all and any OK
-# -> clear to go Apollo
-# -> transferred into the cute package
-
 #' @title mat_num2color
 #' @description
 #' Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.
