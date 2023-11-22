@@ -30,6 +30,11 @@ mat_rotate <- function(
     arg.names <- names(formals(fun = sys.function(sys.parent(n = 2)))) # names of all the arguments
     arg.user.setting <- as.list(match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
+    # check of lib.path
+    # end check of lib.path
+    # check of cuteDev package using an internal function of the cuteTool2 package
+    .cuteDev_package_check(lib.path = NULL)
+    # end check of cuteDev package using an internal function of the cuteTool2 package
     # required function checking
     req.function <- c(
         "fun_check"
