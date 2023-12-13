@@ -6,11 +6,11 @@
 #' @details
 #' REQUIRED PACKAGES
 #' 
-#' none
+#' cuteDev
 #' 
 #' REQUIRED FUNCTIONS FROM CUTE_LITTLE_R_FUNCTION
 #' 
-#' check()
+#' arg_check()
 #' 
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1) # use solve()
@@ -26,7 +26,7 @@
 #' mat1 = matrix(0, ncol = 1) ; mat_inv(mat = mat1)
 #' 
 #' mat1 = matrix(2, ncol = 1) ; mat_inv(mat = mat1)
-#' @seealso The page pkgdown html.
+#' @importFrom cuteDev arg_check
 #' @export
 mat_inv <- function(
         mat
@@ -34,28 +34,30 @@ mat_inv <- function(
     # DEBUGGING
     # mat = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) # for function debugging
     # function name
-    function.name <- paste0(as.list(match.call(expand.dots = FALSE))[[1]], "()")
+    ini <- match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
+    function.name <- paste0(as.list(match.call(expand.dots = FALSE))[[1]], "()") # function name with "()" paste, which split into a vector of three: c("::()", "package()", "function()") if "package::function()" is used.
+    if(function.name[1] == "::()"){
+        function.name <- function.name[3]
+    }
     arg.names <- names(formals(fun = sys.function(sys.parent(n = 2)))) # names of all the arguments
     arg.user.setting <- as.list(match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
-    req.function <- c(
-        "check"
+    # package checking
+    # check of lib.path
+    # end check of lib.path
+    
+    # check of the required function from the required packages
+    .pack_and_function_check(
+        fun = c(
+            "cuteDev::arg_check"
+        ),
+        lib.path = NULL,
+        external.function.name = function.name
     )
-    tempo <- NULL
-    for(i1 in req.function){
-        if(length(find(i1, mode = "function")) == 0L){
-            tempo <- c(tempo, i1)
-        }
-    }
-    if( ! is.null(tempo)){
-        tempo.cat <- paste0("ERROR IN ", function.name, "\nREQUIRED cute FUNCTION", ifelse(length(tempo) > 1, "S ARE", " IS"), " MISSING IN THE R ENVIRONMENT:\n", paste0(tempo, collapse = "()\n"))
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
-    }
-    # end required function checking
+    # end check of the required function from the required packages
+    # end package checking
     
-    # reserved words (to avoid bugs)
-    # end reserved words (to avoid bugs)
-    
+    # argument primary checking
     # arg with no default values
     mandat.args <- c(
         "mat"
@@ -67,21 +69,21 @@ mat_inv <- function(
     }
     # end arg with no default values
     
-    # argument primary checking
-    # argument checking with fun_check()
-    arg.check <- NULL #
+    # argument checking with cuteDev::arg_check()
+    argum.check <- NULL #
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
-    ee <- expression(arg.check <- c(arg.check, tempo$problem) , text.check <- c(text.check, tempo$text) , checked.arg.names <- c(checked.arg.names, tempo$object.name))
-    tempo <- fun_check(data = mat, class = "matrix", mode = "numeric", fun.name = function.name) ; eval(ee)
-    if( ! is.null(arg.check)){
-        if(any(arg.check, na.rm = TRUE) == TRUE){
-            stop(paste0("\n\n================\n\n", paste(text.check[arg.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
+    ee <- expression(argum.check = c(argum.check, tempo$problem) , text.check = c(text.check, tempo$text) , checked.arg.names = c(checked.arg.names, tempo$object.name))
+    tempo <- cuteDev::arg_check(data = mat, class = "matrix", mode = "numeric", fun.name = function.name) ; eval(ee)
+    if( ! is.null(argum.check)){
+        if(any(argum.check, na.rm = TRUE) == TRUE){
+            stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
         }
     }
-    # end argument checking with fun_check()
-    
-    # source("C:/Users/Gael/Documents/Git_versions_to_use/debugging_tools_for_r_dev-v1.7/r_debugging_tools-v1.7.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using fun_check()
+    # end argument checking with cuteDev::arg_check()
+    # check with r_debugging_tools
+    # source("C:/Users/Gael/Documents/Git_versions_to_use/debugging_tools_for_r_dev-v1.7/r_debugging_tools-v1.7.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using cuteDev::arg_check()
+    # end check with r_debugging_tools
     # end argument primary checking
     
     # second round of checking and data preparation
@@ -124,11 +126,9 @@ mat_inv <- function(
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end other checkings
-    # reserved word checking
-    # end reserved word checking
+    # reserved words (to avoid bugs)
+    # end reserved words (to avoid bugs)
     # end second round of checking and data preparation
-    # package checking
-    # end package checking
     
     # main code
     if(any(grepl(x = try(solve(mat), silent = TRUE)[], pattern = "[Ee]rror"), na.rm = TRUE)){
@@ -139,6 +139,8 @@ mat_inv <- function(
             Diag.mod[i, i] <- 0
         }
         # output
+        # warning output
+        # end warning output
         return(tempo$v %*% Diag.mod %*% t(tempo$u))
     }else{
         return(solve(mat))
