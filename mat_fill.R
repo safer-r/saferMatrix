@@ -89,7 +89,7 @@ mat_fill <- function(
     )
     # end check of the required function from the required packages
     # end package checking
-
+    
     # argument primary checking
     # arg with no default values
     mandat.args <- c(
@@ -150,6 +150,10 @@ mat_fill <- function(
     # end code that protects set.seed() in the global environment
     
     # warning initiation
+    ini.warning.length <- options()$warning.length
+    options(warning.length = 8170)
+    warn <- NULL
+    warn.count <- 0
     # end warning initiation
     
     # other checkings
@@ -175,9 +179,9 @@ mat_fill <- function(
     
     # reserved words (to avoid bugs)
     # end reserved words (to avoid bugs)
-
+    
     # end second round of checking and data preparation
-
+    
     # main code
     list.diag <- vector("list", length = nrow(mat) - 1) 
     for(i1 in 1:(nrow(mat) - 1)){
@@ -255,9 +259,13 @@ mat_fill <- function(
     if(warn.print == TRUE & ! is.null(warn)){
         on.exit(warning(paste0("FROM ", function.name, ":\n\n", warn), call. = FALSE))
     }
-    on.exit(exp = options(warning.length = ini.warning.length), add = TRUE)
+    on.exit(expr = options(warning.length = ini.warning.length), add = TRUE)
     # output
     # warning output
+    if(warn.print == TRUE & ! is.null(warn)){
+        on.exit(warning(paste0("FROM ", function.name, ":\n\n", warn), call. = FALSE))
+      }
+      on.exit(expr = options(warning.length = ini.warning.length), add = TRUE)
     # end warning output
     return(list(mat = mat, warn = warn))
     # end output
