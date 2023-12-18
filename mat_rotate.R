@@ -18,7 +18,7 @@
 #' obs <- matrix(1:10, ncol = 1) ; obs ; mat_rotate(obs)
 #' 
 #' obs <- matrix(LETTERS[1:10], ncol = 5) ; obs ; mat_rotate(obs)
-#' @importFrom cuteDev mat_rotate
+#' @importFrom cuteDev arg_check
 #' @export
 mat_rotate <- function(
         data
