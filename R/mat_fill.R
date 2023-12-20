@@ -30,10 +30,12 @@
 #' mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
 #' # bottomleft example
 #' 
+#' \dontrun{
+#' # error example
 #' mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; 
 #' mat1 ; 
 #' mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
-#' # error example
+#' }
 #' 
 #' mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; 
 #' mat1 ; 
@@ -50,10 +52,12 @@
 #' mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
 #' # topleft example
 #' 
+#' \dontrun{
+#' # error example 
 #' mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,0, 5,0,0,0), ncol = 4) ; 
 #' mat1 ; 
 #' mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
-#' # error example 
+#' }
 #' @importFrom cuteDev arg_check
 #' @export
 mat_fill <- function(
@@ -100,7 +104,7 @@ mat_fill <- function(
     )
     tempo <- eval(parse(text = paste0("missing(", paste0(mandat.args, collapse = ") | missing("), ")")))
     if(any(tempo)){ # normally no NA for missing() output
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: \nFOLLOWING ARGUMENT", ifelse(sum(tempo, na.rm = TRUE) > 1, "S HAVE", "HAS"), " NO DEFAULT VALUE AND REQUIRE ONE:\n", paste0(mandat.args, collapse = "\n"))
+        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \nFOLLOWING ARGUMENT", ifelse(sum(tempo, na.rm = TRUE) > 1, "S HAVE", "HAS"), " NO DEFAULT VALUE AND REQUIRE ONE:\n", paste0(mandat.args, collapse = "\n"))
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end arg with no default values
@@ -130,7 +134,7 @@ mat_fill <- function(
         tempo.arg <- names(arg.user.setting) # values provided by the user
         tempo.log <- suppressWarnings(sapply(lapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.na), FUN = any)) & lapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = length) == 1L # no argument provided by the user can be just NA
         if(any(tempo.log) == TRUE){ # normally no NA because is.na() used here
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: \n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS", "THIS ARGUMENT"), " CANNOT JUST BE NA:", paste0(tempo.arg[tempo.log], collapse = "\n"))
+            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS", "THIS ARGUMENT"), " CANNOT JUST BE NA:", paste0(tempo.arg[tempo.log], collapse = "\n"))
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }
@@ -144,7 +148,7 @@ mat_fill <- function(
     )
     tempo.log <- sapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.null)
     if(any(tempo.log) == TRUE){# normally no NA with is.null()
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE:\n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS\n", "THIS ARGUMENT\n"), paste0(tempo.arg[tempo.log], collapse = "\n"),"\nCANNOT BE NULL")
+        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE:\n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS\n", "THIS ARGUMENT\n"), paste0(tempo.arg[tempo.log], collapse = "\n"),"\nCANNOT BE NULL")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end management of NULL arguments
@@ -162,19 +166,19 @@ mat_fill <- function(
     # other checkings
     # argument checking without cuteDev::arg_check()
     if(ncol(mat) != nrow(mat)){
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: mat ARGUMENT MUST BE A SQUARE MATRIX")
+        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat ARGUMENT MUST BE A SQUARE MATRIX")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
     }
     if( ! (base::mode(mat) %in% c("numeric", "character"))){
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: mat ARGUMENT MUST BE A NUMERIC OR CHARACTER MATRIX")
+        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat ARGUMENT MUST BE A NUMERIC OR CHARACTER MATRIX")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
     }
     if(nrow(mat) == 1L & ncol(mat) == 1L){
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: mat ARGUMENT CANNOT BE A SQUARE MATRIX MADE OF A SINGLE CASE")
+        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat ARGUMENT CANNOT BE A SQUARE MATRIX MADE OF A SINGLE CASE")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
     }
     if(ifelse(is.na(empty.cell.string), ! any(is.na(mat)), ! any(mat == empty.cell.string, na.rm = TRUE))){
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty.cell.string ARGUMENT")
+        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty.cell.string ARGUMENT")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
     }
     # end argument checking without cuteDev::arg_check()
@@ -232,13 +236,13 @@ mat_fill <- function(
         warn <- paste0(ifelse(is.null(warn), tempo.warn, paste0(warn, "\n\n", tempo.warn)))
     }else{
         if(length(empty.sector) > 1){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: ACCORDING TO empty.cell.string ARGUMENT (", empty.cell.string, "), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): ", paste(empty.sector, collapse = " "))
+            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: ACCORDING TO empty.cell.string ARGUMENT (", empty.cell.string, "), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): ", paste(empty.sector, collapse = " "))
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
         }else if(any(full.sector %in% empty.sector, na.rm = TRUE)){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: THE FUNCTION HAS DETECTED EMPTY AND NON EMPTY HALF PART IN THE SAME SECTOR: ", paste(full.sector[full.sector %in% empty.sector], collapse = " "))
+            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: THE FUNCTION HAS DETECTED EMPTY AND NON EMPTY HALF PART IN THE SAME SECTOR: ", paste(full.sector[full.sector %in% empty.sector], collapse = " "))
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
         }else if(length(empty.sector) + length(full.sector)!= 4){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE", package.name, " PACKAGE: THE FUNCTION HAS DETECTED MORE OR LESS SECTORS THAN 4:\nHALF SECTORS:", paste(empty.sector, collapse = " "), "\nFULL SECTORS:", paste(full.sector, collapse = " "))
+            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: THE FUNCTION HAS DETECTED MORE OR LESS SECTORS THAN 4:\nHALF SECTORS:", paste(empty.sector, collapse = " "), "\nFULL SECTORS:", paste(full.sector, collapse = " "))
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
         }else{
             warn.count <- warn.count + 1
@@ -268,7 +272,7 @@ mat_fill <- function(
     if(warn.print == TRUE & ! is.null(warn)){
         on.exit(warning(paste0("FROM ", function.name, ":\n\n", warn), call. = FALSE))
       }
-      on.exit(exp = options(warning.length = ini.warning.length), add = TRUE)
+      on.exit(expr = options(warning.length = ini.warning.length), add = TRUE)
     # end warning output
     return(list(mat = mat, warn = warn))
     # end output
