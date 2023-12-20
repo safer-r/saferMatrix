@@ -1,0 +1,1 @@
+export("mat_fill", "mat_inv", "mat_num2color", "mat_op", "mat_rotate")
