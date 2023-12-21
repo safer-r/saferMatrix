@@ -15,8 +15,11 @@ License: GPL-3
 Imports: 
     cuteDev (>= 1.0),
     cuteTool (>= 1.0),
-    grDevices
-Remotes: 
+    grDevices,
+    lubridate,
+    parallel
+Remotes:  
     yushiHn/cuteDev,
-    yushiHn/cuteDev
+    yushiHn/cuteDev,
+    yushiHn/cuteTool
 RoxygenNote: 7.2.3
