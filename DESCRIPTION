@@ -15,9 +15,7 @@ License: GPL-3
 Imports: 
     cuteDev (>= 1.0),
     cuteTool (>= 1.0),
-    grDevices,
-    lubridate,
-    parallel
+    grDevices
 Remotes:  
     yushiHn/cuteDev,
     yushiHn/cuteTool
