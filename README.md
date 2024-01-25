@@ -1,6 +1,8 @@
 
 # cuteMatrix <a href="">[<img src="man/figures/logo.png" align="right" height="140" />](https://yushihn.github.io/cuteMatrix)</a>
 
+<br />
+
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/yushiHn/cuteMatrix/workflows/R-CMD-check/badge.svg)](https://github.com/yushiHn/cuteMatrix/actions)
