@@ -40,12 +40,7 @@ Set of R functions for the development of R functions, written according to the 
 | **mat_fill()** | Detect the empty half part of a symmetric square matrix (either topleft, topright, bottomleft or bottomright). Fill this empty half part using the other symmetric half part of the matrix. |
 | **mat_inv()** | Return the inverse of a square matrix when solve() cannot. |
 | **mat_num2color()** | Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization. |
-| **mat_op()** | Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula $$ \deqn{c_{ij} = \sum_{k=1}^{k=z}c_{ijk}} $$ where
-c: case
-i: row number
-j: column number
-k: matrix number
-z: number of matrices |
+| **mat_op()** | Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula $$c_{ij} = \sum_{k=1}^{k=z} c_{ijk}$$ where c: case, i: row number, j: column number, k: matrix number and z: number of matrices |
 | **mat_rotate()** | 90° clockwise matrix rotation. Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry. |
 
 <br />
