@@ -15,7 +15,7 @@ mat_op(mat.list, kind.of.operation = "+")
 The assembled matrix, with row and/or column names only if all the matrices have identical row/column names.
 }
 \description{
-assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula
+Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula
 
 \deqn{c_{ij} = \sum_{k=1}^{k=z}c_{ijk}}
 c: case
