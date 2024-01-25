@@ -118,11 +118,14 @@
 </tr>
 <tr class="even">
 <td><strong>mat_op()</strong></td>
-<td>Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = “+”, the function will add the value of all the case 1 (row1 &amp; column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula <span class="math display">$$ \deqn{c_{ij} = \sum_{k=1}^{k=z}c_{ijk}} $$</span> where</td>
+<td>Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = “+”, the function will add the value of all the case 1 (row1 &amp; column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula <span class="math display">$$c_{ij} = \sum_{k=1}^{k=z} c_{ijk}$$</span> where c: case, i: row number, j: column number, k: matrix number and z: number of matrices</td>
+</tr>
+<tr class="odd">
+<td><strong>mat_rotate()</strong></td>
+<td>90° clockwise matrix rotation. Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry.</td>
 </tr>
 </tbody>
 </table>
-<p>c: case i: row number j: column number k: matrix number z: number of matrices | | <strong>mat_rotate()</strong> | 90° clockwise matrix rotation. Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry. |</p>
 <p><br></p>
 <p>Read <code>vignette("cuteMatrix")</code> for more details.</p>
 <p><br></p>
