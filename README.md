@@ -1,17 +1,17 @@
 
-# cuteMatrix <a href="">[<img src="man/figures/logo.png" align="right" height="140" />](https://yushihn.github.io/cuteMatrix)</a>
+# saferMatrix <a href="">[<img src="man/figures/saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix)</a>
 
 <br />
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/yushiHn/cuteMatrix/workflows/R-CMD-check/badge.svg)](https://github.com/yushiHn/cuteMatrix/actions)
+[![R-CMD-check](https://github.com/safer-r/saferMatrix/workflows/R-CMD-check/badge.svg)](https://github.com/safer-r/saferMatrix/actions)
 
-[![Codecov test coverage](https://codecov.io/github/yushiHn/cuteMatrix/coverage.svg?branch=master)](https://app.codecov.io/github/yushiHn/cuteMatrix?branch=master)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/cuteMatrix)](https://cran.r-project.org/package=cuteMatrix)
-[![downloads](https://cranlogs.r-pkg.org/badges/cuteMatrix)](https://www.rdocumentation.org/trends)
+[![Codecov test coverage](https://codecov.io/github/yushiHn/saferMatrix/coverage.svg?branch=master)](https://app.codecov.io/github/yushiHn/saferMatrix?branch=master)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/saferMatrix)](https://cran.r-project.org/package=saferMatrix)
+[![downloads](https://cranlogs.r-pkg.org/badges/saferMatrix)](https://www.rdocumentation.org/trends)
 [![](https://img.shields.io/badge/license-GPL3.0-green.svg)](https://opensource.org/licenses/MITgpl-3-0)
-[![rworkflows](https://github.com/yushiHn/cuteMatrix/actions/workflows/rworkflows.yml/badge.svg)](https://github.com/yushiHn/cuteMatrix/actions/workflows/rworkflows.yml)
+[![rworkflows](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml/badge.svg)](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml)
 <!-- badges: end -->
 
 <br />
@@ -31,7 +31,7 @@
 
 ## Description
 
-Set of R functions for the development of R functions, written according to the [cute_project](https://github.com/gael-millot/cute_project) specifications.
+Set of R functions for the development of R functions, written according to the [safer project](https://github.com/safer-r) specifications.
 
 <br />
 
@@ -47,30 +47,30 @@ Set of R functions for the development of R functions, written according to the 
 
 <br />
 
-Read `vignette("cuteMatrix")` for more details.
+Read `vignette("saferMatrix")` for more details.
 
 <br />
 
 ## Versions
 
-The different *cuteMatrix* releases are tagged [here](https://github.com/yushiHn/cuteMatrix/tags).
+The different *saferMatrix* releases are tagged [here](https://github.com/safer-r/saferMatrix/tags).
 
 <br />
 
 ## Installation
 
-*cuteMatrix* can be currently be installed from GitHub:
+*saferMatrix* can be currently be installed from GitHub:
 
 ```r
 install.packages("remotes")
-remotes::install_github("https://github.com/yushiHn/cuteMatrix")
+remotes::install_github("https://github.com/safer-r/saferMatrix")
 ```
 
 Older versions can be installed like this:
 
 ```r
 v <- "v1.0" # desired tag version
-remotes::install_github(paste0("https://github.com/yushiHn/cuteMatrix/tree/", v))
+remotes::install_github(paste0("https://github.com/safer-r/saferMatrix/tree/", v))
 ```
 
 <br />
@@ -85,10 +85,10 @@ See the GNU General Public License for more details at https://www.gnu.org/licen
 
 ## Citation
 
-If you are using functions of *cuteMatrix*, please cite: 
+If you are using functions of *saferMatrix*, please cite: 
 
-> Han Y, Serizay J, Millot GA (2023). _The R cuteMatrix package_.
-> <https://github.com/yushiHn/cuteMatrix/>.
+> Han Y, Serizay J, Millot GA (2023). _The R saferMatrix package_.
+> <https://github.com/safer-r/saferMatrix/>.
 
 <br />
 
@@ -98,11 +98,15 @@ If you are using functions of *cuteMatrix*, please cite:
 
 [Jacques Serizai](https://github.com/js2264), Spatial Regulation of Genomes team, Institut Pasteur, Paris, France
 
-[Gael A. Millot](https://gitlab.pasteur.fr/gmillot), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
+[Gael A. Millot](https://github.com/gael-millot), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
 
 <br />
 
 ## Acknowledgements
 
-The developers & maintainers of [R](https://www.r-project.org/) as well as packages used in the *cuteMatrix* functions.
+The developers & maintainers of the mentioned softwares and packages, including:
+
+- [R](https://www.r-project.org/)
+- [Git](https://git-scm.com/)
+- [Github](https://github.com/)
 
