@@ -15,19 +15,6 @@
 #' @param mat.list List of matrices.
 #' @param kind.of.operation Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).
 #' @returns The assembled matrix, with row and/or column names only if all the matrices have identical row/column names.
-#' @details
-#' REQUIRED PACKAGES
-#' 
-#' cuteDev
-#' 
-#' cuteTool
-#' 
-#' REQUIRED FUNCTIONS FROM THE cute PACKAGE
-#' 
-#' arg_check()
-#' 
-#' comp_2d()
-#' 
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; 
 #' mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
@@ -45,8 +32,8 @@
 #' mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
 #' mat3 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
 #' mat_op(mat.list = list(mat1, mat2, mat3), kind.of.operation = "+")
-#' @importFrom cuteDev arg_check
-#' @importFrom cuteTool comp_2d
+#' @importFrom saferDev arg_check
+#' @importFrom saferTool comp_2d
 #' @export
 mat_op <- function(
         mat.list, 
@@ -56,7 +43,7 @@ mat_op <- function(
     # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; mat.list = list(mat1, mat2) ; kind.of.operation = "+" # for function debugging
     # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA))) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; mat.list = list(mat1, mat2) ; kind.of.operation = "*" # for function debugging
     # package name
-    package.name <- "cuteMatrix"
+    package.name <- "saferMatrix"
     # end package name
     # function name
     ini <- match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
@@ -74,8 +61,8 @@ mat_op <- function(
     # check of the required function from the required packages
     .pack_and_function_check(
         fun = c(
-            "cuteDev::arg_check",
-            "cuteTool::comp_2d"
+            "saferDev::arg_check",
+            "saferTool::comp_2d"
         ),
         lib.path = NULL,
         external.function.name = function.name
@@ -95,22 +82,22 @@ mat_op <- function(
     }
     # end arg with no default values
     
-    # argument checking with cuteDev::arg_check()
+    # argument checking with saferDev::arg_check()
     argum.check <- NULL #
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- expression(argum.check = c(argum.check, tempo$problem) , text.check = c(text.check, tempo$text) , checked.arg.names = c(checked.arg.names, tempo$object.name))
-    tempo <- cuteDev::arg_check(data = mat.list, class = "list", fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = kind.of.operation, options = c("+", "-", "*"), length = 1, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = mat.list, class = "list", fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = kind.of.operation, options = c("+", "-", "*"), length = 1, fun.name = function.name) ; eval(ee)
     if( ! is.null(argum.check)){
         if(any(argum.check, na.rm = TRUE) == TRUE){
             stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
         }
     }
-    # end argument checking with cuteDev::arg_check()
+    # end argument checking with saferDev::arg_check()
     
     # check with r_debugging_tools
-    # source("C:/Users/yhan/Documents/Git_projects/debugging_tools_for_r_dev/r_debugging_tools.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using cuteDev::arg_check()
+    # source("C:/Users/yhan/Documents/Git_projects/debugging_tools_for_r_dev/r_debugging_tools.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using saferDev::arg_check()
     # check with r_debugging_tools
     # end argument primary checking
     
@@ -145,13 +132,13 @@ mat_op <- function(
     # end warning initiation
     
     # other checkings
-    # argument checking without cuteDev::arg_check()
+    # argument checking without saferDev::arg_check()
     if(length(mat.list) < 2){
         tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat.list ARGUMENT MUST BE A LIST CONTAINING AT LEAST 2 MATRICES")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     for(i1 in 1:length(mat.list)){
-        tempo <- cuteDev::arg_check(data = mat.list[[i1]], class = "matrix", mode = "numeric", na.contain = TRUE)
+        tempo <- saferDev::arg_check(data = mat.list[[i1]], class = "matrix", mode = "numeric", na.contain = TRUE)
         if(tempo$problem == TRUE){
             tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: ELEMENT ", i1, " OF mat.list ARGUMENT MUST BE A NUMERIC MATRIX")
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
@@ -160,7 +147,7 @@ mat_op <- function(
     ident.row.names <- TRUE
     ident.col.names <- TRUE
     for(i1 in 2:length(mat.list)){
-        tempo <- cuteTool::comp_2d(data1 = mat.list[[1]], data2 = mat.list[[i1]])
+        tempo <- saferTool::comp_2d(data1 = mat.list[[1]], data2 = mat.list[[i1]])
         if(tempo$same.dim == FALSE){
             tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: MATRIX ", i1, " OF mat.list ARGUMENT MUST HAVE THE SAME DIMENSION (", paste(dim(mat.list[[i1]]), collapse = " "), ") THAN THE MATRIX 1 IN mat.list (", paste(dim(mat.list[[1]]), collapse = " "), ")")
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
@@ -176,7 +163,7 @@ mat_op <- function(
             }
         }
     }
-    # end argument checking without cuteDev::arg_check()
+    # end argument checking without saferDev::arg_check()
     # end other checkings
     
     # reserved words (to avoid bugs)

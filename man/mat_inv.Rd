@@ -15,15 +15,6 @@ The inversed matrix.
 \description{
 Return the inverse of a square matrix when solve() cannot.
 }
-\details{
-REQUIRED PACKAGES
-
-cuteDev
-
-REQUIRED FUNCTIONS FROM THE cute PACKAGE
-
-arg_check()
-}
 \examples{
 mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1) # use solve()
 

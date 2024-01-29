@@ -15,7 +15,9 @@ mat_fill(mat, empty.cell.string = 0, warn.print = FALSE)
 }
 \value{
 A list containing:
+
 - $mat: The filled matrix.
+
 - $warn: The warning messages. Use cat() for proper display. NULL if no warning.
 }
 \description{
@@ -27,16 +29,6 @@ Fill this empty half part using the other symmetric half part of the matrix.
 WARNINGS
 
 A plot verification using gg_heatmap() is recommanded.
-
-
-REQUIRED PACKAGES
-
-cuteDev
-
-
-REQUIRED FUNCTIONS FROM THE cute PACKAGE
-
-arg_check()
 }
 \examples{
 mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; 

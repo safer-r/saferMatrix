@@ -28,22 +28,17 @@ mat_num2color(
 }
 \value{
 A list containing:
+
 - $mat1.name: name of mat1
+
 - $colored.mat: colors of mat1 in hexa
+
 - $problem: logical. Is any colors of forced.color overlap the colors designed by the function. NULL if forced.color = NULL
+
 - $text.problem: text when overlapping colors. NULL if forced.color = NULL or problem == FALSE
 }
 \description{
 Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.
-}
-\details{
-REQUIRED PACKAGES
-
-cuteDev
-
-REQUIRED FUNCTIONS FROM THE cute PACKAGE
-
-arg_check()
 }
 \examples{
 mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 

@@ -17,16 +17,6 @@ The modified matrix.
 
 Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry.
 }
-\details{
-REQUIRED PACKAGES
-
-cuteDev
-
-
-REQUIRED FUNCTIONS FROM THE cute PACKAGE
-
-arg_check()
-}
 \examples{
 obs <- matrix(1:10, ncol = 1) ; obs ; mat_rotate(obs)
 

@@ -28,19 +28,6 @@ k: matrix number
 
 z: number of matrices
 }
-\details{
-REQUIRED PACKAGES
-
-cuteDev
-
-cuteTool
-
-REQUIRED FUNCTIONS FROM THE cute PACKAGE
-
-arg_check()
-
-comp_2d()
-}
 \examples{
 mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; 
 mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 

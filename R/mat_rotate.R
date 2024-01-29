@@ -5,20 +5,11 @@
 #' Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry.
 #' @param data Matrix (matrix class).
 #' @returns The modified matrix.
-#' @details
-#' REQUIRED PACKAGES
-#' 
-#' cuteDev
-#' 
-#' 
-#' REQUIRED FUNCTIONS FROM THE cute PACKAGE
-#' 
-#' arg_check()
 #' @examples
 #' obs <- matrix(1:10, ncol = 1) ; obs ; mat_rotate(obs)
 #' 
 #' obs <- matrix(LETTERS[1:10], ncol = 5) ; obs ; mat_rotate(obs)
-#' @importFrom cuteDev arg_check
+#' @importFrom saferDev arg_check
 #' @export
 mat_rotate <- function(
         data
@@ -35,7 +26,7 @@ mat_rotate <- function(
     arg.user.setting <- as.list(match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
     # package name
-    package.name <- "cuteMatrix"
+    package.name <- "saferMatrix"
     # end package name
     # package checking
     # check of lib.path
@@ -43,7 +34,7 @@ mat_rotate <- function(
     # check of the required function from the required packages
     .pack_and_function_check(
         fun = c(
-            "cuteDev::arg_check"
+            "saferDev::arg_check"
         ),
         lib.path = NULL,
         external.function.name = function.name
@@ -68,7 +59,7 @@ mat_rotate <- function(
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- expression(argum.check = c(argum.check, tempo$problem) , text.check = c(text.check, tempo$text) , checked.arg.names = c(checked.arg.names, tempo$object.name))
-    tempo <- cuteDev::arg_check(data = data, class = "matrix", fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = data, class = "matrix", fun.name = function.name) ; eval(ee)
     if( ! is.null(argum.check)){
         if(any(argum.check, na.rm = TRUE) == TRUE){
             stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
@@ -76,7 +67,7 @@ mat_rotate <- function(
     }
     # end argument checking with arg_check()
     # check with r_debugging_tools
-    # source("C:/Users/yhan/Documents/Git_projects/debugging_tools_for_r_dev/r_debugging_tools.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using cuteDev::arg_check()
+    # source("C:/Users/yhan/Documents/Git_projects/debugging_tools_for_r_dev/r_debugging_tools.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using saferDev::arg_check()
     # end check with r_debugging_tools
     # end argument primary checking
     

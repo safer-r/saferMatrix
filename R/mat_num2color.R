@@ -9,24 +9,19 @@
 #' @param forced.color Must be NULL or hexadecimal color code or name given by colors(). The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.
 #' @returns
 #' A list containing:
+#' 
 #' - $mat1.name: name of mat1
+#' 
 #' - $colored.mat: colors of mat1 in hexa
+#' 
 #' - $problem: logical. Is any colors of forced.color overlap the colors designed by the function. NULL if forced.color = NULL
+#' 
 #' - $text.problem: text when overlapping colors. NULL if forced.color = NULL or problem == FALSE
-#' @details
-#' REQUIRED PACKAGES
-#' 
-#' cuteDev
-#' 
-#' REQUIRED FUNCTIONS FROM THE cute PACKAGE
-#' 
-#' arg_check()
-#' 
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
 #' dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]) ; 
 #' mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
-#' @importFrom cuteDev arg_check
+#' @importFrom saferDev arg_check
 #' @importFrom grDevices colors
 #' @importFrom grDevices hsv
 #' @export
@@ -41,7 +36,7 @@ mat_num2color <- function(
     # DEBUGGING
     # mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]); mat.hsv.h = FALSE ; notch = 1 ; s = 1 ; v = 1 ; forced.color = c(grDevices::hsv(1,1,1), grDevices::hsv(0,0,0)) # for function debugging
     # package name
-    package.name <- "cuteMatrix"
+    package.name <- "saferMatrix"
     # end package name
     # function name
     ini <- match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
@@ -59,7 +54,7 @@ mat_num2color <- function(
     # check of the required function from the required packages
     .pack_and_function_check(
         fun = c(
-            "cuteDev::arg_check"
+            "saferDev::arg_check"
         ),
         lib.path = NULL,
         external.function.name = function.name
@@ -79,24 +74,24 @@ mat_num2color <- function(
     }
     # end arg with no default values
     
-    # argument checking with cuteDev::arg_check()
+    # argument checking with saferDev::arg_check()
     argum.check <- NULL #
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- expression(argum.check = c(argum.check, tempo$problem) , text.check = c(text.check, tempo$text) , checked.arg.names = c(checked.arg.names, tempo$object.name))
-    tempo <- cuteDev::arg_check(data = mat1, mode = "numeric", class = "matrix", na.contain = TRUE, neg.values = FALSE, fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = mat.hsv.h, class = "logical", length = 1, fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = notch, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = s, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = v, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = mat1, mode = "numeric", class = "matrix", na.contain = TRUE, neg.values = FALSE, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = mat.hsv.h, class = "logical", length = 1, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = notch, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = s, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = v, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
     if( ! is.null(argum.check)){
         if(any(argum.check, na.rm = TRUE) == TRUE){
             stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
         }
     }
-    # end argument checking with cuteDev::arg_check()
+    # end argument checking with saferDev::arg_check()
     # check with r_debugging_tools
-    # source("C:/Users/Gael/Documents/Git_versions_to_use/debugging_tools_for_r_dev-v1.7/r_debugging_tools-v1.7.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using cuteDev::arg_check()
+    # source("C:/Users/Gael/Documents/Git_versions_to_use/debugging_tools_for_r_dev-v1.7/r_debugging_tools-v1.7.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using saferDev::arg_check()
     # end check with r_debugging_tools
     # end argument primary checking
     
@@ -135,13 +130,13 @@ mat_num2color <- function(
     # end warning initiation
     
     # other checkings
-    # argument checking without cuteDev::arg_check()
-    if(mat.hsv.h == TRUE & cuteDev::arg_check(data = mat1, mode = "numeric", prop = TRUE)$problem == TRUE){
+    # argument checking without saferDev::arg_check()
+    if(mat.hsv.h == TRUE & saferDev::arg_check(data = mat1, mode = "numeric", prop = TRUE)$problem == TRUE){
         tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 ARGUMENT MUST BE A MATRIX OF PROPORTIONS SINCE THE mat.hsv.h ARGUMENT IS SET TO TRUE")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     if( ! is.null(forced.color)){
-        tempo <- cuteDev::arg_check(data = forced.color, class = "character")
+        tempo <- saferDev::arg_check(data = forced.color, class = "character")
         if(any(tempo$problem == TRUE, na.rm = TRUE)){
             paste0("\n\n================\n\n", paste(tempo$text[tempo$problem], collapse = "\n"))
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
@@ -151,7 +146,7 @@ mat_num2color <- function(
             stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }
-    # end argument checking without cuteDev::arg_check()
+    # end argument checking without saferDev::arg_check()
     # end other checkings
     
     # reserved words (to avoid bugs)

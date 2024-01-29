@@ -8,22 +8,14 @@
 #' @param warn.print Single logical value. Print warnings at the end of the execution? No print if no warning messages.
 #' @returns
 #' A list containing:
+#' 
 #' - $mat: The filled matrix.
+#' 
 #' - $warn: The warning messages. Use cat() for proper display. NULL if no warning.
 #' @details
 #' WARNINGS
 #' 
 #' A plot verification using gg_heatmap() is recommanded.
-#' 
-#' 
-#' REQUIRED PACKAGES
-#' 
-#' cuteDev
-#' 
-#' 
-#' REQUIRED FUNCTIONS FROM THE cute PACKAGE
-#' 
-#' arg_check()
 #' @examples
 #' mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; 
 #' mat1 ; 
@@ -58,7 +50,7 @@
 #' mat1 ; 
 #' mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
 #' }
-#' @importFrom cuteDev arg_check
+#' @importFrom saferDev arg_check
 #' @export
 mat_fill <- function(
         mat, 
@@ -70,7 +62,7 @@ mat_fill <- function(
     # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; empty.cell.string = 0 ; warn.print = TRUE # for function debugging # topleft example
     # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; empty.cell.string = NA ; warn.print = TRUE # for function debugging # topleft example
     # package name
-    package.name <- "cuteMatrix"
+    package.name <- "saferMatrix"
     # end package name
     # function name
     ini <- match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
@@ -89,7 +81,7 @@ mat_fill <- function(
     # check of the required function from the required packages
     .pack_and_function_check(
         fun = c(
-            "cuteDev::arg_check"
+            "saferDev::arg_check"
         ),
         lib.path = NULL,
         external.function.name = function.name
@@ -109,22 +101,22 @@ mat_fill <- function(
     }
     # end arg with no default values
     
-    # argument checking with cuteDev::arg_check()
+    # argument checking with saferDev::arg_check()
     argum.check <- NULL #
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- expression(argum.check = c(argum.check, tempo$problem) , text.check = c(text.check, tempo$text) , checked.arg.names = c(checked.arg.names, tempo$object.name))
-    tempo <- cuteDev::arg_check(data = mat, class = "matrix", na.contain = TRUE, fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = empty.cell.string, class = "vector", na.contain = TRUE, fun.name = function.name) ; eval(ee)
-    tempo <- cuteDev::arg_check(data = warn.print, class = "logical", length = 1, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = mat, class = "matrix", na.contain = TRUE, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = empty.cell.string, class = "vector", na.contain = TRUE, fun.name = function.name) ; eval(ee)
+    tempo <- saferDev::arg_check(data = warn.print, class = "logical", length = 1, fun.name = function.name) ; eval(ee)
     if( ! is.null(argum.check)){
         if(any(argum.check, na.rm = TRUE) == TRUE){
             stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
         }
     }
-    # end argument checking with cuteDev::arg_check()
+    # end argument checking with saferDev::arg_check()
     # check with r_debugging_tools
-    # source("C:/Users/Gael/Documents/Git_versions_to_use/debugging_tools_for_r_dev-v1.7/r_debugging_tools-v1.7.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using cuteDev::arg_check()
+    # source("C:/Users/Gael/Documents/Git_versions_to_use/debugging_tools_for_r_dev-v1.7/r_debugging_tools-v1.7.R") ; eval(parse(text = str_basic_arg_check_dev)) ; eval(parse(text = str_arg_check_with_fun_check_dev)) # activate this line and use the function (with no arguments left as NULL) to check arguments status and if they have been checked using saferDev::arg_check()
     # end check with r_debugging_tools
     # end argument primary checking
     
@@ -168,7 +160,7 @@ mat_fill <- function(
     # end warning initiation
     
     # other checkings
-    # argument checking without cuteDev::arg_check()
+    # argument checking without saferDev::arg_check()
     if(ncol(mat) != nrow(mat)){
         tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat ARGUMENT MUST BE A SQUARE MATRIX")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
@@ -185,7 +177,7 @@ mat_fill <- function(
         tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty.cell.string ARGUMENT")
         stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", ifelse(is.null(warn), "", paste0("IN ADDITION\nWARNING", ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
     }
-    # end argument checking without cuteDev::arg_check()
+    # end argument checking without saferDev::arg_check()
     # end other checkings
     
     # reserved words (to avoid bugs)

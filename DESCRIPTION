@@ -1,6 +1,6 @@
-Package: cuteMatrix
+Package: saferMatrix
 Type: Package
-Title: Functions for matrix modification
+Title: Matrix handling
 Version: 1.0
 Date: 2023-12-20
 Authors@R: c(
@@ -10,13 +10,13 @@ Authors@R: c(
 Author: Yushi Han [aut], Gaël Millot [aut, cre]
 Encoding: UTF-8
 Maintainer: Gaël Millot <gael.millot@pasteur.fr>
-Description: Functions for modification of matrix.
+Description: Matrix handling.
 License: GPL-3
 Imports: 
-    cuteDev (>= 1.0),
-    cuteTool (>= 1.0),
+    saferDev (>= 1.0),
+    saferTool (>= 1.0),
     grDevices
 Remotes:  
-    yushiHn/cuteDev,
-    yushiHn/cuteTool
+    safer-r/saferDev,
+    safer-r/saferTool
 RoxygenNote: 7.2.3
