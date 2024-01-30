@@ -2,6 +2,11 @@ pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
+  mat_fill: mat_fill.html
+  mat_inv: mat_inv.html
+  mat_num2color: mat_num2color.html
+  mat_op: mat_op.html
+  mat_rotate: mat_rotate.html
   saferMatrix: saferMatrix.html
-last_built: 2024-01-30T22:04Z
+last_built: 2024-01-30T22:19Z
 
