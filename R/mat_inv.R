@@ -6,21 +6,7 @@
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1) # use solve()
 #' 
-#' mat1 = matrix(c(0,0,0,0,0,0,0,0,0), ncol = 3) ; mat_inv(mat = mat1) # use the trick
-#' 
 #' mat1 = matrix(2, ncol = 1) ; mat_inv(mat = mat1)
-#' 
-#' \dontrun{
-#' # examples with errors because of Inf and NA
-#' mat1 = matrix(c(1,1,1,2,Inf,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1)
-#' mat1 = matrix(c(1,1,1,2,NA,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1)
-#' 
-#' # example with error because not a square matrix
-#' mat1 = matrix(c(1,2), ncol = 1) ; mat_inv(mat = mat1)
-#' 
-#' # example with error because cannot be a square matrix made of a single case of 0
-#' mat1 = matrix(0, ncol = 1) ; mat_inv(mat = mat1)
-#' }
 #' @importFrom saferDev arg_check
 #' @export
 mat_inv <- function(

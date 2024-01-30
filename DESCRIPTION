@@ -16,7 +16,11 @@ Imports:
     saferDev (>= 1.0),
     saferTool (>= 1.0),
     grDevices
-Remotes:  
+Remotes: 
     safer-r/saferDev,
     safer-r/saferTool
 RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
