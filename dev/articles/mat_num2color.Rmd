@@ -61,21 +61,8 @@ mat_fill(mat = mat3, empty.cell.string = 0)
 
 ### All the arguments
 ```{r}
-# bottomright example
-mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
+mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
+dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]) ; 
+mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
 
-# topright example
-mat_fill(mat = mat2, empty.cell.string = "a", warn.print = TRUE) 
-
-# topleft example
-mat_fill(mat = mat3, empty.cell.string = 0, warn.print = TRUE) 
-
-```
-<br>
-
-### Error examples
-```{r, echo = TRUE, error = TRUE}
-mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
-
-mat_fill(mat = mat4, empty.cell.string = 0, warn.print = TRUE) 
 ```
