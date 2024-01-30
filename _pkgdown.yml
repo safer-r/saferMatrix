@@ -1,0 +1,32 @@
+url: ~
+
+template:
+  bootstrap: 5
+  bslib:
+        primary: "#0054AD"
+        border-radius: 0.5rem
+        btn-border-radius: 0.25rem
+
+authors:
+    Yushi Han:
+        href: https://github.com/yushiHn
+    Gaël Millot:
+        href: https://github.com/gael-millot
+    
+
+reference:
+- title: "mat_fill"
+  contents: 
+  - mat_fill
+- title: "mat_inv"
+  contents: 
+  - mat_inv
+- title: "mat_num2color"
+  contents: 
+  - mat_num2color
+- title: "mat_op"
+  contents: 
+  - mat_op
+- title: "mat_rotate"
+  contents: 
+  - mat_rotate

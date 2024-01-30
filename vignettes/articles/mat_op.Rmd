@@ -1,0 +1,52 @@
+---
+title: "mat_op"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ">"
+)
+```
+
+```{r setup}
+library(saferMatrix)
+```
+<br>
+
+### Datasets
+
+```{r}
+mat1 <- matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2]))
+mat2 <- matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2]))
+mat3 <- matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA)))
+mat4 <- matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(c("A1", "A2", "A3", "A4"), letters[1:2]))
+```
+<br>
+
+### Datasets info
+
+```{r}
+mat1
+mat2
+mat3
+mat4
+```
+<br>
+
+### Simple examples
+
+```{r}
+mat_op(mat.list = list(mat1, mat2))
+mat_op(mat.list = list(mat2, mat3))
+mat_op(mat.list = list(mat2, mat2, mat4))
+```
+<br>
+
+
+### All the arguments
+```{r}
+mat_op(mat.list = list(mat1, mat2), kind.of.operation = "*")
+mat_op(mat.list = list(mat2, mat3), kind.of.operation = "-")
+mat_op(mat.list = list(mat2, mat2, mat4), kind.of.operation = "+")
+```

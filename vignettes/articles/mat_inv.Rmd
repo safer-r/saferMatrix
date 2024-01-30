@@ -1,0 +1,57 @@
+---
+title: "mat_inv"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ">"
+)
+```
+
+```{r setup}
+library(saferMatrix)
+```
+<br>
+
+### Datasets
+
+```{r}
+mat1 <- matrix(c(0,0,0,0,0,0,0,0,0), ncol = 3)
+mat2 <- matrix(c(1,1,1,2,Inf,5,9,8,9), ncol = 3)
+mat3 <- matrix(c(1,1,1,2,NA,5,9,8,9), ncol = 3)
+mat4 <- matrix(c(1,2), ncol = 1)
+mat5 <- matrix(0, ncol = 1)
+```
+<br>
+
+### Datasets info
+
+```{r}
+mat1
+mat2
+mat3
+mat4
+mat5
+```
+<br>
+
+### All the arguments
+```{r}
+mat_inv(mat = mat1) # use the trick
+```
+<br>
+
+### Error examples
+```{r, echo = TRUE, error = TRUE}
+# examples with errors because of Inf and NA
+mat_inv(mat = mat2)
+mat_inv(mat = mat3)
+
+# example with error because not a square matrix
+mat_inv(mat = mat4)
+
+# example with error because cannot be a square matrix made of a single case of 0
+mat_inv(mat = mat5) 
+```
+

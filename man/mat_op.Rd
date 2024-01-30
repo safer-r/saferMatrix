@@ -32,17 +32,4 @@ z: number of matrices
 mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; 
 mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
 mat_op(mat.list = list(mat1, mat2), kind.of.operation = "+")
-
-mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
-mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
-mat_op(mat.list = list(mat1, mat2), kind.of.operation = "*")
-
-mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA))) ; 
-mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
-mat_op(mat.list = list(mat1, mat2), kind.of.operation = "-")
-
-mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(c("A1", "A2", "A3", "A4"), letters[1:2])) ; 
-mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
-mat3 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; 
-mat_op(mat.list = list(mat1, mat2, mat3), kind.of.operation = "+")
 }

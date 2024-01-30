@@ -1,0 +1,103 @@
+---
+title: "mat_num2color"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ">"
+)
+```
+
+```{r setup}
+library(saferMatrix)
+```
+<br>
+
+### Datasets
+
+```{r}
+mat1 <- matrix(c(1,1,1,2, 5,2,3,NA, 5,5,1,1, 5,5,5,1), ncol = 4)
+mat2 <- matrix(c(1/3,1/3,1/3,1/7, 1/3,1/3,1/9,1/3, 1/3,1/7,1/3,1/3, 1/9,1/3,1/3,1/3), ncol = 4)
+```
+<br>
+
+### Datasets info
+
+```{r}
+mat1
+mat2
+```
+<br>
+
+### Simple examples
+
+```{r}
+mat_num2color(mat1 = mat2)
+```
+<br>
+
+### Argument mat.hsv.h
+```{r}
+mat_num2color(mat1 = mat1, mat.hsv.h = FALSE)
+
+mat_num2color(mat1 = mat2, mat.hsv.h = TRUE)
+```
+<br>
+
+### Argument notch
+```{r}
+mat_num2color(mat1 = mat2, notch = 0.2)
+
+mat_num2color(mat1 = mat2, notch = 0.5)
+
+mat_num2color(mat1 = mat2, notch = 0.7)
+```
+<br>
+
+### Argument s
+```{r}
+mat_num2color(mat1 = mat2, s = 0.2)
+
+mat_num2color(mat1 = mat2, s = 0.2)
+
+mat_num2color(mat1 = mat2, s = 0.2)
+```
+<br>
+
+### Argument v
+```{r}
+mat_num2color(mat1 = mat2, v = 0.2)
+
+mat_num2color(mat1 = mat2, v = 0.5)
+
+mat_num2color(mat1 = mat2, v = 0.7)
+```
+<br>
+
+### Argument forced.color
+```{r}
+mat_num2color(mat1 = mat2, forced.color = "snow")
+```
+<br>
+
+### All the arguments
+```{r}
+mat_num2color(
+        mat1 = mat1, 
+        mat.hsv.h = FALSE, 
+        notch = 1, 
+        s = 1, 
+        v = 1, 
+        forced.color = NULL
+)
+
+mat_num2color(
+        mat1 = mat2, 
+        mat.hsv.h = TRUE, 
+        notch = 1, 
+        s = 1, 
+        v = 1, 
+        forced.color = NULL
+)
+```

@@ -31,37 +31,8 @@ WARNINGS
 A plot verification using gg_heatmap() is recommanded.
 }
 \examples{
+# bottomleft example
 mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; 
 mat1 ; 
 mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
-# bottomleft example
-
-\dontrun{
-# error example
-mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; 
-mat1 ; 
-mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
-}
-
-mat1 = matrix(c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) ; 
-mat1 ; 
-mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
-# bottomright example
-
-mat1 = matrix(c(1,1,1,2, "a",2,3,NA, "a","a",0,0, "a","a","a",0), ncol = 4) ; 
-mat1 ; 
-mat_fill(mat = mat1, empty.cell.string = "a", warn.print = TRUE) 
-# topright example
-
-mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; 
-mat1 ; 
-mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
-# topleft example
-
-\dontrun{
-# error example 
-mat1 = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,0, 5,0,0,0), ncol = 4) ; 
-mat1 ; 
-mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
-}
 }
