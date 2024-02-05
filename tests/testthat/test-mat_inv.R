@@ -9,7 +9,7 @@ test_that("mat_inv function works correctly", {
     # Test cases
     
     # All the arguments
-    expect_no_error(mat_inv(mat1), "matrix")
+    expect_no_error(mat_inv(mat1))
     
     # Error examples
     expect_error(mat_inv(mat2), message = "The matrix contains Inf or NA values.")
