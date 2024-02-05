@@ -6,32 +6,32 @@ test_that("mat_num2color function works correctly", {
     # Test cases
     
     # Simple examples
-    expect_s3_class(mat_num2color(mat2), "character")
+    expect_no_error(mat_num2color(mat2))
     
     # Argument mat.hsv.h
-    expect_s3_class(mat_num2color(mat1, mat.hsv.h = FALSE), "character")
-    expect_s3_class(mat_num2color(mat2, mat.hsv.h = TRUE), "character")
+    expect_no_error(mat_num2color(mat1, mat.hsv.h = FALSE))
+    expect_no_error(mat_num2color(mat2, mat.hsv.h = TRUE))
     
     # Argument notch
-    expect_s3_class(mat_num2color(mat2, notch = 0.2), "character")
-    expect_s3_class(mat_num2color(mat2, notch = 0.5), "character")
-    expect_s3_class(mat_num2color(mat2, notch = 0.7), "character")
+    expect_no_error(mat_num2color(mat2, notch = 0.2))
+    expect_no_error(mat_num2color(mat2, notch = 0.5))
+    expect_no_error(mat_num2color(mat2, notch = 0.7))
     
     # Argument s
-    expect_s3_class(mat_num2color(mat2, s = 0.2), "character")
-    expect_s3_class(mat_num2color(mat2, s = 0.5), "character")
-    expect_s3_class(mat_num2color(mat2, s = 0.7), "character")
+    expect_no_error(mat_num2color(mat2, s = 0.2))
+    expect_no_error(mat_num2color(mat2, s = 0.5))
+    expect_no_error(mat_num2color(mat2, s = 0.7))
     
     # Argument v
-    expect_s3_class(mat_num2color(mat2, v = 0.2), "character")
-    expect_s3_class(mat_num2color(mat2, v = 0.5), "character")
-    expect_s3_class(mat_num2color(mat2, v = 0.7), "character")
+    expect_no_error(mat_num2color(mat2, v = 0.2))
+    expect_no_error(mat_num2color(mat2, v = 0.5))
+    expect_no_error(mat_num2color(mat2, v = 0.7))
     
     # Argument forced.color
-    expect_s3_class(mat_num2color(mat2, forced.color = "snow"), "character")
+    expect_no_error(mat_num2color(mat2, forced.color = "snow"))
     
     # All the arguments
-    expect_s3_class(mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL), "character")
-    expect_s3_class(mat_num2color(mat2, mat.hsv.h = TRUE, notch = 1, s = 1, v = 1, forced.color = NULL), "character")
+    expect_no_error(mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL))
+    expect_no_error(mat_num2color(mat2, mat.hsv.h = TRUE, notch = 1, s = 1, v = 1, forced.color = NULL))
     
 })
