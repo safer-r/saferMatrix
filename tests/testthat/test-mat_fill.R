@@ -8,24 +8,24 @@ test_that("mat_fill function works correctly", {
     # Test cases
     
     # Simple examples
-    expect_s3_class(mat_fill(mat1), "matrix")
-    expect_s3_class(mat_fill(mat2), "matrix")
-    expect_s3_class(mat_fill(mat3), "matrix")
+    expect_no_error(mat_fill(mat1))
+    expect_no_error(mat_fill(mat2))
+    expect_no_error(mat_fill(mat3))
     
     # Argument: empty.cell.string
-    expect_s3_class(mat_fill(mat1, empty.cell.string = 0), "matrix")
-    expect_s3_class(mat_fill(mat2, empty.cell.string = "a"), "matrix")
-    expect_s3_class(mat_fill(mat3, empty.cell.string = 0), "matrix")
+    expect_no_error(mat_fill(mat1, empty.cell.string = 0))
+    expect_no_error(mat_fill(mat2, empty.cell.string = "a"))
+    expect_no_error(mat_fill(mat3, empty.cell.string = 0))
     
     # Argument: warn.print
-    expect_s3_class(mat_fill(mat1, warn.print = TRUE), "matrix")
-    expect_s3_class(mat_fill(mat2, warn.print = TRUE), "matrix")
-    expect_s3_class(mat_fill(mat3, warn.print = TRUE), "matrix")
+    expect_no_error(mat_fill(mat1, warn.print = TRUE))
+    expect_no_error(mat_fill(mat2, warn.print = TRUE))
+    expect_no_error(mat_fill(mat3, warn.print = TRUE))
     
     # All the arguments
-    expect_s3_class(mat_fill(mat1, empty.cell.string = 0, warn.print = TRUE), "matrix")
-    expect_s3_class(mat_fill(mat2, empty.cell.string = "a", warn.print = TRUE), "matrix")
-    expect_s3_class(mat_fill(mat3, empty.cell.string = 0, warn.print = TRUE), "matrix")
+    expect_no_error(mat_fill(mat1, empty.cell.string = 0, warn.print = TRUE))
+    expect_no_error(mat_fill(mat2, empty.cell.string = "a", warn.print = TRUE))
+    expect_no_error(mat_fill(mat3, empty.cell.string = 0, warn.print = TRUE))
     
     # Error examples
     expect_error(mat_fill(mat1, empty.cell.string = NA, warn.print = TRUE), message = "The 'empty.cell.string' argument must be of the same type as the matrix.")

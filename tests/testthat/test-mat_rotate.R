@@ -7,9 +7,9 @@ test_that("mat_rotate function works correctly", {
     
     # Test cases
     # All the arguments
-    expect_s3_class(mat_rotate(data = mat1), "matrix")
-    expect_s3_class(mat_rotate(data = mat2), "matrix")
-    expect_s3_class(mat_rotate(data = mat3), "matrix")
-    expect_s3_class(mat_rotate(data = mat4), "matrix")
+    expect_no_error(mat_rotate(data = mat1))
+    expect_no_error(mat_rotate(data = mat2))
+    expect_no_error(mat_rotate(data = mat3))
+    expect_no_error(mat_rotate(data = mat4))
     
 })

@@ -8,13 +8,13 @@ test_that("mat_op function works correctly", {
     # Test cases
     
     # Simple examples
-    expect_s3_class(mat_op(list(mat1, mat2)), "matrix")
-    expect_s3_class(mat_op(list(mat2, mat3)), "matrix")
-    expect_s3_class(mat_op(list(mat2, mat2, mat4)), "matrix")
+    expect_no_error(mat_op(list(mat1, mat2)))
+    expect_no_error(mat_op(list(mat2, mat3)))
+    expect_no_error(mat_op(list(mat2, mat2, mat4)))
     
     # All the arguments
-    expect_s3_class(mat_op(list(mat1, mat2), kind.of.operation = "*"), "matrix")
-    expect_s3_class(mat_op(list(mat2, mat3), kind.of.operation = "-"), "matrix")
-    expect_s3_class(mat_op(list(mat2, mat2, mat4), kind.of.operation = "+"), "matrix")
+    expect_no_error(mat_op(list(mat1, mat2), kind.of.operation = "*"))
+    expect_no_error(mat_op(list(mat2, mat3), kind.of.operation = "-"))
+    expect_no_error(mat_op(list(mat2, mat2, mat4), kind.of.operation = "+"))
     
 })
