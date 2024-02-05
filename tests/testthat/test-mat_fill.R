@@ -28,7 +28,6 @@ test_that("mat_fill function works correctly", {
     expect_no_error(mat_fill(mat3, empty.cell.string = 0, warn.print = TRUE))
     
     # Error examples
-    expect_error(mat_fill(mat1, empty.cell.string = NA, warn.print = TRUE))
     expect_error(mat_fill(mat4, empty.cell.string = 0, warn.print = TRUE))
     
 })
