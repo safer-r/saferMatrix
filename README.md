@@ -34,9 +34,10 @@ Set of R functions for the development of R functions, written according to the 
 <br />
 
 ## Content
+<br />
 
 | Function | Description |
-| --- | --- |
+| :--- | :--- |
 | **mat_fill()** | Detect the empty half part of a symmetric square matrix (either topleft, topright, bottomleft or bottomright). Fill this empty half part using the other symmetric half part of the matrix. |
 | **mat_inv()** | Return the inverse of a square matrix when solve() cannot. |
 | **mat_num2color()** | Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization. |
