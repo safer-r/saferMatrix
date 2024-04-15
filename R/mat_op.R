@@ -33,13 +33,13 @@ mat_op <- function(
     package.name <- "saferMatrix"
     # end package name
     # function name
-    ini <- match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
-    function.name <- paste0(as.list(match.call(expand.dots = FALSE))[[1]], "()") # function name with "()" paste, which split into a vector of three: c("::()", "package()", "function()") if "package::function()" is used.
+    ini <- base::match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
+    function.name <- base::paste0(base::as.list(base::match.call(expand.dots = FALSE))[[1]], "()") # function name with "()" paste, which split into a vector of three: c("::()", "package()", "function()") if "package::function()" is used.
     if(function.name[1] == "::()"){
         function.name <- function.name[3]
     }
-    arg.names <- names(formals(fun = sys.function(sys.parent(n = 2)))) # names of all the arguments
-    arg.user.setting <- as.list(match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
+    arg.names <- base::names(base::formals(fun = base::sys.function(base::sys.parent(n = 2)))) # names of all the arguments
+    arg.user.setting <- base::as.list(base::match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
     # package checking
     # check of lib.path
@@ -47,7 +47,7 @@ mat_op <- function(
     
     # check of the required function from the required packages
     .pack_and_function_check(
-        fun = c(
+        fun = base::c(
             "saferDev::arg_check",
             "saferTool::comp_2d"
         ),
@@ -59,13 +59,13 @@ mat_op <- function(
 
     # argument primary checking
     # arg with no default values
-    mandat.args <- c(
+    mandat.args <- base::c(
         "mat.list"
     )
-    tempo <- eval(parse(text = paste0("missing(", paste0(mandat.args, collapse = ") | missing("), ")")))
-    if(any(tempo)){ # normally no NA for missing() output
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \nFOLLOWING ARGUMENT", ifelse(sum(tempo, na.rm = TRUE) > 1, "S HAVE", "HAS"), " NO DEFAULT VALUE AND REQUIRE ONE:\n", paste0(mandat.args, collapse = "\n"))
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    tempo <- base::eval(base::parse(text = base::paste0("base::missing(", base::paste0(mandat.args, collapse = ") | base::missing("), ")")))
+    if(base::any(tempo)){ # normally no NA for missing() output
+        tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \nFOLLOWING ARGUMENT", base::ifelse(base::sum(tempo, na.rm = TRUE) > 1, "S HAVE", "HAS"), " NO DEFAULT VALUE AND REQUIRE ONE:\n", base::paste0(mandat.args, collapse = "\n"))
+        base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end arg with no default values
     
@@ -73,12 +73,12 @@ mat_op <- function(
     argum.check <- NULL #
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
-    ee <- expression(argum.check <- c(argum.check, tempo$problem) , text.check <- c(text.check, tempo$text) , checked.arg.names <- c(checked.arg.names, tempo$object.name))
-    tempo <- saferDev::arg_check(data = mat.list, class = "list", fun.name = function.name) ; eval(ee)
-    tempo <- saferDev::arg_check(data = kind.of.operation, options = c("+", "-", "*"), length = 1, fun.name = function.name) ; eval(ee)
-    if( ! is.null(argum.check)){
-        if(any(argum.check, na.rm = TRUE) == TRUE){
-            stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
+    ee <- base::expression(argum.check <- base::c(argum.check, tempo$problem) , text.check <- base::c(text.check, tempo$text) , checked.arg.names <- base::c(checked.arg.names, tempo$object.name))
+    tempo <- saferDev::arg_check(data = mat.list, class = "list", fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = kind.of.operation, options = base::c("+", "-", "*"), length = 1, fun.name = function.name) ; base::eval(ee)
+    if( ! base::is.null(argum.check)){
+        if(base::any(argum.check, na.rm = TRUE) == TRUE){
+            base::stop(base::paste0("\n\n================\n\n", base::paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
         }
     }
     # end argument checking with saferDev::arg_check()
@@ -90,25 +90,25 @@ mat_op <- function(
     
     # second round of checking and data preparation
     # management of NA arguments
-    if( ! (all(class(arg.user.setting) == "list", na.rm = TRUE) & length(arg.user.setting) == 0)){
-        tempo.arg <- names(arg.user.setting) # values provided by the user
-        tempo.log <- suppressWarnings(sapply(lapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.na), FUN = any)) & lapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = length) == 1L # no argument provided by the user can be just NA
-        if(any(tempo.log) == TRUE){ # normally no NA because is.na() used here
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS", "THIS ARGUMENT"), " CANNOT JUST BE NA:", paste0(tempo.arg[tempo.log], collapse = "\n"))
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    if( ! (base::all(base::class(arg.user.setting) == "list", na.rm = TRUE) & base::length(arg.user.setting) == 0)){
+        tempo.arg <- base::names(arg.user.setting) # values provided by the user
+        tempo.log <- base::suppressWarnings(base::sapply(base::lapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = base::is.na), FUN = base::any)) & base::lapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = base::length) == 1L # no argument provided by the user can be just NA
+        if(base::any(tempo.log) == TRUE){ # normally no NA because is.na() used here
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \n", base::ifelse(base::sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS", "THIS ARGUMENT"), " CANNOT JUST BE NA:", base::paste0(tempo.arg[tempo.log], collapse = "\n"))
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }
     # end management of NA arguments
     
     # management of NULL arguments
-    tempo.arg <-c(
+    tempo.arg <-base::c(
         "mat.list",
         "kind.of.operation"
     )
-    tempo.log <- sapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.null)
-    if(any(tempo.log) == TRUE){# normally no NA with is.null()
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE:\n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS\n", "THIS ARGUMENT\n"), paste0(tempo.arg[tempo.log], collapse = "\n"),"\nCANNOT BE NULL")
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    tempo.log <- base::sapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = base::is.null)
+    if(base::any(tempo.log) == TRUE){# normally no NA with is.null()
+        tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE:\n", base::ifelse(base::sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS\n", "THIS ARGUMENT\n"), base::paste0(tempo.arg[tempo.log], collapse = "\n"),"\nCANNOT BE NULL")
+        base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end management of NULL arguments
     
@@ -120,31 +120,32 @@ mat_op <- function(
     
     # other checkings
     # argument checking without saferDev::arg_check()
-    if(length(mat.list) < 2){
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat.list ARGUMENT MUST BE A LIST CONTAINING AT LEAST 2 MATRICES")
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    if(base::length(mat.list) < 2){
+        tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat.list ARGUMENT MUST BE A LIST CONTAINING AT LEAST 2 MATRICES")
+        base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
-    for(i1 in 1:length(mat.list)){
+    for(i1 in 1:base::length(mat.list)){
         tempo <- saferDev::arg_check(data = mat.list[[i1]], class = "matrix", mode = "numeric", na.contain = TRUE)
         if(tempo$problem == TRUE){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: ELEMENT ", i1, " OF mat.list ARGUMENT MUST BE A NUMERIC MATRIX")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: ELEMENT ", i1, " OF mat.list ARGUMENT MUST BE A NUMERIC MATRIX")
+            
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }
     ident.row.names <- TRUE
     ident.col.names <- TRUE
-    for(i1 in 2:length(mat.list)){
+    for(i1 in 2:base::length(mat.list)){
         tempo <- saferTool::comp_2d(data1 = mat.list[[1]], data2 = mat.list[[i1]])
         if(tempo$same.dim == FALSE){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: MATRIX ", i1, " OF mat.list ARGUMENT MUST HAVE THE SAME DIMENSION (", paste(dim(mat.list[[i1]]), collapse = " "), ") THAN THE MATRIX 1 IN mat.list (", paste(dim(mat.list[[1]]), collapse = " "), ")")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: MATRIX ", i1, " OF mat.list ARGUMENT MUST HAVE THE SAME DIMENSION (", base::paste(base::dim(mat.list[[i1]]), collapse = " "), ") THAN THE MATRIX 1 IN mat.list (", base::paste(base::dim(mat.list[[1]]), collapse = " "), ")")
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
-        if( ! is.null(tempo$same.row.name)){
+        if( ! base::is.null(tempo$same.row.name)){
             if(tempo$same.row.name != TRUE){ # != TRUE to deal with NA
                 ident.row.names <- FALSE
             }
         }
-        if( ! is.null(tempo$same.col.name)){
+        if( ! base::is.null(tempo$same.col.name)){
             if(tempo$same.col.name != TRUE){ # != TRUE to deal with NA
                 ident.col.names <- FALSE
             }
@@ -162,17 +163,17 @@ mat_op <- function(
     # warning output
     # end warning output
     output <- mat.list[[1]]
-    for(i1 in 2:length(mat.list)){
-        output <- get(kind.of.operation)(output, mat.list[[i1]]) # no env = sys.nframe(), inherit = FALSE in get() because look for function in the classical scope
+    for(i1 in 2:base::length(mat.list)){
+        output <- base::get(kind.of.operation)(output, mat.list[[i1]]) # no env = sys.nframe(), inherit = FALSE in get() because look for function in the classical scope
     }
-    dimnames(output) <- NULL
+    base::dimnames(output) <- NULL
     if(ident.row.names == TRUE){
-        rownames(output) <- rownames(mat.list[[1]])
+        base::rownames(output) <- base::rownames(mat.list[[1]])
     }
     if(ident.col.names == TRUE){
-        colnames(output) <- colnames(mat.list[[1]])
+        base::colnames(output) <- base::colnames(mat.list[[1]])
     }
-    return(output)
+    base::return(output)
     # end output
     # end main code
 }

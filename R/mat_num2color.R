@@ -39,13 +39,13 @@ mat_num2color <- function(
     package.name <- "saferMatrix"
     # end package name
     # function name
-    ini <- match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
-    function.name <- paste0(as.list(match.call(expand.dots = FALSE))[[1]], "()") # function name with "()" paste, which split into a vector of three: c("::()", "package()", "function()") if "package::function()" is used.
+    ini <- base::match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
+    function.name <- base::paste0(base::as.list(base::match.call(expand.dots = FALSE))[[1]], "()") # function name with "()" paste, which split into a vector of three: c("::()", "package()", "function()") if "package::function()" is used.
     if(function.name[1] == "::()"){
         function.name <- function.name[3]
     }
-    arg.names <- names(formals(fun = sys.function(sys.parent(n = 2)))) # names of all the arguments
-    arg.user.setting <- as.list(match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
+    arg.names <- base::names(base::formals(fun = base::sys.function(base::sys.parent(n = 2)))) # names of all the arguments
+    arg.user.setting <- base::as.list(base::match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
     
     # package checking
@@ -53,7 +53,7 @@ mat_num2color <- function(
     # end check of lib.path
     # check of the required function from the required packages
     .pack_and_function_check(
-        fun = c(
+        fun = base::c(
             "saferDev::arg_check"
         ),
         lib.path = NULL,
@@ -64,13 +64,13 @@ mat_num2color <- function(
 
     # argument primary checking
     # arg with no default values
-    mandat.args <- c(
+    mandat.args <- base::c(
         "mat1"
     )
-    tempo <- eval(parse(text = paste0("missing(", paste0(mandat.args, collapse = ") | missing("), ")")))
-    if(any(tempo)){ # normally no NA for missing() output
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \nFOLLOWING ARGUMENT", ifelse(sum(tempo, na.rm = TRUE) > 1, "S HAVE", "HAS"), " NO DEFAULT VALUE AND REQUIRE ONE:\n", paste0(mandat.args, collapse = "\n"))
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    tempo <- base::eval(base::parse(text = base::paste0("base::missing(", base::paste0(mandat.args, collapse = ") | base::missing("), ")")))
+    if(base::any(tempo)){ # normally no NA for missing() output
+        tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \nFOLLOWING ARGUMENT", base::ifelse(base::sum(tempo, na.rm = TRUE) > 1, "S HAVE", "HAS"), " NO DEFAULT VALUE AND REQUIRE ONE:\n", base::paste0(mandat.args, collapse = "\n"))
+        base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end arg with no default values
     
@@ -78,15 +78,15 @@ mat_num2color <- function(
     argum.check <- NULL #
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
-    ee <- expression(argum.check <- c(argum.check, tempo$problem) , text.check <- c(text.check, tempo$text) , checked.arg.names <- c(checked.arg.names, tempo$object.name))
-    tempo <- saferDev::arg_check(data = mat1, mode = "numeric", class = "matrix", na.contain = TRUE, neg.values = FALSE, fun.name = function.name) ; eval(ee)
-    tempo <- saferDev::arg_check(data = mat.hsv.h, class = "logical", length = 1, fun.name = function.name) ; eval(ee)
-    tempo <- saferDev::arg_check(data = notch, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
-    tempo <- saferDev::arg_check(data = s, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
-    tempo <- saferDev::arg_check(data = v, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; eval(ee)
-    if( ! is.null(argum.check)){
-        if(any(argum.check, na.rm = TRUE) == TRUE){
-            stop(paste0("\n\n================\n\n", paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
+    ee <- base::expression(argum.check <- base::c(argum.check, tempo$problem) , text.check <- base::c(text.check, tempo$text) , checked.arg.names <- base::c(checked.arg.names, tempo$object.name))
+    tempo <- saferDev::arg_check(data = mat1, mode = "numeric", class = "matrix", na.contain = TRUE, neg.values = FALSE, fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = mat.hsv.h, class = "logical", length = 1, fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = notch, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = s, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = v, class = "vector", mode = "numeric", length = 1, prop = TRUE, fun.name = function.name) ; base::eval(ee)
+    if( ! base::is.null(argum.check)){
+        if(base::any(argum.check, na.rm = TRUE) == TRUE){
+            base::stop(base::paste0("\n\n================\n\n", base::paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
         }
     }
     # end argument checking with saferDev::arg_check()
@@ -97,18 +97,18 @@ mat_num2color <- function(
     
     # second round of checking and data preparation
     # management of NA arguments
-    if( ! (all(class(arg.user.setting) == "list", na.rm = TRUE) & length(arg.user.setting) == 0)){
-        tempo.arg <- names(arg.user.setting) # values provided by the user
-        tempo.log <- suppressWarnings(sapply(lapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.na), FUN = any)) & lapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = length) == 1L # no argument provided by the user can be just NA
-        if(any(tempo.log) == TRUE){ # normally no NA because is.na() used here
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS", "THIS ARGUMENT"), " CANNOT JUST BE NA:", paste0(tempo.arg[tempo.log], collapse = "\n"))
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    if( ! (base::all(base::class(arg.user.setting) == "list", na.rm = TRUE) & base::length(arg.user.setting) == 0)){
+        tempo.arg <- base::names(arg.user.setting) # values provided by the user
+        tempo.log <- base::suppressWarnings(base::sapply(base::lapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = is.na), FUN = any)) & base::lapply(base::lapply(tempo.arg, FUN = get, env = base::sys.nframe(), inherit = FALSE), FUN = length) == 1L # no argument provided by the user can be just NA
+        if(base::any(tempo.log) == TRUE){ # normally no NA because is.na() used here
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: \n", base::ifelse(base::sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS", "THIS ARGUMENT"), " CANNOT JUST BE NA:", base::paste0(tempo.arg[tempo.log], collapse = "\n"))
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }
     # end management of NA arguments
     
     # management of NULL arguments
-    tempo.arg <-c(
+    tempo.arg <-base::c(
         "mat1",
         "mat.hsv.h",
         "notch",  
@@ -116,10 +116,10 @@ mat_num2color <- function(
         "v"
         # "forced.color" # inactivated because can be null 
     )
-    tempo.log <- sapply(lapply(tempo.arg, FUN = get, env = sys.nframe(), inherit = FALSE), FUN = is.null)
-    if(any(tempo.log) == TRUE){# normally no NA with is.null()
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE:\n", ifelse(sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS\n", "THIS ARGUMENT\n"), paste0(tempo.arg[tempo.log], collapse = "\n"),"\nCANNOT BE NULL")
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+    tempo.log <- base::sapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = is.null)
+    if(base::any(tempo.log) == TRUE){# normally no NA with is.null()
+        tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE:\n", base::ifelse(base::sum(tempo.log, na.rm = TRUE) > 1, "THESE ARGUMENTS\n", "THIS ARGUMENT\n"), base::paste0(tempo.arg[tempo.log], collapse = "\n"),"\nCANNOT BE NULL")
+        base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     # end management of NULL arguments
     
@@ -132,18 +132,18 @@ mat_num2color <- function(
     # other checkings
     # argument checking without saferDev::arg_check()
     if(mat.hsv.h == TRUE & saferDev::arg_check(data = mat1, mode = "numeric", prop = TRUE)$problem == TRUE){
-        tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 ARGUMENT MUST BE A MATRIX OF PROPORTIONS SINCE THE mat.hsv.h ARGUMENT IS SET TO TRUE")
-        stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 ARGUMENT MUST BE A MATRIX OF PROPORTIONS SINCE THE mat.hsv.h ARGUMENT IS SET TO TRUE")
+        base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
-    if( ! is.null(forced.color)){
+    if( ! base::is.null(forced.color)){
         tempo <- saferDev::arg_check(data = forced.color, class = "character")
-        if(any(tempo$problem == TRUE, na.rm = TRUE)){
-            paste0("\n\n================\n\n", paste(tempo$text[tempo$problem], collapse = "\n"))
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        if(base::any(tempo$problem == TRUE, na.rm = TRUE)){
+            base::paste0("\n\n================\n\n", base::paste(tempo$text[tempo$problem], collapse = "\n"))
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
-        if( ! all(forced.color %in% grDevices::colors() | grepl(pattern = "^#", forced.color), na.rm = TRUE)){ # check that all strings of forced.color start by #
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: forced.color ARGUMENT MUST BE A HEXADECIMAL COLOR VECTOR STARTING BY # AND/OR COLOR NAMES GIVEN BY grDevices::colors()")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        if( ! base::all(forced.color %in% grDevices::colors() | base::grepl(pattern = "^#", forced.color), na.rm = TRUE)){ # check that all strings of forced.color start by #
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: forced.color ARGUMENT MUST BE A HEXADECIMAL COLOR VECTOR STARTING BY # AND/OR COLOR NAMES GIVEN BY grDevices::colors()")
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }
     # end argument checking without saferDev::arg_check()
@@ -156,63 +156,63 @@ mat_num2color <- function(
     # main code
     problem <- NULL
     text.problem <- NULL
-    mat1.name <- deparse(substitute(mat1))
+    mat1.name <- base::deparse(base::substitute(mat1))
     # change the scale of the plotted matrix
     if(mat.hsv.h == TRUE){
-        if(any(min(mat1, na.rm = TRUE) < 0 | max(mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 MUST BE MADE OF VALUES BETWEEN 0 AND 1 BECAUSE mat.hsv.h ARGUMENT SET TO TRUE")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        if(base::any(base::min(mat1, na.rm = TRUE) < 0 | base::max(mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 MUST BE MADE OF VALUES BETWEEN 0 AND 1 BECAUSE mat.hsv.h ARGUMENT SET TO TRUE")
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }
     }else{
-        if(any(mat1 - floor(mat1) > 0, na.rm = TRUE) | any(mat1 == 0L, na.rm = TRUE)){ # no need of isTRUE(all.equal()) because we do not require approx here but strictly 0, thus == is ok
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 MUST BE MADE OF INTEGER VALUES WITHOUT 0 BECAUSE mat.hsv.h ARGUMENT SET TO FALSE")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        if(base::any(mat1 - base::floor(mat1) > 0, na.rm = TRUE) | base::any(mat1 == 0L, na.rm = TRUE)){ # no need of isTRUE(all.equal()) because we do not require approx here but strictly 0, thus == is ok
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: mat1 MUST BE MADE OF INTEGER VALUES WITHOUT 0 BECAUSE mat.hsv.h ARGUMENT SET TO FALSE")
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }else{
-            mat1 <- mat1 / max(mat1, na.rm = TRUE)
+            mat1 <- mat1 / base::max(mat1, na.rm = TRUE)
         }
     }
     if(notch != 1){
-        different.color <- unique(as.vector(mat1))
-        different.color <- different.color[ ! is.na(different.color)]
-        tempo.different.color <- different.color + c(0, cumsum(rep(notch, length(different.color) - 1)))
-        tempo.different.color <- tempo.different.color - floor(tempo.different.color)
-        if(any(duplicated(tempo.different.color) == TRUE, na.rm = TRUE)){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: DUPLICATED VALUES AFTER USING notch (", paste(tempo.different.color[duplicated(tempo.different.color)], collapse = " "), "). TRY ANOTHER notch VALUE")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
-        }else if(length(different.color) != length(tempo.different.color)){
-            tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: LENGTH OF different.color (", paste(different.color, collapse = " "), ") DIFFERENT FROM LENGTH OF tempo.different.color (", paste(tempo.different.color, collapse = " "), ")")
-            stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        different.color <- base::unique(base::as.vector(mat1))
+        different.color <- different.color[ ! base::is.na(different.color)]
+        tempo.different.color <- different.color + base::c(0, base::cumsum(base::rep(notch, base::length(different.color) - 1)))
+        tempo.different.color <- tempo.different.color - base::floor(tempo.different.color)
+        if(base::any(base::duplicated(tempo.different.color) == TRUE, na.rm = TRUE)){
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: DUPLICATED VALUES AFTER USING notch (", base::paste(tempo.different.color[base::duplicated(tempo.different.color)], collapse = " "), "). TRY ANOTHER notch VALUE")
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        }else if(base::length(different.color) != base::length(tempo.different.color)){
+            tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: LENGTH OF different.color (", base::paste(different.color, collapse = " "), ") DIFFERENT FROM LENGTH OF tempo.different.color (", base::paste(tempo.different.color, collapse = " "), ")")
+            base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
         }else{
-            for(i in 1:length(different.color)){
+            for(i in 1:base::length(different.color)){
                 mat1[mat1 == different.color[i]] <- tempo.different.color[i] # no need of isTRUE(all.equal()) because different.color comes from mat1
             }
         }
     }
-    if( ! is.null(forced.color)){
-        hexa.values.to.change <- grDevices::hsv(unique(sort(mat1))[1:length(forced.color)], s, v)
+    if( ! base::is.null(forced.color)){
+        hexa.values.to.change <- grDevices::hsv(base::unique(base::sort(mat1))[1:base::length(forced.color)], s, v)
     }
-    mat1[ ! is.na(mat1)] <- grDevices::hsv(mat1[ ! is.na(mat1)], s, v)
-    if( ! is.null(forced.color)){
-        if(any(forced.color %in% mat1, na.rm = TRUE)){
+    mat1[ ! base::is.na(mat1)] <- grDevices::hsv(mat1[ ! base::is.na(mat1)], s, v)
+    if( ! base::is.null(forced.color)){
+        if(base::any(forced.color %in% mat1, na.rm = TRUE)){
             problem <- TRUE
-            text.problem <- paste0("THE FOLLOWING grDevices::colors WHERE INTRODUCED USING forced.color BUT WHERE ALREADY PRESENT IN THE COLORED MATRIX :", paste(forced.color[forced.color %in% mat1], collapse = " "))
+            text.problem <- base::paste0("THE FOLLOWING grDevices::colors WHERE INTRODUCED USING forced.color BUT WHERE ALREADY PRESENT IN THE COLORED MATRIX :", base::paste(forced.color[forced.color %in% mat1], collapse = " "))
         }else{
             problem <- FALSE
         }
-        for(i in 1:length(hexa.values.to.change)){
-            if( ! any(mat1 == hexa.values.to.change[i], na.rm = TRUE)){# no need of isTRUE(all.equal()) because character
-                tempo.cat <- paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: THE ", hexa.values.to.change[i], " VALUE FROM hexa.values.to.change IS NOT REPRESENTED IN mat1 : ", paste(unique(as.vector(mat1)), collapse = " "))
-                stop(paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
+        for(i in 1:base::length(hexa.values.to.change)){
+            if( ! base::any(mat1 == hexa.values.to.change[i], na.rm = TRUE)){# no need of isTRUE(all.equal()) because character
+                tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: THE ", hexa.values.to.change[i], " VALUE FROM hexa.values.to.change IS NOT REPRESENTED IN mat1 : ", base::paste(base::unique(base::as.vector(mat1)), collapse = " "))
+                base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
             }else{
-                mat1[which(mat1 == hexa.values.to.change[i])] <- forced.color[i] # no need of isTRUE(all.equal()) because character
+                mat1[base::which(mat1 == hexa.values.to.change[i])] <- forced.color[i] # no need of isTRUE(all.equal()) because character
             }
         }
     }
     # output
     # warning output
     # end warning output
-    output <- list(mat1.name = mat1.name, colored.mat = mat1, problem = problem, text.problem = text.problem)
-    return(output)
+    output <- base::list(mat1.name = mat1.name, colored.mat = mat1, problem = problem, text.problem = text.problem)
+    base::return(output)
     # end output
     # end main code
 }
