@@ -1,5 +1,5 @@
 pandoc: 3.1.1
-pkgdown: 2.0.7
+pkgdown: 2.0.8
 pkgdown_sha: ~
 articles:
   mat_fill: mat_fill.html
@@ -8,5 +8,5 @@ articles:
   mat_op: mat_op.html
   mat_rotate: mat_rotate.html
   saferMatrix: saferMatrix.html
-last_built: 2024-03-25T16:01Z
+last_built: 2024-04-15T14:46Z
 
