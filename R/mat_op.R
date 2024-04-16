@@ -14,6 +14,7 @@
 #' z: number of matrices
 #' @param mat.list List of matrices.
 #' @param kind.of.operation Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).
+#' @param safer_check Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.
 #' @returns The assembled matrix, with row and/or column names only if all the matrices have identical row/column names.
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; 
@@ -24,11 +25,12 @@
 #' @export
 mat_op <- function(
         mat.list, 
-        kind.of.operation = "+"
+        kind.of.operation = "+",
+        safer_check = TRUE
 ){
     # DEBUGGING
-    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; mat.list = list(mat1, mat2) ; kind.of.operation = "+" # for function debugging
-    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA))) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; mat.list = list(mat1, mat2) ; kind.of.operation = "*" # for function debugging
+    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; mat.list = list(mat1, mat2) ; kind.of.operation = "+" ; safer_check = TRUE # for function debugging
+    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA))) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; mat.list = list(mat1, mat2) ; kind.of.operation = "*" ; safer_check = TRUE # for function debugging
     # package name
     package.name <- "saferMatrix"
     # end package name
@@ -46,7 +48,8 @@ mat_op <- function(
     # end check of lib.path
     
     # check of the required function from the required packages
-    .pack_and_function_check(
+    if(safer_check == TRUE){
+        .pack_and_function_check(
         fun = base::c(
             "saferDev::arg_check",
             "saferTool::comp_2d"
@@ -54,6 +57,7 @@ mat_op <- function(
         lib.path = NULL,
         external.function.name = function.name
     )
+    }
     # end check of the required function from the required packages
     # end package checking
 
@@ -74,8 +78,8 @@ mat_op <- function(
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- base::expression(argum.check <- base::c(argum.check, tempo$problem) , text.check <- base::c(text.check, tempo$text) , checked.arg.names <- base::c(checked.arg.names, tempo$object.name))
-    tempo <- saferDev::arg_check(data = mat.list, class = "list", fun.name = function.name) ; base::eval(ee)
-    tempo <- saferDev::arg_check(data = kind.of.operation, options = base::c("+", "-", "*"), length = 1, fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = mat.list, class = "list", fun.name = function.name, safer_check = FALSE) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = kind.of.operation, options = base::c("+", "-", "*"), length = 1, fun.name = function.name, safer_check = FALSE) ; base::eval(ee)
     if( ! base::is.null(argum.check)){
         if(base::any(argum.check, na.rm = TRUE) == TRUE){
             base::stop(base::paste0("\n\n================\n\n", base::paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
@@ -103,7 +107,8 @@ mat_op <- function(
     # management of NULL arguments
     tempo.arg <-base::c(
         "mat.list",
-        "kind.of.operation"
+        "kind.of.operation",
+        "safer_check"
     )
     tempo.log <- base::sapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = base::is.null)
     if(base::any(tempo.log) == TRUE){# normally no NA with is.null()
@@ -125,7 +130,7 @@ mat_op <- function(
         base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==
     }
     for(i1 in 1:base::length(mat.list)){
-        tempo <- saferDev::arg_check(data = mat.list[[i1]], class = "matrix", mode = "numeric", na.contain = TRUE)
+        tempo <- saferDev::arg_check(data = mat.list[[i1]], class = "matrix", mode = "numeric", na.contain = TRUE, safer_check = FALSE)
         if(tempo$problem == TRUE){
             tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: ELEMENT ", i1, " OF mat.list ARGUMENT MUST BE A NUMERIC MATRIX")
             
@@ -135,7 +140,7 @@ mat_op <- function(
     ident.row.names <- TRUE
     ident.col.names <- TRUE
     for(i1 in 2:base::length(mat.list)){
-        tempo <- saferTool::comp_2d(data1 = mat.list[[1]], data2 = mat.list[[i1]])
+        tempo <- saferTool::comp_2d(data1 = mat.list[[1]], data2 = mat.list[[i1]], safer_check = FALSE)
         if(tempo$same.dim == FALSE){
             tempo.cat <- base::paste0("ERROR IN ", function.name, " OF THE ", package.name, " PACKAGE: MATRIX ", i1, " OF mat.list ARGUMENT MUST HAVE THE SAME DIMENSION (", base::paste(base::dim(mat.list[[i1]]), collapse = " "), ") THAN THE MATRIX 1 IN mat.list (", base::paste(base::dim(mat.list[[1]]), collapse = " "), ")")
             base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n"), call. = FALSE) # == in stop() to be able to add several messages between ==

@@ -4,12 +4,14 @@
 \alias{mat_op}
 \title{mat_op}
 \usage{
-mat_op(mat.list, kind.of.operation = "+")
+mat_op(mat.list, kind.of.operation = "+", safer_check = TRUE)
 }
 \arguments{
 \item{mat.list}{List of matrices.}
 
 \item{kind.of.operation}{Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).}
+
+\item{safer_check}{Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.}
 }
 \value{
 The assembled matrix, with row and/or column names only if all the matrices have identical row/column names.
