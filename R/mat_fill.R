@@ -97,7 +97,7 @@ mat_fill <- function(
     
     # second round of checking and data preparation
     # management of NA arguments
-    if( ! (base::all(base::class(arg.user.setting) == "list", na.rm = TRUE) & base::length(arg.user.setting) == 0)){
+    if( ! (base::all(base::class(arg.user.setting) %in% base::c("list", "NULL"), na.rm = TRUE) & base::length(arg.user.setting) == 0)){
         tempo.arg <- base::names(arg.user.setting) # values provided by the user
         tempo.test <- tempo.arg == "empty.cell.string"
         if(base::any(tempo.test, na.rm = TRUE) == TRUE){
