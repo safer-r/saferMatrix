@@ -4,6 +4,7 @@
 #' 
 #' Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry.
 #' @param data Matrix (matrix class).
+#' @param safer_check Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.
 #' @returns The modified matrix.
 #' @examples
 #' obs <- matrix(1:10, ncol = 1) ; obs ; mat_rotate(obs)
@@ -12,7 +13,8 @@
 #' @importFrom saferDev arg_check
 #' @export
 mat_rotate <- function(
-        data
+        data,
+        safer_check = TRUE
 ){
     # DEBUGGING
     # data = matrix(1:10, ncol = 1)
@@ -32,13 +34,15 @@ mat_rotate <- function(
     # check of lib.path
     # end check of lib.path
     # check of the required function from the required packages
-    .pack_and_function_check(
+    if(safer_check == TRUE){
+        .pack_and_function_check(
         fun = base::c(
             "saferDev::arg_check"
         ),
         lib.path = NULL,
         external.function.name = function.name
     )
+    }
     # end check of the required function from the required packages
     # end package checking
 
@@ -59,7 +63,7 @@ mat_rotate <- function(
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- base::expression(argum.check <- base::c(argum.check, tempo$problem) , text.check <- base::c(text.check, tempo$text) , checked.arg.names <- base::c(checked.arg.names, tempo$object.name))
-    tempo <- saferDev::arg_check(data = data, class = "matrix", na.contain = TRUE, fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = data, class = "matrix", na.contain = TRUE, fun.name = function.name, safer_check = FALSE) ; base::eval(ee)
     if( ! base::is.null(argum.check)){
         if(base::any(argum.check, na.rm = TRUE) == TRUE){
             base::stop(base::paste0("\n\n================\n\n", base::paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
@@ -85,7 +89,8 @@ mat_rotate <- function(
     
     # management of NULL arguments
     tempo.arg <-base::c(
-        "data"
+        "data",
+        "safer_check"
     )
     tempo.log <- base::sapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = base::is.null)
     if(base::any(tempo.log) == TRUE){# normally no NA with is.null()
