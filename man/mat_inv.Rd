@@ -4,10 +4,12 @@
 \alias{mat_inv}
 \title{mat_inv}
 \usage{
-mat_inv(mat)
+mat_inv(mat, safer_check = TRUE)
 }
 \arguments{
 \item{mat}{A square numeric matrix without NULL, NA, Inf or single case (dimension 1, 1) of 0.}
+
+\item{safer_check}{Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.}
 }
 \value{
 The inversed matrix.

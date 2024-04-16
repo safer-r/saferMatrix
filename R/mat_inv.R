@@ -2,6 +2,7 @@
 #' @description
 #' Return the inverse of a square matrix when solve() cannot.
 #' @param mat A square numeric matrix without NULL, NA, Inf or single case (dimension 1, 1) of 0.
+#' @param safer_check Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.
 #' @returns The inversed matrix.
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1) # use solve()
@@ -10,10 +11,11 @@
 #' @importFrom saferDev arg_check
 #' @export
 mat_inv <- function(
-        mat
+        mat,
+        safer_check = TRUE
 ){
     # DEBUGGING
-    # mat = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) # for function debugging
+    # mat = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; safer_check = TRUE # for function debugging
     # package name
     package.name <- "saferMatrix"
     # end package name
@@ -31,13 +33,15 @@ mat_inv <- function(
     # end check of lib.path
     
     # check of the required function from the required packages
-    .pack_and_function_check(
+    if(safer_check == TRUE){
+        .pack_and_function_check(
         fun = base::c(
             "saferDev::arg_check"
         ),
         lib.path = NULL,
         external.function.name = function.name
     )
+    }
     # end check of the required function from the required packages
     # end package checking
     
@@ -58,7 +62,7 @@ mat_inv <- function(
     text.check <- NULL #
     checked.arg.names <- NULL # for function debbuging: used by r_debugging_tools
     ee <- base::expression(argum.check <- base::c(argum.check, tempo$problem) , text.check <- base::c(text.check, tempo$text) , checked.arg.names <- base::c(checked.arg.names, tempo$object.name))
-    tempo <- saferDev::arg_check(data = mat, class = "matrix", mode = "numeric", fun.name = function.name) ; base::eval(ee)
+    tempo <- saferDev::arg_check(data = mat, class = "matrix", mode = "numeric", fun.name = function.name, safer_check = FALSE) ; base::eval(ee)
     if( ! base::is.null(argum.check)){
         if(base::any(argum.check, na.rm = TRUE) == TRUE){
             base::stop(base::paste0("\n\n================\n\n", base::paste(text.check[argum.check], collapse = "\n"), "\n\n================\n\n"), call. = FALSE) #
@@ -84,7 +88,8 @@ mat_inv <- function(
     
     # management of NULL arguments
     tempo.arg <-base::c(
-        "mat"
+        "mat",
+        "safer_check"
     )
     tempo.log <- base::sapply(base::lapply(tempo.arg, FUN = base::get, env = base::sys.nframe(), inherit = FALSE), FUN = is.null)
     if(base::any(tempo.log) == TRUE){# normally no NA with is.null()
