@@ -10,7 +10,8 @@ mat_num2color(
   notch = 1,
   s = 1,
   v = 1,
-  forced.color = NULL
+  forced.color = NULL,
+  safer_check = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ mat_num2color(
 \item{v}{V argument of hsv(). Single numeric value between 0 and 1.}
 
 \item{forced.color}{Must be NULL or hexadecimal color code or name given by colors(). The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.}
+
+\item{safer_check}{Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.}
 }
 \value{
 A list containing:
