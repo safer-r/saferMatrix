@@ -18,6 +18,9 @@ mat_rotate <- function(
 ){
     # DEBUGGING
     # data = matrix(1:10, ncol = 1)
+    # package name
+    package.name <- "saferMatrix"
+    # end package name
     # function name
     ini <- base::match.call(expand.dots = FALSE) # initial parameters (specific of arg_test())
     function.name <- base::paste0(base::as.list(base::match.call(expand.dots = FALSE))[[1]], "()") # function name with "()" paste, which split into a vector of three: c("::()", "package()", "function()") if "package::function()" is used.
@@ -27,9 +30,15 @@ mat_rotate <- function(
     arg.names <- base::names(base::formals(fun = base::sys.function(base::sys.parent(n = 2)))) # names of all the arguments
     arg.user.setting <- base::as.list(base::match.call(expand.dots = FALSE))[-1] # list of the argument settings (excluding default values not provided by the user)
     # end function name
-    # package name
-    package.name <- "saferMatrix"
-    # end package name
+    # critical operator checking
+    if(safer_check == TRUE){
+        .base_op_check(
+            external.function.name = function.name,
+            external.package.name = package.name
+    )
+    }
+    # end critical operator checking
+    
     # package checking
     # check of lib.path
     # end check of lib.path
@@ -40,7 +49,8 @@ mat_rotate <- function(
             "saferDev::arg_check"
         ),
         lib.path = NULL,
-        external.function.name = function.name
+        external.function.name = function.name,
+        external.package.name = package.name
     )
     }
     # end check of the required function from the required packages
