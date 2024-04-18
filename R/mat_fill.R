@@ -54,8 +54,6 @@ mat_fill <- function(
     )
     }
     # end critical operator checking
-
-    
     # package checking
     # check of lib.path
     # end check of lib.path
@@ -106,6 +104,8 @@ mat_fill <- function(
     # end argument primary checking
     
     # second round of checking and data preparation
+    # reserved words (to avoid bugs)
+    # end reserved words (to avoid bugs)
     # management of NA arguments
     if( ! (base::all(base::class(arg.user.setting) %in% base::c("list", "NULL"), na.rm = TRUE) & base::length(arg.user.setting) == 0)){
         tempo.arg <- base::names(arg.user.setting) # values provided by the user
@@ -164,11 +164,7 @@ mat_fill <- function(
         base::stop(base::paste0("\n\n================\n\n", tempo.cat, "\n\n================\n\n", base::ifelse(base::is.null(warn), "", base::paste0("IN ADDITION\nWARNING", base::ifelse(warn.count > 1, "S", ""), ":\n\n", warn))), call. = FALSE)
     }
     # end argument checking without saferDev::arg_check()
-    # end other checkings
-    
-    # reserved words (to avoid bugs)
-    # end reserved words (to avoid bugs)
-    
+    # end other checkings    
     # end second round of checking and data preparation
     
     # main code
