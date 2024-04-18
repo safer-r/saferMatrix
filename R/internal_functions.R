@@ -20,7 +20,8 @@
 .pack_and_function_check <- function(
         fun, 
         lib.path,
-        external.function.name
+        external.function.name,
+        external.package.name
 ){
     # WARNING
     # arguments of the .pack_and_function_check() function are not checked, so use carefully inside other functions

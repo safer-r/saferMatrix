@@ -5,7 +5,12 @@
 \alias{.base_op_check}
 \title{.pack_and_function_check}
 \usage{
-.pack_and_function_check(fun, lib.path, external.function.name)
+.pack_and_function_check(
+  fun,
+  lib.path,
+  external.function.name,
+  external.package.name
+)
 
 .base_op_check(external.function.name, external.package.name)
 }
