@@ -23,8 +23,6 @@
 #' dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]) ; 
 #' mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
 #' @importFrom saferDev arg_check
-#' @importFrom grDevices colors
-#' @importFrom grDevices hsv
 #' @export
 mat_num2color <- function(
         mat1, 
@@ -65,8 +63,6 @@ mat_num2color <- function(
     if(safer_check == TRUE){
         .pack_and_function_check(
         fun = base::c(
-            "grDevices::colors",
-            "grDevices::hsv",
             "saferDev::arg_check"
         ),
         lib.path = NULL,
