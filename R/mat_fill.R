@@ -17,6 +17,9 @@
 #' WARNINGS
 #' 
 #' A plot verification using gg_heatmap() is recommanded.
+#' @author Gael Millot <gael.millot@pasteur.fr>
+#' @author Yushi Han <yushi.han2000@gmail.com>
+#' @author Haiding Wang <wanghaiding442@gmail.com> 
 #' @examples
 #' # bottomleft example
 #' mat1 = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; 

@@ -35,3 +35,10 @@ mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ;
 mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
 mat_op(mat.list = list(mat1, mat2), kind.of.operation = "+")
 }
+\author{
+Gael Millot <gael.millot@pasteur.fr>
+
+Yushi Han <yushi.han2000@gmail.com>
+
+Haiding Wang <wanghaiding442@gmail.com>
+}

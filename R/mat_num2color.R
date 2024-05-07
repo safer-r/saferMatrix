@@ -18,6 +18,9 @@
 #' - $problem: logical. Is any colors of forced.color overlap the colors designed by the function. NULL if forced.color = NULL
 #' 
 #' - $text.problem: text when overlapping colors. NULL if forced.color = NULL or problem == FALSE
+#' @author Gael Millot <gael.millot@pasteur.fr>
+#' @author Yushi Han <yushi.han2000@gmail.com>
+#' @author Haiding Wang <wanghaiding442@gmail.com> 
 #' @examples
 #' mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
 #' dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]) ; 
