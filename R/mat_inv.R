@@ -4,6 +4,7 @@
 #' @param mat A square numeric matrix without NULL, NA, Inf or single case (dimension 1, 1) of 0.
 #' @param safer_check Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.
 #' @returns The inversed matrix.
+#' @seealso \code{\link[MASS]{ginv}}, \code{\link[pracma]{pinv}} which can calculates the Moore-Penrose generalized inverse of a matrix X. 
 #' @author Gael Millot <gael.millot@pasteur.fr>
 #' @author Yushi Han <yushi.han2000@gmail.com>
 #' @author Haiding Wang <wanghaiding442@gmail.com> 
