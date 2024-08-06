@@ -1,54 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/mat_fill.html</loc>
-  </url>
-  <url>
-    <loc>/articles/mat_inv.html</loc>
-  </url>
-  <url>
-    <loc>/articles/mat_num2color.html</loc>
-  </url>
-  <url>
-    <loc>/articles/mat_op.html</loc>
-  </url>
-  <url>
-    <loc>/articles/mat_rotate.html</loc>
-  </url>
-  <url>
-    <loc>/articles/saferMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/internal_function.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mat_fill.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mat_inv.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mat_num2color.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mat_op.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mat_rotate.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/mat_fill.html</loc></url>
+<url><loc>/articles/mat_inv.html</loc></url>
+<url><loc>/articles/mat_num2color.html</loc></url>
+<url><loc>/articles/mat_op.html</loc></url>
+<url><loc>/articles/mat_rotate.html</loc></url>
+<url><loc>/articles/saferMatrix.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/internal_function.html</loc></url>
+<url><loc>/reference/mat_fill.html</loc></url>
+<url><loc>/reference/mat_inv.html</loc></url>
+<url><loc>/reference/mat_num2color.html</loc></url>
+<url><loc>/reference/mat_op.html</loc></url>
+<url><loc>/reference/mat_rotate.html</loc></url>
 </urlset>
+
