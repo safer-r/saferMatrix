@@ -48,3 +48,10 @@ mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ;
 dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]) ; 
 mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
 }
+\author{
+Gael Millot <gael.millot@pasteur.fr>
+
+Yushi Han <yushi.han2000@gmail.com>
+
+Haiding Wang <wanghaiding442@gmail.com>
+}

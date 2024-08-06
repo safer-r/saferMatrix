@@ -24,3 +24,10 @@ obs <- matrix(1:10, ncol = 1) ; obs ; mat_rotate(obs)
 
 obs <- matrix(LETTERS[1:10], ncol = 5) ; obs ; mat_rotate(obs)
 }
+\author{
+Gael Millot <gael.millot@pasteur.fr>
+
+Yushi Han <yushi.han2000@gmail.com>
+
+Haiding Wang <wanghaiding442@gmail.com>
+}

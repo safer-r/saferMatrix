@@ -22,3 +22,13 @@ mat1 = matrix(c(1,1,1,2,1,5,9,8,9), ncol = 3) ; mat_inv(mat = mat1) # use solve(
 
 mat1 = matrix(2, ncol = 1) ; mat_inv(mat = mat1)
 }
+\seealso{
+\code{\link[MASS]{ginv}}, \code{\link[pracma]{pinv}} which can calculates the Moore-Penrose generalized inverse of a matrix X.
+}
+\author{
+Gael Millot <gael.millot@pasteur.fr>
+
+Yushi Han <yushi.han2000@gmail.com>
+
+Haiding Wang <wanghaiding442@gmail.com>
+}
