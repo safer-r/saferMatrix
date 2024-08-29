@@ -94,28 +94,28 @@
 <col width="50%">
 <col width="50%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th align="left">Function</th>
 <th align="left">Description</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left"><strong>mat_fill()</strong></td>
 <td align="left">Detect the empty half part of a symmetric square matrix (either topleft, topright, bottomleft or bottomright). Fill this empty half part using the other symmetric half part of the matrix.</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><strong>mat_inv()</strong></td>
 <td align="left">Return the inverse of a square matrix when solve() cannot.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><strong>mat_num2color()</strong></td>
 <td align="left">Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><strong>mat_op()</strong></td>
 <td align="left">Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = “+”, the function will add the value of all the case 1 (row1 &amp; column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>k</mi><mo>=</mo><mi>z</mi></mrow></munderover><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij} = \sum_{k=1}^{k=z} c_{ijk}</annotation></semantics></math> where c: case, i: row number, j: column number, k: matrix number and z: number of matrices</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><strong>mat_rotate()</strong></td>
 <td align="left">90° clockwise matrix rotation. Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry.</td>
 </tr>
@@ -137,7 +137,7 @@
 <p><em>saferMatrix</em> can be currently be installed from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/safer-r/saferMatrix"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/safer-r/saferMatrix"</span><span class="op">)</span> <span class="co"># or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.3.1/library")</span></span></code></pre></div>
 <p>Older versions can be installed like this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="st">"v1.0"</span> <span class="co"># desired tag version</span></span>
