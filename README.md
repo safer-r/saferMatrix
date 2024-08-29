@@ -62,7 +62,7 @@ The different *saferMatrix* releases are tagged [here](https://github.com/safer-
 
 ```r
 install.packages("remotes")
-remotes::install_github("https://github.com/safer-r/saferMatrix")
+remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.3.1/library")
 ```
 
 Older versions can be installed like this:
