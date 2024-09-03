@@ -51,7 +51,7 @@ mat_fill <- function(
     # end function name
     # critical operator checking
     if(safer_check == TRUE){
-        .base_op_check(
+        saferMatrix:::.base_op_check(
             external.function.name = function.name,
             external.package.name = package.name
     )
@@ -63,7 +63,7 @@ mat_fill <- function(
     
     # check of the required function from the required packages
     if(safer_check == TRUE){
-        .pack_and_function_check(
+        saferMatrix:::.pack_and_function_check(
         fun = base::c(
             "saferDev::arg_check"
         ),
