@@ -1,5 +1,5 @@
 
-# saferMatrix <a href="">[<img src="man/figures/saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix)</a>
+# saferMatrix <a href="">[<img src="man/figures/new_saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix)</a>
 
 <br />
 
