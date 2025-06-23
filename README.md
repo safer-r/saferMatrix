@@ -62,7 +62,7 @@ The different *saferMatrix* releases are tagged [here](https://github.com/safer-
 
 ```r
 install.packages("remotes")
-remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.3.1/library")
+remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.4.2/library")
 ```
 
 Older versions can be installed like this:
@@ -97,7 +97,7 @@ If you are using functions of *saferMatrix*, please cite:
 
 [Yushi Han](https://github.com/yushiHn/), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
 
-[Jacques Serizai](https://github.com/js2264), Spatial Regulation of Genomes team, Institut Pasteur, Paris, France
+[Jacques Serizay](https://github.com/js2264), Spatial Regulation of Genomes team, Institut Pasteur, Paris, France
 
 [Gael A. Millot](https://github.com/gael-millot), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
 
