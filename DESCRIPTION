@@ -20,7 +20,7 @@ Imports:
     grDevices
 Remotes: 
     safer-r/saferDev,
-    safer-r/saferTool
+    safer-r/saferTool@migration-v20.0
 Suggests: 
     knitr,
     rmarkdown,
