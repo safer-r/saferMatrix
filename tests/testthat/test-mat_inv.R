@@ -12,9 +12,9 @@ test_that("mat_inv function works correctly", {
     expect_no_error(mat_inv(mat1))
     
     # Error examples
-    expect_error(mat_inv(mat2), message = "The matrix contains Inf or NA values.")
-    expect_error(mat_inv(mat3), message = "The matrix contains Inf or NA values.")
-    expect_error(mat_inv(mat4), message = "The input matrix must be a square matrix.")
-    expect_error(mat_inv(mat5), message = "The input matrix must be a non-zero square matrix.")
+    expect_error(mat_inv(mat2), regexp = "MUST BE MADE OF NON INFINITE VALUES")
+    expect_error(mat_inv(mat3), regexp = "CONTAINS NA WHILE NOT AUTHORIZED")
+    expect_error(mat_inv(mat4), regexp = "MUST BE A SQUARE MATRIX")
+    expect_error(mat_inv(mat5), regexp = "CANNOT BE A SQUARE MATRIX MADE OF A SINGLE CASE OF 0")
     
 })

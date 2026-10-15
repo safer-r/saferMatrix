@@ -1,8 +1,8 @@
 Package: saferMatrix
 Type: Package
 Title: Matrix handling
-Version: 1.0
-Date: 2023-12-20
+Version: 2.0.0
+Date: 2026-10-15
 Authors@R: c(
     person(given = "Haiding", family = "Wang", email = "wanghaiding442@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0009-0008-4831-2022")),
     person(given = "Yushi", family = "Han",  email = "yushi.han2000@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0009-0009-9908-1958")),
@@ -13,14 +13,14 @@ Encoding: UTF-8
 Maintainer: Gael Millot <gael.millot@pasteur.fr>
 Description: Matrix handling.
 License: GPL-3
+Config/roxygen2/version: 8.0.0
 Imports: 
-    saferDev (>= 1.0),
-    saferTool (>= 1.0),
+    saferDev (>= 2.0.0),
+    saferTool (>= 2.0.0),
     grDevices
 Remotes: 
     safer-r/saferDev,
     safer-r/saferTool
-RoxygenNote: 7.3.1
 Suggests: 
     knitr,
     rmarkdown,

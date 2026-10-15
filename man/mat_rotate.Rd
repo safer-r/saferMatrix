@@ -4,12 +4,16 @@
 \alias{mat_rotate}
 \title{mat_rotate}
 \usage{
-mat_rotate(data, safer_check = TRUE)
+mat_rotate(data, lib_path = NULL, safer_check = TRUE, error_text = "")
 }
 \arguments{
-\item{data}{Matrix (matrix class).}
+\item{data}{Matrix (matrix class). NA allowed.}
 
-\item{safer_check}{Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.}
+\item{lib_path}{Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.}
+
+\item{safer_check}{Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.}
+
+\item{error_text}{Single character string used to add information in error messages returned by the function, notably if the function is inside other functions, which is practical for debugging. Example: \code{error_text = " INSIDE <PACKAGE_1>::<FUNCTION_1> INSIDE <PACKAGE_2>::<FUNCTION_2>."}. If \code{NULL}, converted into \code{""}.}
 }
 \value{
 The modified matrix.
@@ -20,9 +24,11 @@ The modified matrix.
 Applied twice, the function provide the mirror matrix, according to vertical and horizontal symmetry.
 }
 \examples{
-obs <- matrix(1:10, ncol = 1) ; obs ; mat_rotate(obs)
+# Warning: these examples may not work well when using the "Run examples" link
+# because of a particular environment. Please, copy-paste in a local environment.
+mat1 <- matrix(data = 1:10, ncol = 2) ; mat_rotate(data = mat1)
 
-obs <- matrix(LETTERS[1:10], ncol = 5) ; obs ; mat_rotate(obs)
+mat2 <- matrix(data = LETTERS[1:10], ncol = 5) ; mat_rotate(data = mat2)
 }
 \author{
 Gael Millot <gael.millot@pasteur.fr>

@@ -11,7 +11,9 @@ mat_num2color(
   s = 1,
   v = 1,
   forced.color = NULL,
-  safer_check = TRUE
+  lib_path = NULL,
+  safer_check = TRUE,
+  error_text = ""
 )
 }
 \arguments{
@@ -19,15 +21,19 @@ mat_num2color(
 
 \item{mat.hsv.h}{Single logical value. Is mat1 the h of hsv colors ? (if TRUE, mat1 must be between zero and 1). If FALSE, mat1 must be made of positive integer values without 0.}
 
-\item{notch}{Single value between 0 and 1 to shift the successive colors on the hsv circle by + notch.}
+\item{notch}{Single numeric value between 0 and 1 to shift the successive colors on the hsv circle by + notch.}
 
-\item{s}{S argument of hsv(). Single numeric value between 0 and 1.}
+\item{s}{Single numeric value between 0 and 1 (s argument of \code{grDevices::hsv()}).}
 
-\item{v}{V argument of hsv(). Single numeric value between 0 and 1.}
+\item{v}{Single numeric value between 0 and 1 (v argument of \code{grDevices::hsv()}).}
 
-\item{forced.color}{Must be NULL or hexadecimal color code or name given by colors(). The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.}
+\item{forced.color}{Must be NULL or hexadecimal color code or name given by \code{grDevices::colors()}. The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.}
 
-\item{safer_check}{Single logical value. Perform some "safer" checks (see https://github.com/safer-r)? If TRUE, checkings are performed before main code running: 1) R classical operators (like "<-") not overwritten by another package because of the R scope and 2) required functions and related packages effectively present in local R lybraries. Set to FALSE if this fonction is used inside another "safer" function to avoid pointless multiple checkings.}
+\item{lib_path}{Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.}
+
+\item{safer_check}{Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.}
+
+\item{error_text}{Single character string used to add information in error messages returned by the function, notably if the function is inside other functions, which is practical for debugging. Example: \code{error_text = " INSIDE <PACKAGE_1>::<FUNCTION_1> INSIDE <PACKAGE_2>::<FUNCTION_2>."}. If \code{NULL}, converted into \code{""}.}
 }
 \value{
 A list containing:
@@ -44,9 +50,11 @@ A list containing:
 Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.
 }
 \examples{
-mat1 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; 
-dimnames(mat1) <- list(LETTERS[1:4], letters[1:2]) ; 
-mat_num2color(mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
+# Warning: these examples may not work well when using the "Run examples" link
+# because of a particular environment. Please, copy-paste in a local environment.
+mat1 <- base::matrix(data = c(1,1,1,2, 5,2,3,NA, 5,5,1,1, 5,5,5,1), ncol = 4) ;
+base::dimnames(x = mat1) <- base::list(LETTERS[1:4], letters[1:4]) ;
+mat_num2color(mat1 = mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
 }
 \author{
 Gael Millot <gael.millot@pasteur.fr>
