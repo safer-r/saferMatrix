@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![CRAN status](https://img.shields.io/cran/v/saferMatrix.svg)](https://cran.r-project.org/package=saferMatrix)
-[![R Version](https://img.shields.io/badge/R-%3E%3D%204.6.0-blue?logo=R)](https://cran.r-project.org/)
+[![R Version](https://img.shields.io/badge/R-%3E%3D%204.5.0-blue?logo=R)](https://cran.r-project.org/)
 [![Downloads](https://cranlogs.r-pkg.org/badges/saferMatrix)](https://r-pkg.org/pkg/saferMatrix)<br />
 [![Rworkflows](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml/badge.svg)](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml)
 [![Codecov](https://codecov.io/github/safer-r/saferMatrix/coverage.svg?branch=master)](https://app.codecov.io/github/safer-r/saferMatrix?branch=master)
@@ -65,7 +65,7 @@ The different *saferMatrix* releases are tagged [here](https://github.com/safer-
 
 ```r
 install.packages("remotes")
-remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.6.0/library")
+remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.5.2/library")
 ```
 
 Older versions can be installed like this:

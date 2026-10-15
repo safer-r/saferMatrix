@@ -13,10 +13,12 @@ Encoding: UTF-8
 Maintainer: Gael Millot <gael.millot@pasteur.fr>
 Description: Matrix handling.
 License: GPL-3
+Depends: 
+    R (>= 4.5.0)
 Config/roxygen2/version: 8.0.0
 Imports: 
     saferDev (>= 2.0.0),
-    saferTool (>= 2.0.0),
+    saferTool (>= 1.0.0),
     grDevices
 Remotes: 
     safer-r/saferDev,
