@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>mat_fill • saferMatrix</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="mat_fill">
 </head>
@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">saferMatrix</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,7 @@
     <li><a class="dropdown-item" href="../articles/mat_rotate.html">mat_rotate</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -185,8 +186,8 @@
 <h3 id="argument-warn-print">Argument warn.print<a class="anchor" aria-label="anchor" href="#argument-warn-print"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a> <span class="fu">mat_fill</span>(<span class="at">mat =</span> mat1, <span class="at">warn.print =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF <span class="dv">0</span></span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL</span>
@@ -200,8 +201,8 @@
 <span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">$</span>warn</span>
 <span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"(1) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0</span><span class="sc">\n\n</span><span class="st">(2) BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL"</span></span>
 <span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a> <span class="fu">mat_fill</span>(<span class="at">mat =</span> mat2, <span class="at">warn.print =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) ACCORDING TO empty.cell.string <span class="fu">ARGUMENT</span> (<span class="dv">0</span>), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART</span>
 <span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat</span>
 <span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="sc">&gt;</span>      [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</span>
@@ -213,8 +214,8 @@
 <span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">$</span>warn</span>
 <span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"(1) ACCORDING TO empty.cell.string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"</span></span>
 <span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a> <span class="fu">mat_fill</span>(<span class="at">mat =</span> mat3, <span class="at">warn.print =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF <span class="dv">0</span></span>
 <span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) TOPLEFT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL</span>
@@ -234,8 +235,8 @@
 </h3>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># bottomright example</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">mat_fill</span>(<span class="at">mat =</span> mat1, <span class="at">empty.cell.string =</span> <span class="dv">0</span>, <span class="at">warn.print =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF <span class="dv">0</span></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL</span>
@@ -251,8 +252,8 @@
 <span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a></span>
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co"># topright example</span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="fu">mat_fill</span>(<span class="at">mat =</span> mat2, <span class="at">empty.cell.string =</span> <span class="st">"a"</span>, <span class="at">warn.print =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE TOPRIGHT CORNER, FULL OF a</span>
 <span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) TOPRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL</span>
@@ -268,8 +269,8 @@
 <span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a></span>
 <span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co"># topleft example</span></span>
 <span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="fu">mat_fill</span>(<span class="at">mat =</span> mat3, <span class="at">empty.cell.string =</span> <span class="dv">0</span>, <span class="at">warn.print =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF <span class="dv">0</span></span>
 <span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) TOPLEFT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL</span>
@@ -288,8 +289,8 @@
 <h3 id="error-examples">Error examples<a class="anchor" aria-label="anchor" href="#error-examples"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">mat_fill</span>(<span class="at">mat =</span> mat1, <span class="at">empty.cell.string =</span> <span class="cn">NA</span>, <span class="at">warn.print =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM <span class="fu">mat_fill</span>()<span class="sc">:</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="sc">&gt;</span> Warning<span class="sc">:</span> FROM saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="sc">&gt;</span> </span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) ACCORDING TO empty.cell.string <span class="fu">ARGUMENT</span> (<span class="cn">NA</span>), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span>      [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</span>
@@ -302,21 +303,23 @@
 <span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"(1) ACCORDING TO empty.cell.string ARGUMENT (NA), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"</span></span>
 <span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a></span>
 <span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="fu">mat_fill</span>(<span class="at">mat =</span> mat4, <span class="at">empty.cell.string =</span> <span class="dv">0</span>, <span class="at">warn.print =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="sc">&gt;</span> Error<span class="sc">:</span> </span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="er">&gt;</span> </span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">================</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="er">&gt;</span> </span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="er">&gt;</span> ERROR IN <span class="fu">mat_fill</span>() OF THE saferMatrix PACKAGE</span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="sc">&gt;</span> ACCORDING TO empty.cell.string <span class="fu">ARGUMENT</span> (<span class="dv">0</span>), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF <span class="fu">PART</span> (ACCORDING TO THE GRAND DIAGONAL)<span class="sc">:</span> topleft bottomright</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="sc">&gt;</span>  [<span class="dv">1</span>m [<span class="dv">33</span>mError [<span class="dv">39</span>m<span class="sc">:</span> [<span class="dv">22</span>m</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="sc">&gt;</span>  [<span class="dv">33</span>m<span class="sc">!</span> [<span class="dv">39</span>m </span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">================</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="er">&gt;</span> ERROR IN saferMatrix<span class="sc">::</span><span class="fu">mat_fill</span>().</span>
 <span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">================</span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="er">&gt;</span> </span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="er">&gt;</span> IN ADDITION</span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="sc">&gt;</span> WARNINGS<span class="sc">:</span></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="er">&gt;</span> </span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF <span class="dv">0</span></span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF <span class="dv">0</span></span></code></pre></div>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="er">&gt;</span> ACCORDING TO empty.cell.string <span class="fu">ARGUMENT</span> (<span class="dv">0</span>), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF <span class="fu">PART</span> (ACCORDING TO THE GRAND DIAGONAL)<span class="sc">:</span> topleft bottomright</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">================</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="er">&gt;</span> IN ADDITION</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="sc">&gt;</span> WARNINGS<span class="sc">:</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="er">&gt;</span> </span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">1</span>) EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF <span class="dv">0</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="er">&gt;</span> (<span class="dv">2</span>) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF <span class="dv">0</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -329,7 +332,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
