@@ -528,6 +528,8 @@ mat_fill <- function(
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
         }else if(base::length(x = empty.sector) + base::length(x = full.sector) != 4){
+            # nocov start
+            # codecov inactivated because this branch is unreachable with argument values: each of the 4 sectors ends in exactly one of empty.sector or full.sector (a sector either breaks the diag loop -> full.sector, or completes the loop and passes the confirmation -> empty.sector; a sector that breaks at the last diag with NA-mixed values lands in both, which is caught by the "EMPTY AND NON EMPTY HALF PART" check above). Therefore, when length(empty.sector) == 1, full.sector always has exactly 3 entries and the sum is always 4.
             tempo_cat <- base::paste0(
                 error_text_start,
                 "THE FUNCTION HAS DETECTED MORE OR LESS SECTORS THAN 4:\nHALF SECTORS:", base::paste0(empty.sector, collapse = " ", recycle0 = FALSE), "\nFULL SECTORS:", base::paste0(full.sector, collapse = " ", recycle0 = FALSE),
@@ -535,6 +537,7 @@ mat_fill <- function(
                 recycle0 = FALSE
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
+            # nocov end
         }else{
             warn_count <- warn_count + 1
             tempo_warn <- base::paste0("(", warn_count,") ", base::toupper(x = empty.sector), " SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", collapse = NULL, recycle0 = FALSE)

@@ -494,6 +494,8 @@ mat_num2color <- function(
     # change the scale of the plotted matrix
     if(mat.hsv.h == TRUE){
         if(base::any(base::min(x = mat1, na.rm = TRUE) < 0 | base::max(x = mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
+            # nocov start
+            # codecov inactivated because this branch is unreachable with argument values: the arg_check() call above uses prop = TRUE on mat1 when mat.hsv.h == TRUE, which already ensures that all the values of mat1 are between 0 and 1 (inclusive), so this min/max check can never report a problem
             tempo_cat <- base::paste0(
                 error_text_start,
                 "mat1 MUST BE MADE OF VALUES BETWEEN 0 AND 1 BECAUSE mat.hsv.h ARGUMENT SET TO TRUE",
@@ -501,6 +503,7 @@ mat_num2color <- function(
                 recycle0 = FALSE
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
+            # nocov end
         }
     }else{
         if(base::any(mat1 - base::floor(x = mat1) > 0, na.rm = TRUE) | base::any(mat1 == 0L, na.rm = TRUE)){ # no need of isTRUE(all.equal()) because we do not require approx here but strictly 0, thus == is ok
@@ -527,16 +530,15 @@ mat_num2color <- function(
                 collapse = NULL,
                 recycle0 = FALSE
             )
-            base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
-        }else if(base::length(x = different.color) != base::length(x = tempo.different.color)){
+            base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)        }else if(base::length(x = different.color) != base::length(x = tempo.different.color)){
+            # nocov start
+            # codecov inactivated because this branch is unreachable: different.color and tempo.different.color are always of the same length by construction (cumsum of a length - 1 vector added to a length 1 initial value)
             tempo_cat <- base::paste0(
                 error_text_start,
                 "LENGTH OF different.color (", base::paste0(different.color, collapse = " ", recycle0 = FALSE), ") DIFFERENT FROM LENGTH OF tempo.different.color (", base::paste0(tempo.different.color, collapse = " ", recycle0 = FALSE), ")",
                 collapse = NULL,
                 recycle0 = FALSE
             )
-            # nocov start
-            # codecov inactivated because this branch is unreachable: different.color and tempo.different.color are always of the same length by construction (cumsum of a length - 1 vector added to a length 1 initial value)
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
             # nocov end
         }else{
@@ -558,14 +560,14 @@ mat_num2color <- function(
         }
         for(i in 1:base::length(x = hexa.values.to.change)){
             if( ! base::any(mat1 == hexa.values.to.change[i], na.rm = TRUE)){ # no need of isTRUE(all.equal()) because character
+                # nocov start
+                # codecov inactivated because this branch is unreachable with argument values: hexa.values.to.change is built from the minimal unique sorted values of mat1, which are by construction always present in mat1
                 tempo_cat <- base::paste0(
                     error_text_start,
                     "THE ", hexa.values.to.change[i], " VALUE FROM hexa.values.to.change IS NOT REPRESENTED IN mat1 : ", base::paste0(base::unique(x = base::as.vector(x = mat1, mode = "any")), collapse = " ", recycle0 = FALSE),
                     collapse = NULL,
                     recycle0 = FALSE
                 )
-                # nocov start
-                # codecov inactivated because this branch is unreachable with argument values: hexa.values.to.change is built from the minimal unique sorted values of mat1, which are by construction always present in mat1
                 base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
                 # nocov end
             }else{

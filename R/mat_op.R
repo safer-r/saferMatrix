@@ -390,7 +390,7 @@ mat_op <- function(
     )
     tempo_log <- ! base::all(base::mode(x = kind.of.operation) == "character", na.rm = TRUE)
     # nocov start
-    # codecov inactivated because this branch is already covered by the arg_check() call above (options with character values), so it can never be reached with argument values.
+    # codecov inactivated because this branch is unreachable with argument values: the arg_check() call above uses options = c("+", "-", "*") on kind.of.operation, so kind.of.operation is always one of these single characters, which are all of mode character and never "". Hence, the two branches below (not character, and "") can never report a problem
     if(base::any(tempo_log, na.rm = TRUE)){
         # This check is here in case the developer has not correctly fill tempo_arg
         tempo_cat <- base::paste0(
@@ -407,7 +407,6 @@ mat_op <- function(
             recycle0 = FALSE
         )
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
-        # nocov end
     }else{
         tempo_log <- base::any(kind.of.operation == "", na.rm = TRUE)
         if(base::any(tempo_log, na.rm = TRUE)){
@@ -421,6 +420,7 @@ mat_op <- function(
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL) # == in stop() to be able to add several messages between ==
         }
+        # nocov end
     }
     ######## end management of "" in arguments of mode character
 
