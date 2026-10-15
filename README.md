@@ -1,16 +1,17 @@
 
-# saferMatrix <a href="">[<img src="man/figures/new_saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix)</a>
+# saferMatrix <a href="https://safer-r.github.io/saferMatrix">[<img src="man/figures/new_saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix/)</a>
 
 <br />
 
 <!-- badges: start -->
 
-[![Codecov test coverage](https://codecov.io/github/safer-r/saferMatrix/coverage.svg?branch=master)](https://app.codecov.io/github/safer-r/saferMatrix?branch=master)
 [![CRAN status](https://img.shields.io/cran/v/saferMatrix.svg)](https://cran.r-project.org/package=saferMatrix)
-[![downloads](https://cranlogs.r-pkg.org/badges/saferMatrix)](https://www.rdocumentation.org/trends)
-[![](https://img.shields.io/badge/license-GPL3.0-green.svg)](https://opensource.org/licenses/MITgpl-3-0)
-[![rworkflows](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml/badge.svg)](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml)
-[![Safer-R Status](https://img.shields.io/badge/Safer--R%20status-backbone%20v20.0-brightgreen)](https://github.com/safer-r/.github/blob/main/profile/backbone.R)
+[![R Version](https://img.shields.io/badge/R-%3E%3D%204.6.0-blue?logo=R)](https://cran.r-project.org/)
+[![Downloads](https://cranlogs.r-pkg.org/badges/saferMatrix)](https://r-pkg.org/pkg/saferMatrix)<br />
+[![Rworkflows](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml/badge.svg)](https://github.com/safer-r/saferMatrix/actions/workflows/rworkflows.yml)
+[![Codecov](https://codecov.io/github/safer-r/saferMatrix/coverage.svg?branch=master)](https://app.codecov.io/github/safer-r/saferMatrix?branch=master)
+[![safer-R Status](https://img.shields.io/badge/Safer--R%20status-backbone%20v20.0-brightgreen)](https://github.com/safer-r/.github/blob/main/profile/backbone.R)<br />
+[![](https://img.shields.io/badge/license-GPL3.0-lightgrey.svg)](https://opensource.org/license/gpl-3.0)
 <!-- badges: end -->
 
 <br />
@@ -24,7 +25,8 @@
    - [Licence](#licence)
    - [Citations](#citations)
    - [Credits](#credits)
-   - [Acknowledgements](#acknowledgements)
+   - [acknowledgments](#acknowledgments)
+
 
 <br />
 
@@ -63,14 +65,14 @@ The different *saferMatrix* releases are tagged [here](https://github.com/safer-
 
 ```r
 install.packages("remotes")
-remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.4.2/library")
+remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.6.0/library")
 ```
 
 Older versions can be installed like this:
 
 ```r
 v <- "v1.0" # desired tag version
-remotes::install_github(paste0("https://github.com/safer-r/saferMatrix/tree/", v))
+remotes::install_github(paste0("https://github.com/safer-r/saferMatrix", "/tree/", v))
 ```
 
 <br />
@@ -78,7 +80,7 @@ remotes::install_github(paste0("https://github.com/safer-r/saferMatrix/tree/", v
 ## Licence
 
 This package can be redistributed and/or modified under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-Distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchandability or fitness for a particular purpose.
+Distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose.
 See the GNU General Public License for more details at https://www.gnu.org/licenses or in the Licence.txt attached file.
 
 <br />
@@ -87,7 +89,7 @@ See the GNU General Public License for more details at https://www.gnu.org/licen
 
 If you are using functions of *saferMatrix*, please cite: 
 
-> Wang H, Han Y, Serizay J, Millot GA (2023). _The R saferMatrix package_.
+> Wang H, Han Y, Serizay J, Millot GA (2026). _The R saferMatrix package_.
 > <https://github.com/safer-r/saferMatrix/>.
 
 <br />
@@ -96,7 +98,7 @@ If you are using functions of *saferMatrix*, please cite:
 
 [Haiding Wang](https://github.com/Tintin2710), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
 
-[Yushi Han](https://github.com/yushiHn/), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
+[Yushi Han](https://github.com/yushiHn), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
 
 [Mia Legras](https://github.com/mialgrs), Bioinformatics and Biostatistics Hub, Institut Pasteur, Paris, France
 
@@ -106,11 +108,12 @@ If you are using functions of *saferMatrix*, please cite:
 
 <br />
 
-## Acknowledgements
+## Acknowledgments
 
 The developers & maintainers of the mentioned softwares and packages, including:
 
 - [R](https://www.r-project.org/)
 - [Git](https://git-scm.com/)
-- [Github](https://github.com/)
+- [GitHub](https://github.com/)
+- [rworkflows](https://github.com/neurogenomics/rworkflows)
 
