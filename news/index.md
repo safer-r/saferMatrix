@@ -1,6 +1,6 @@
 # Changelog
 
-## saferMatrix 2.0.0
+## saferMatrix 1.0.0
 
 - Migrated to the safer-r backbone v20.0: all 5 functions (mat_fill,
   mat_inv, mat_num2color, mat_op, mat_rotate) now follow the saferDev
@@ -22,6 +22,6 @@
   code coverage brought to 100% with \# nocov markers on unreachable
   internal-error branches.
 
-## saferMatrix 1.0.0
+## saferMatrix 1.0
 
 - Initial version (backbone v19.0).

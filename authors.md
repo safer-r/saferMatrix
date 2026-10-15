@@ -14,11 +14,11 @@
 ## Citation
 
 Wang H, Han Y, Millot G (2026). *saferMatrix: Matrix handling*. R
-package version 2.0.0.
+package version 1.0.0.
 
 @Manual{,\
   title = {saferMatrix: Matrix handling},\
   author = {Haiding Wang and Yushi Han and Gael Millot},\
   year = {2026},\
-  note = {R package version 2.0.0},\
+  note = {R package version 1.0.0},\
 }

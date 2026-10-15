@@ -60,7 +60,7 @@ The different *saferMatrix* releases are tagged
 
 \
 [`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"remotes"``)`\
-`remotes``::`[`install_github`](https://remotes.r-lib.org/reference/install_github.html)`(``"https://github.com/safer-r/saferMatrix"``)`` ``# or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.6.0/library")`
+`remotes``::`[`install_github`](https://remotes.r-lib.org/reference/install_github.html)`(``"https://github.com/safer-r/saferMatrix"``)`` ``# or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.5.2/library")`
 
 Older versions can be installed like this:
 
