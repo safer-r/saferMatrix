@@ -154,7 +154,7 @@ testthat::test_that("arg with no default values and all-default calls (backbone)
     for(fn in base::names(x = base_calls)){
         cl <- base_calls[[fn]]
         # remove the first no-default argument from the call
-        no_def <- switch(fn, mat_rotate = "data", mat_inv = "mat", mat_fill = "mat", mat_num2color = "mat1", mat_op = "mat.list")
+        no_def <- base::switch(EXPR = fn, mat_rotate = "data", mat_inv = "mat", mat_fill = "mat", mat_num2color = "mat1", mat_op = "mat.list")
         cl[no_def] <- NULL
         res <- base::tryCatch(
             expr = base::eval(expr = cl, envir = base::asNamespace(ns = "saferMatrix")),

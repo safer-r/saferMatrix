@@ -42,6 +42,8 @@ Fill this empty half part using the other symmetric half part of the matrix.
 WARNINGS
 
 A plot verification using gg_heatmap() is recommanded.
+
+2x2 matrices are not supported: each sector being a single cell, the sector detection always ends with the "DETECTED AS EMPTY, IS NOT?" error, even for a valid single-empty-half matrix (pre-existing behavior, kept unchanged during the migration).
 }
 \examples{
 # Warning: these examples may not work well when using the "Run examples" link

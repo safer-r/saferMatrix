@@ -12,7 +12,7 @@
 #' k: matrix number
 #'
 #' z: number of matrices
-#' @param mat.list List of matrices (matrix class) of non negative numerical values. NA allowed.
+#' @param mat.list List of matrices (matrix class) of numerical values. NA allowed.
 #' @param kind.of.operation Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).
 #' @param safer_check Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.
 #' @param lib_path Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.
@@ -504,7 +504,7 @@ mat_op <- function(
     if(ident.col.names == TRUE){
         base::colnames(x = output) <- base::colnames(x = mat.list[[1]])
     }
-    base::return(value = output)
+    base::return(output)
     # end output
     #### end main code
 }

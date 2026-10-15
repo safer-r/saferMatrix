@@ -13,7 +13,7 @@ mat_op(
 )
 }
 \arguments{
-\item{mat.list}{List of matrices (matrix class) of non negative numerical values. NA allowed.}
+\item{mat.list}{List of matrices (matrix class) of numerical values. NA allowed.}
 
 \item{kind.of.operation}{Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).}
 

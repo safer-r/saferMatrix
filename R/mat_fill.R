@@ -19,6 +19,8 @@
 #' WARNINGS
 #'
 #' A plot verification using gg_heatmap() is recommanded.
+#'
+#' 2x2 matrices are not supported: each sector being a single cell, the sector detection always ends with the "DETECTED AS EMPTY, IS NOT?" error, even for a valid single-empty-half matrix (pre-existing behavior, kept unchanged during the migration).
 #' @author Gael Millot <gael.millot@pasteur.fr>
 #' @author Yushi Han <yushi.han2000@gmail.com>
 #' @author Haiding Wang <wanghaiding442@gmail.com>
@@ -529,7 +531,7 @@ mat_fill <- function(
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
         }else if(base::length(x = empty.sector) + base::length(x = full.sector) != 4){
             # nocov start
-            # codecov inactivated because this branch is unreachable with argument values: each of the 4 sectors ends in exactly one of empty.sector or full.sector (a sector either breaks the diag loop -> full.sector, or completes the loop and passes the confirmation -> empty.sector; a sector that breaks at the last diag with NA-mixed values lands in both, which is caught by the "EMPTY AND NON EMPTY HALF PART" check above). Therefore, when length(empty.sector) == 1, full.sector always has exactly 3 entries and the sum is always 4.
+            # codecov inactivated because this branch is unreachable with argument values: each of the 4 sectors ends in exactly one of empty.sector or full.sector (a sector either breaks the diag loop -> full.sector, or completes the loop without break -> either passes the sector confirmation -> empty.sector, or stops the function with the "DETECTED AS EMPTY, IS NOT?" error; a sector that breaks at the last diag with NA-mixed values lands in both, which is caught by the "EMPTY AND NON EMPTY HALF PART" check above). Therefore, when length(empty.sector) == 1, full.sector always has exactly 3 entries and the sum is always 4. Note: 2x2 matrices, where each sector is a single cell, systematically take the "DETECTED AS EMPTY, IS NOT?" error path (pre-existing behavior, see the tests)
             tempo_cat <- base::paste0(
                 error_text_start,
                 "THE FUNCTION HAS DETECTED MORE OR LESS SECTORS THAN 4:\nHALF SECTORS:", base::paste0(empty.sector, collapse = " ", recycle0 = FALSE), "\nFULL SECTORS:", base::paste0(full.sector, collapse = " ", recycle0 = FALSE),
@@ -580,3 +582,5 @@ mat_fill <- function(
     base::return(base::list(mat = mat, warn = warn))
     #### end output
 }
+
+#### end of function

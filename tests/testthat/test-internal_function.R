@@ -4,14 +4,14 @@
 # functions must not be called with ::: from test files (CRAN NOTE avoidance). Here the
 # ::: calls are accepted because this is a test file of the package itself.
 
-test_that("test .internal_function.R", {
+testthat::test_that("test .internal_function.R", {
 
     # .pack_and_function_check()
     fun_wrong1 <- "geom_point"  # incorrect input
     fun_wrong2 <- "ggplot2::non_existent_function"  # incorrect function name
     fun_good <- "ggplot2::geom_point" # correct input
     path_wrong <- "path/to/library"  # incorrect input
-    path_good <- NULL  # incorrect input
+    path_good <- NULL  # correct input: NULL means use the current .libPaths()
 
     pack_and_function_check <- utils::getFromNamespace(x = ".pack_and_function_check", ns = "saferDev")
     base_op_check <- utils::getFromNamespace(x = ".base_op_check", ns = "saferDev")

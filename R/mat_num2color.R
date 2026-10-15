@@ -495,7 +495,7 @@ mat_num2color <- function(
     if(mat.hsv.h == TRUE){
         if(base::any(base::min(x = mat1, na.rm = TRUE) < 0 | base::max(x = mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
             # nocov start
-            # codecov inactivated because this branch is unreachable with argument values: the arg_check() call above uses prop = TRUE on mat1 when mat.hsv.h == TRUE, which already ensures that all the values of mat1 are between 0 and 1 (inclusive), so this min/max check can never report a problem
+            # codecov inactivated because this branch is unreachable with argument values: the arg_check() call of the "other checkings" section (line below the backbone sections), guarded by mat.hsv.h == TRUE, uses prop = TRUE on mat1, which already ensures that all the values of mat1 are between 0 and 1 (inclusive); the all-NA case is separately excluded by the backbone NA-only rule. Hence, this min/max check can never report a problem
             tempo_cat <- base::paste0(
                 error_text_start,
                 "mat1 MUST BE MADE OF VALUES BETWEEN 0 AND 1 BECAUSE mat.hsv.h ARGUMENT SET TO TRUE",
@@ -560,8 +560,7 @@ mat_num2color <- function(
         }
         for(i in 1:base::length(x = hexa.values.to.change)){
             if( ! base::any(mat1 == hexa.values.to.change[i], na.rm = TRUE)){ # no need of isTRUE(all.equal()) because character
-                # nocov start
-                # codecov inactivated because this branch is unreachable with argument values: hexa.values.to.change is built from the minimal unique sorted values of mat1, which are by construction always present in mat1
+                # reachable branch: hexa.values.to.change is built from the minimal unique sorted values of mat1, but values can disappear from mat1 when a previous forced.color replacement has already modified them. This notably happens when hsv() collapses different hues onto the same color (e.g. h = 0 and h = 1 both give #FF0000FF), or when the same minimal value appears only once but two forced colors must replace it
                 tempo_cat <- base::paste0(
                     error_text_start,
                     "THE ", hexa.values.to.change[i], " VALUE FROM hexa.values.to.change IS NOT REPRESENTED IN mat1 : ", base::paste0(base::unique(x = base::as.vector(x = mat1, mode = "any")), collapse = " ", recycle0 = FALSE),
@@ -569,7 +568,6 @@ mat_num2color <- function(
                     recycle0 = FALSE
                 )
                 base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
-                # nocov end
             }else{
                 mat1[base::which(mat1 == hexa.values.to.change[i])] <- forced.color[i] # no need of isTRUE(all.equal()) because character
             }
@@ -585,3 +583,5 @@ mat_num2color <- function(
     base::return(output)
     #### end output
 }
+
+#### end of function
