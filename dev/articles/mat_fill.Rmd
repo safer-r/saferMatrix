@@ -43,39 +43,39 @@ mat_fill(mat = mat3)
 ```
 <br>
 
-### Argument empty.cell.string
+### Argument empty_cell_string
 ```{r}
-mat_fill(mat = mat1, empty.cell.string = 0)
-mat_fill(mat = mat2, empty.cell.string = "a")
-mat_fill(mat = mat3, empty.cell.string = 0)
+mat_fill(mat = mat1, empty_cell_string = 0)
+mat_fill(mat = mat2, empty_cell_string = "a")
+mat_fill(mat = mat3, empty_cell_string = 0)
 ```
 <br>
 
-### Argument warn.print
+### Argument warn_print
 ```{r}
- mat_fill(mat = mat1, warn.print = TRUE)
- mat_fill(mat = mat2, warn.print = TRUE)
- mat_fill(mat = mat3, warn.print = TRUE)
+ mat_fill(mat = mat1, warn_print = TRUE)
+ mat_fill(mat = mat2, warn_print = TRUE)
+ mat_fill(mat = mat3, warn_print = TRUE)
 ```
 <br>
 
 ### All the arguments
 ```{r}
 # bottomright example
-mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
+mat_fill(mat = mat1, empty_cell_string = 0, warn_print = TRUE) 
 
 # topright example
-mat_fill(mat = mat2, empty.cell.string = "a", warn.print = TRUE) 
+mat_fill(mat = mat2, empty_cell_string = "a", warn_print = TRUE) 
 
 # topleft example
-mat_fill(mat = mat3, empty.cell.string = 0, warn.print = TRUE) 
+mat_fill(mat = mat3, empty_cell_string = 0, warn_print = TRUE) 
 
 ```
 <br>
 
 ### Error examples
 ```{r, echo = TRUE, error = TRUE}
-mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
+mat_fill(mat = mat1, empty_cell_string = NA, warn_print = TRUE) 
 
-mat_fill(mat = mat4, empty.cell.string = 0, warn.print = TRUE) 
+mat_fill(mat = mat4, empty_cell_string = 0, warn_print = TRUE) 
 ```

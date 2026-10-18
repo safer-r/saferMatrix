@@ -1,6 +1,6 @@
 #' @title mat_op
 #' @description
-#' Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula
+#' Assemble several matrices of same dimensions by performing by case operation. For instance, with kind_of_operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula
 #'
 #' \deqn{c_{ij} = \sum_{k=1}^{k=z}c_{ijk}}
 #' c: case
@@ -12,10 +12,10 @@
 #' k: matrix number
 #'
 #' z: number of matrices
-#' @param mat.list List of matrices (matrix class) of numerical values. NA allowed.
-#' @param kind.of.operation Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).
-#' @param safer_check Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.
+#' @param mat_list List of matrices (matrix class) of numerical values. NA allowed.
+#' @param kind_of_operation Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).
 #' @param lib_path Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.
+#' @param safer_check Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.
 #' @param error_text Single character string used to add information in error messages returned by the function, notably if the function is inside other functions, which is practical for debugging. Example: \code{error_text = " INSIDE <PACKAGE_1>::<FUNCTION_1> INSIDE <PACKAGE_2>::<FUNCTION_2>."}. If \code{NULL}, converted into \code{""}.
 #' @returns The assembled matrix, with row and/or column names only if all the matrices have identical row/column names.
 #' @author Gael Millot <gael.millot@pasteur.fr>
@@ -26,21 +26,21 @@
 #' # because of a particular environment. Please, copy-paste in a local environment.
 #' mat1 <- base::matrix(data = c(1,1,1,2,1,5,9,8), ncol = 2) ;
 #' mat2 <- base::matrix(data = c(1,1,1,2,1,5,9,NA), ncol = 2) ;
-#' mat_op(mat.list = base::list(mat1, mat2), kind.of.operation = "+")
+#' mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+")
 #' @importFrom saferDev arg_check
 #' @importFrom saferTool comp_2d
 #' @export
 mat_op <- function(
-        mat.list,
-        kind.of.operation = "+",
-        safer_check = TRUE,
+        mat_list,
+        kind_of_operation = "+",
         lib_path = NULL,
+        safer_check = TRUE,
         error_text = ""
 ){
 
     # DEBUGGING
-    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; mat.list = list(mat1, mat2) ; kind.of.operation = "+" ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging
-    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA))) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; mat.list = list(mat1, mat2) ; kind.of.operation = "*" ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging
+    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2) ; mat_list = list(mat1, mat2) ; kind_of_operation = "+" ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging
+    # mat1 = matrix(c(1,1,1,2,1,5,9,8), ncol = 2, dimnames = list(LETTERS[1:4], c(NA, NA))) ; mat2 = matrix(c(1,1,1,2,1,5,9,NA), ncol = 2, dimnames = list(LETTERS[1:4], letters[1:2])) ; mat_list = list(mat1, mat2) ; kind_of_operation = "*" ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging
 
     #### package name
     package_name <- "saferMatrix" # write NULL if the function developed is not in a package
@@ -155,7 +155,7 @@ mat_op <- function(
 
     ######## arg with no default values
     no_def_args <- base::c(
-        "mat.list"
+        "mat_list"
     )
     tempo <- base::eval(expr = base::parse(text = base::paste0("base::c(base::missing(", base::paste0(no_def_args, collapse = "),base::missing(", recycle0 = FALSE), "))", collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     if(base::any(tempo, na.rm = TRUE)){
@@ -175,8 +175,8 @@ mat_op <- function(
     ######## management of NULL arguments
     # before NA checking because is.na(NULL) return logical(0) and all(logical(0)) is TRUE (but secured with & base::length(x = x) > 0)
     tempo_arg <- base::c(
-        "mat.list",
-        "kind.of.operation"
+        "mat_list",
+        "kind_of_operation"
         # "lib_path", # inactivated because can be NULL
         # "error_text" # inactivated because NULL converted to "" above
     )
@@ -197,8 +197,8 @@ mat_op <- function(
     ######## management of empty non NULL arguments
     # # before NA checking because is.na(logical()) is logical(0) (but secured with & base::length(x = x) > 0)
     tempo_arg <- base::c(
-        "mat.list",
-        "kind.of.operation",
+        "mat_list",
+        "kind_of_operation",
         "lib_path"
         # "error_text" # inactivated because empty value converted to "" above
     )
@@ -366,8 +366,8 @@ mat_op <- function(
     checked_arg_names <- NULL # for function debugging: used by r_debugging_tools
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
     ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object.name))
-    tempo <- saferDev::arg_check(data = mat.list, class = "list", typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-    tempo <- saferDev::arg_check(data = kind.of.operation, class = NULL, typeof = NULL, mode = NULL, length = 1, prop = FALSE, options = base::c("+", "-", "*"), double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    tempo <- saferDev::arg_check(data = mat_list, class = "list", typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    tempo <- saferDev::arg_check(data = kind_of_operation, class = NULL, typeof = NULL, mode = NULL, length = 1, prop = FALSE, options = base::c("+", "-", "*"), double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # lib_path already checked above
     # safer_check already checked above
     # error_text converted to single string above
@@ -384,13 +384,13 @@ mat_op <- function(
     ######## management of "" in arguments of mode character
     # optional section: remove the code if you do not want to check if arguments of mode character of your own function cannot contain ""
     tempo_arg <- base::c(
-        "kind.of.operation"
+        "kind_of_operation"
         # "lib_path" # inactivated because already checked above
         # "error_text" # inactivated because can be ""
     )
-    tempo_log <- ! base::all(base::mode(x = kind.of.operation) == "character", na.rm = TRUE)
+    tempo_log <- ! base::all(base::mode(x = kind_of_operation) == "character", na.rm = TRUE)
     # nocov start
-    # codecov inactivated because this branch is unreachable with argument values: the arg_check() call above uses options = c("+", "-", "*") on kind.of.operation, so kind.of.operation is always one of these single characters, which are all of mode character and never "". Hence, the two branches below (not character, and "") can never report a problem
+    # codecov inactivated because this branch is unreachable with argument values: the arg_check() call above uses options = c("+", "-", "*") on kind_of_operation, so kind_of_operation is always one of these single characters, which are all of mode character and never "". Hence, the two branches below (not character, and "") can never report a problem
     if(base::any(tempo_log, na.rm = TRUE)){
         # This check is here in case the developer has not correctly fill tempo_arg
         tempo_cat <- base::paste0(
@@ -399,21 +399,21 @@ mat_op <- function(
             "IN THE SECTION \"management of \"\" in arguments of mode character\"\n",
             "THIS ARGUMENT IS",
             " NOT CLASS \"character\":\n",
-            "kind.of.operation",
+            "kind_of_operation",
             "\nIf saferMake::saferMake() HAS BEEN USED TO MODIFY YOUR FUNCTION, PLEASE RESTART WITH YOUR MAIN CODE AND SELECT PROPER CLASS, TYPE AND/OR MODE FOR YOUR ARGUMENTS\n.HERE, ARGUMENTS ARE TYPE:\n",
-            "kind.of.operation: \"", base::typeof(x = kind.of.operation), "\"",
+            "kind_of_operation: \"", base::typeof(x = kind_of_operation), "\"",
             intern_error_text_end,
             collapse = NULL,
             recycle0 = FALSE
         )
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
     }else{
-        tempo_log <- base::any(kind.of.operation == "", na.rm = TRUE)
+        tempo_log <- base::any(kind_of_operation == "", na.rm = TRUE)
         if(base::any(tempo_log, na.rm = TRUE)){
             tempo_cat <- base::paste0(
                 error_text_start,
                 "THIS ARGUMENT\n",
-                "kind.of.operation",
+                "kind_of_operation",
                 "\nCANNOT CONTAIN EMPTY STRING \"\".",
                 collapse = NULL,
                 recycle0 = FALSE
@@ -439,21 +439,21 @@ mat_op <- function(
 
     ######## other checkings
     # argument checking without saferDev::arg_check()
-    if(base::length(x = mat.list) < 2){
+    if(base::length(x = mat_list) < 2){
         tempo_cat <- base::paste0(
             error_text_start,
-            "mat.list ARGUMENT MUST BE A LIST CONTAINING AT LEAST 2 MATRICES",
+            "mat_list ARGUMENT MUST BE A LIST CONTAINING AT LEAST 2 MATRICES",
             collapse = NULL,
             recycle0 = FALSE
         )
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
     }
-    for(i1 in 1:base::length(x = mat.list)){
-        tempo <- saferDev::arg_check(data = mat.list[[i1]], class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text)
+    for(i1 in 1:base::length(x = mat_list)){
+        tempo <- saferDev::arg_check(data = mat_list[[i1]], class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text)
         if(tempo$problem == TRUE){
             tempo_cat <- base::paste0(
                 error_text_start,
-                "ELEMENT ", i1, " OF mat.list ARGUMENT MUST BE A NUMERIC MATRIX",
+                "ELEMENT ", i1, " OF mat_list ARGUMENT MUST BE A NUMERIC MATRIX",
                 collapse = NULL,
                 recycle0 = FALSE
             )
@@ -462,12 +462,12 @@ mat_op <- function(
     }
     ident.row.names <- TRUE
     ident.col.names <- TRUE
-    for(i1 in 2:base::length(x = mat.list)){
-        tempo <- saferTool::comp_2d(data1 = mat.list[[1]], data2 = mat.list[[i1]], safer_check = FALSE, lib_path = NULL, error_text = embed_error_text)
+    for(i1 in 2:base::length(x = mat_list)){
+        tempo <- saferTool::comp_2d(data1 = mat_list[[1]], data2 = mat_list[[i1]], safer_check = FALSE, lib_path = NULL, error_text = embed_error_text)
         if(tempo$same.dim == FALSE){
             tempo_cat <- base::paste0(
                 error_text_start,
-                "MATRIX ", i1, " OF mat.list ARGUMENT MUST HAVE THE SAME DIMENSION (", base::paste0(base::dim(x = mat.list[[i1]]), collapse = " ", recycle0 = FALSE), ") THAN THE MATRIX 1 IN mat.list (", base::paste0(base::dim(x = mat.list[[1]]), collapse = " ", recycle0 = FALSE), ")",
+                "MATRIX ", i1, " OF mat_list ARGUMENT MUST HAVE THE SAME DIMENSION (", base::paste0(base::dim(x = mat_list[[i1]]), collapse = " ", recycle0 = FALSE), ") THAN THE MATRIX 1 IN mat_list (", base::paste0(base::dim(x = mat_list[[1]]), collapse = " ", recycle0 = FALSE), ")",
                 collapse = NULL,
                 recycle0 = FALSE
             )
@@ -493,16 +493,16 @@ mat_op <- function(
     # output
     # warning output
     # end warning output
-    output <- mat.list[[1]]
-    for(i1 in 2:base::length(x = mat.list)){
-        output <- base::get(x = kind.of.operation)(output, mat.list[[i1]]) # inherits by default: look for the operator in the classical scope
+    output <- mat_list[[1]]
+    for(i1 in 2:base::length(x = mat_list)){
+        output <- base::get(x = kind_of_operation)(output, mat_list[[i1]]) # inherits by default: look for the operator in the classical scope
     }
     base::dimnames(x = output) <- NULL
     if(ident.row.names == TRUE){
-        base::rownames(x = output) <- base::rownames(x = mat.list[[1]])
+        base::rownames(x = output) <- base::rownames(x = mat_list[[1]])
     }
     if(ident.col.names == TRUE){
-        base::colnames(x = output) <- base::colnames(x = mat.list[[1]])
+        base::colnames(x = output) <- base::colnames(x = mat_list[[1]])
     }
     base::return(output)
     # end output

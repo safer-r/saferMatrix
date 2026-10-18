@@ -6,11 +6,11 @@
 \usage{
 mat_num2color(
   mat1,
-  mat.hsv.h = TRUE,
+  mat_hsv_h = TRUE,
   notch = 1,
   s = 1,
   v = 1,
-  forced.color = NULL,
+  forced_color = NULL,
   lib_path = NULL,
   safer_check = TRUE,
   error_text = ""
@@ -19,7 +19,7 @@ mat_num2color(
 \arguments{
 \item{mat1}{Matrix 1 of non negative numerical values that has to be colored (matrix class). NA allowed.}
 
-\item{mat.hsv.h}{Single logical value. Is mat1 the h of hsv colors ? (if TRUE, mat1 must be between zero and 1). If FALSE, mat1 must be made of positive integer values without 0.}
+\item{mat_hsv_h}{Single logical value. Is mat1 the h of hsv colors ? (if TRUE, mat1 must be between zero and 1). If FALSE, mat1 must be made of positive integer values without 0.}
 
 \item{notch}{Single numeric value between 0 and 1 to shift the successive colors on the hsv circle by + notch.}
 
@@ -27,7 +27,7 @@ mat_num2color(
 
 \item{v}{Single numeric value between 0 and 1 (v argument of \code{grDevices::hsv()}).}
 
-\item{forced.color}{Must be NULL or hexadecimal color code or name given by \code{grDevices::colors()}. The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.}
+\item{forced_color}{Must be NULL or hexadecimal color code or name given by \code{grDevices::colors()}. The first minimal values of mat1 will be these colors. All the color of mat1 can be forced using this argument.}
 
 \item{lib_path}{Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.}
 
@@ -42,9 +42,9 @@ A list containing:
 
 - $colored.mat: colors of mat1 in hexa
 
-- $problem: logical. Is any colors of forced.color overlap the colors designed by the function. NULL if forced.color = NULL
+- $problem: logical. Is any colors of forced_color overlap the colors designed by the function. NULL if forced_color = NULL
 
-- $text.problem: text when overlapping colors. NULL if forced.color = NULL or problem == FALSE
+- $text.problem: text when overlapping colors. NULL if forced_color = NULL or problem == FALSE
 }
 \description{
 Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.
@@ -54,7 +54,7 @@ Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.
 # because of a particular environment. Please, copy-paste in a local environment.
 mat1 <- base::matrix(data = c(1,1,1,2, 5,2,3,NA, 5,5,1,1, 5,5,5,1), ncol = 4) ;
 base::dimnames(x = mat1) <- base::list(LETTERS[1:4], letters[1:4]) ;
-mat_num2color(mat1 = mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
+mat_num2color(mat1 = mat1, mat_hsv_h = FALSE, notch = 1, s = 1, v = 1, forced_color = NULL)
 }
 \author{
 Gael Millot <gael.millot@pasteur.fr>

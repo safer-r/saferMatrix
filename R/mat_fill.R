@@ -4,8 +4,8 @@
 #'
 #' Fill this empty half part using the other symmetric half part of the matrix.
 #' @param mat A numeric or character square matrix with the half part (according to the grand diagonal) filled with NA (any kind of matrix), "0" (character matrix) or 0 (numeric matrix) exclusively (not a mix of 0 and NA in the empty part).
-#' @param empty.cell.string A numeric, character or NA (no quotes) indicating what empty cells are filled with.
-#' @param warn.print Single logical value. Print warnings at the end of the execution? No print if no warning messages.
+#' @param empty_cell_string A numeric, character or NA (no quotes) indicating what empty cells are filled with.
+#' @param warn_print Single logical value. Print warnings at the end of the execution? No print if no warning messages.
 #' @param safer_check Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.
 #' @param lib_path Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.
 #' @param error_text Single character string used to add information in error messages returned by the function, notably if the function is inside other functions, which is practical for debugging. Example: \code{error_text = " INSIDE <PACKAGE_1>::<FUNCTION_1> INSIDE <PACKAGE_2>::<FUNCTION_2>."}. If \code{NULL}, converted into \code{""}.
@@ -21,6 +21,9 @@
 #' A plot verification using gg_heatmap() is recommanded.
 #'
 #' 2x2 matrices are not supported: each sector being a single cell, the sector detection always ends with the "DETECTED AS EMPTY, IS NOT?" error, even for a valid single-empty-half matrix (pre-existing behavior, kept unchanged during the migration).
+#'
+#' The \code{empty_cell_string} argument accepts NA as only argument, which breaks the safer-r rule. The "management of NA arguments" section has been personalized accordingly and the code of this function has been checked so that \code{empty_cell_string} is not used in \code{if(empty_cell_string){}}.
+#'
 #' @author Gael Millot <gael.millot@pasteur.fr>
 #' @author Yushi Han <yushi.han2000@gmail.com>
 #' @author Haiding Wang <wanghaiding442@gmail.com>
@@ -30,22 +33,22 @@
 #' # bottomleft example
 #' mat1 <- matrix(data = c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ;
 #' mat1 ;
-#' mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE)
+#' mat_fill(mat = mat1, empty_cell_string = NA, warn_print = TRUE)
 #' @importFrom saferDev arg_check
 #' @export
 mat_fill <- function(
         mat,
-        empty.cell.string = 0,
-        warn.print = FALSE,
+        empty_cell_string = 0,
+        warn_print = FALSE,
         lib_path = NULL,
         safer_check = TRUE,
         error_text = ""
 ){
 
     # DEBUGGING
-    # mat = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; empty.cell.string = NA ; warn.print = TRUE ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging
-    # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; empty.cell.string = 0 ; warn.print = TRUE ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging # topleft example
-    # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,0, 5,0,0,0), ncol = 4) ; empty.cell.string = 0 ; warn.print = TRUE ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging # zero empty half part example
+    # mat = matrix(c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ; empty_cell_string = NA ; warn_print = TRUE ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging
+    # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,NA, 5,0,0,0), ncol = 4) ; empty_cell_string = 0 ; warn_print = TRUE ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging # topleft example
+    # mat = matrix(c(0,0,0,2, 0,0,3,0, 0,3,0,0, 5,0,0,0), ncol = 4) ; empty_cell_string = 0 ; warn_print = TRUE ; lib_path = NULL ; safer_check = TRUE ; error_text = "" # for function debugging # zero empty half part example
 
     #### package name
     package_name <- "saferMatrix" # write NULL if the function developed is not in a package
@@ -181,8 +184,8 @@ mat_fill <- function(
     # before NA checking because is.na(NULL) return logical(0) and all(logical(0)) is TRUE (but secured with & base::length(x = x) > 0)
     tempo_arg <- base::c(
         "mat",
-        "empty.cell.string",
-        "warn.print"
+        "empty_cell_string",
+        "warn_print"
         # "lib_path", # inactivated because can be NULL
         # "error_text" # inactivated because NULL converted to "" above
     )
@@ -204,8 +207,8 @@ mat_fill <- function(
     # # before NA checking because is.na(logical()) is logical(0) (but secured with & base::length(x = x) > 0)
     tempo_arg <- base::c(
         "mat",
-        "empty.cell.string",
-        "warn.print",
+        "empty_cell_string",
+        "warn_print",
         "lib_path"
         # "error_text" # inactivated because empty value converted to "" above
     )
@@ -238,7 +241,7 @@ mat_fill <- function(
 
     ######## management of NA arguments
     # Mandatory section : argument of safer-r functions cannot have NA as only value, to prevent all(, na.rm = TRUE) or any(, na.rm = TRUE) to return a logical value
-    # personalized here: empty.cell.string can be NA by design (see the empty.cell.string argument documentation and the arg_check() group below)
+    # personalized here: empty_cell_string can be NA by design (see the empty_cell_string argument documentation and the arg_check() group below)
     if(base::length(x = arg_user_setting_eval) != 0){
         tempo_log <- base::suppressWarnings(
             expr = base::sapply(
@@ -255,8 +258,8 @@ mat_fill <- function(
                 USE.NAMES = TRUE
             ),
             classes = "warning"
-        ) # no argument provided by the user can be just made of NA, except empty.cell.string. is.na(NULL) returns logical(0), the reason why base::length(x = x) > 0 is used # warning: all(x = x, na.rm = TRUE) but normally no NA because base::is.na() used here. Warning: would not work if arg_user_setting_eval is a vector (because treat each element as a compartment), but ok because it is always a list, even if 0 or 1 argument in the developed function
-        tempo_log[base::names(x = tempo_log) == "empty.cell.string"] <- FALSE # empty.cell.string can be NA by design (excluded from the generic NA rule)
+        ) # no argument provided by the user can be just made of NA, except empty_cell_string. is.na(NULL) returns logical(0), the reason why base::length(x = x) > 0 is used # warning: all(x = x, na.rm = TRUE) but normally no NA because base::is.na() used here. Warning: would not work if arg_user_setting_eval is a vector (because treat each element as a compartment), but ok because it is always a list, even if 0 or 1 argument in the developed function
+        tempo_log[base::names(x = tempo_log) == "empty_cell_string"] <- FALSE # empty_cell_string can be NA by design (excluded from the generic NA rule)
         if(base::any(tempo_log, na.rm = TRUE)){
             tempo_cat <- base::paste0(
                 error_text_start,
@@ -375,15 +378,15 @@ mat_fill <- function(
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
     ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object.name))
     tempo <- saferDev::arg_check(data = mat, class = c("matrix", "array"), typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-    tempo <- saferDev::arg_check(data = warn.print, class = NULL, typeof = "logical", mode = NULL, length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-    # empty.cell.string can be (1) a single numeric value, (2) a single character string or (3) NA: NA is excluded from the arg_check() calls below because saferDev::arg_check() rejects NA-only values in its own backbone NA management (before na_contain applies), so the NA case is accepted by design here and checked separately. Length check first to avoid a length > 1 condition in if()
-    if( ! (base::length(x = empty.cell.string) == 1L && base::is.na(x = empty.cell.string))){
-        tempo1 <- saferDev::arg_check(data = empty.cell.string, class = NULL, typeof = NULL, mode = "numeric", length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = arg_check_error_text)
-        tempo2 <- saferDev::arg_check(data = empty.cell.string, class = NULL, typeof = NULL, mode = "character", length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = arg_check_error_text)
+    tempo <- saferDev::arg_check(data = warn_print, class = NULL, typeof = "logical", mode = NULL, length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    # empty_cell_string can be (1) a single numeric value, (2) a single character string or (3) NA: NA is excluded from the arg_check() calls below because saferDev::arg_check() rejects NA-only values in its own backbone NA management (before na_contain applies), so the NA case is accepted by design here and checked separately. Length check first to avoid a length > 1 condition in if()
+    if( ! (base::length(x = empty_cell_string) == 1L && base::is.na(x = empty_cell_string))){
+        tempo1 <- saferDev::arg_check(data = empty_cell_string, class = NULL, typeof = NULL, mode = "numeric", length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = arg_check_error_text)
+        tempo2 <- saferDev::arg_check(data = empty_cell_string, class = NULL, typeof = NULL, mode = "character", length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = arg_check_error_text)
         if(tempo1$problem == TRUE & tempo2$problem == TRUE){
             tempo_cat <- base::paste0(
                 arg_check_error_text,
-                "empty.cell.string ARGUMENT MUST BE (1) A SINGLE NUMERIC VALUE, (2) A SINGLE CHARACTER STRING OR (3) NA",
+                "empty_cell_string ARGUMENT MUST BE (1) A SINGLE NUMERIC VALUE, (2) A SINGLE CHARACTER STRING OR (3) NA",
                 collapse = NULL,
                 recycle0 = FALSE
             )
@@ -418,6 +421,7 @@ mat_fill <- function(
     ######## warning initiation
     ini_warning_length <- base::options()$warning.length # required to have the max characters of output messages
     base::options(warning.length = 8170)
+    base::on.exit(expr = base::options(warning.length = ini_warning_length), add = TRUE, after = TRUE) # registered here so that warning.length is restored even if an error occurs before the warning-output on.exit() registrations below
     warn <- NULL
     warn_count <- 0
     ######## end warning initiation
@@ -453,10 +457,10 @@ mat_fill <- function(
         )
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
     }
-    if(base::ifelse(test = base::is.na(x = empty.cell.string), yes = ! base::any(base::is.na(x = mat)), no = ! base::any(mat == empty.cell.string, na.rm = TRUE))){
+    if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::any(base::is.na(x = mat)), no = ! base::any(mat == empty_cell_string, na.rm = TRUE))){
         tempo_cat <- base::paste0(
             error_text_start,
-            "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty.cell.string ARGUMENT",
+            "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty_cell_string ARGUMENT",
             collapse = NULL,
             recycle0 = FALSE
         )
@@ -485,16 +489,16 @@ mat_fill <- function(
         tempo.list.diag <- list.diag
         for(i2 in 1:(base::nrow(x = mat) - 1L)){
             tempo.list.diag[[i2]] <- base::eval(expr = base::parse(text = diag.scan[i1], file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-            if(base::ifelse(test = base::is.na(x = empty.cell.string), yes = ! base::all(base::is.na(x = tempo.list.diag[[i2]])), no = ! (base::all(tempo.list.diag[[i2]] == empty.cell.string, na.rm = TRUE) & ! (base::is.na(base::all(tempo.list.diag[[i2]] == empty.cell.string, na.rm = FALSE)))))){ # I had to add this ! (is.na(all(tempo.list.diag[[i2]] == empty.cell.string, na.rm = FALSE))) because all(tempo.list.diag[[i2]] == empty.cell.string, na.rm = FALSE) gives NA and not FALSE if one NA in tempo.list.diag[[i2]] -> not good for if()
+            if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::all(base::is.na(x = tempo.list.diag[[i2]])), no = ! (base::all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = TRUE) & ! (base::is.na(base::all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = FALSE)))))){ # I had to add this ! (is.na(all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = FALSE))) because all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = FALSE) gives NA and not FALSE if one NA in tempo.list.diag[[i2]] -> not good for if()
                 full.sector <- base::c(full.sector, sector[i1])
                 break
             }
         }
         if(i2 == base::nrow(x = mat) - 1L){
-            if(base::all(base::unlist(x = base::lapply(X = tempo.list.diag, FUN = function(x){if(base::is.na(x = empty.cell.string)){base::is.na(x = x)}else{x == empty.cell.string}}), recursive = TRUE, use.names = TRUE), na.rm = TRUE)){
+            if(base::all(base::unlist(x = base::lapply(X = tempo.list.diag, FUN = function(x){if(base::is.na(x = empty_cell_string)){base::is.na(x = x)}else{x == empty_cell_string}}), recursive = TRUE, use.names = TRUE), na.rm = TRUE)){
                 empty.sector <- base::c(empty.sector, sector[i1])
                 warn_count <- warn_count + 1
-                tempo_warn <- base::paste0("(", warn_count,") EMPTY SECTOR DETECTED ON THE ", base::toupper(x = sector[i1]), " CORNER, FULL OF ", empty.cell.string, collapse = NULL, recycle0 = FALSE)
+                tempo_warn <- base::paste0("(", warn_count,") EMPTY SECTOR DETECTED ON THE ", base::toupper(x = sector[i1]), " CORNER, FULL OF ", empty_cell_string, collapse = NULL, recycle0 = FALSE)
                 warn <- base::paste0(base::ifelse(test = base::is.null(x = warn), yes = tempo_warn, no = base::paste0(warn, "\n\n", tempo_warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE)
             }else{
                 tempo_cat <- base::paste0(
@@ -510,13 +514,13 @@ mat_fill <- function(
     # end empty part detection
     if(base::length(x = empty.sector) == 0L){
         warn_count <- warn_count + 1
-        tempo_warn <- base::paste0("(", warn_count,") ACCORDING TO empty.cell.string ARGUMENT (", empty.cell.string, "), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART", collapse = NULL, recycle0 = FALSE)
+        tempo_warn <- base::paste0("(", warn_count,") ACCORDING TO empty_cell_string ARGUMENT (", empty_cell_string, "), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART", collapse = NULL, recycle0 = FALSE)
         warn <- base::paste0(base::ifelse(test = base::is.null(x = warn), yes = tempo_warn, no = base::paste0(warn, "\n\n", tempo_warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE)
     }else{
         if(base::length(x = empty.sector) > 1){
             tempo_cat <- base::paste0(
                 error_text_start,
-                "ACCORDING TO empty.cell.string ARGUMENT (", empty.cell.string, "), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): ", base::paste0(empty.sector, collapse = " ", recycle0 = FALSE),
+                "ACCORDING TO empty_cell_string ARGUMENT (", empty_cell_string, "), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): ", base::paste0(empty.sector, collapse = " ", recycle0 = FALSE),
                 collapse = NULL,
                 recycle0 = FALSE
             )
@@ -563,7 +567,7 @@ mat_fill <- function(
 
     #### warning output
     # must be before return()
-    if(warn.print == TRUE & ! base::is.null(x = warn)){
+    if(warn_print == TRUE & ! base::is.null(x = warn)){
         base::on.exit(
             expr = base::warning(
                 base::paste0(

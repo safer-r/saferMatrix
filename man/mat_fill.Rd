@@ -6,8 +6,8 @@
 \usage{
 mat_fill(
   mat,
-  empty.cell.string = 0,
-  warn.print = FALSE,
+  empty_cell_string = 0,
+  warn_print = FALSE,
   lib_path = NULL,
   safer_check = TRUE,
   error_text = ""
@@ -16,9 +16,9 @@ mat_fill(
 \arguments{
 \item{mat}{A numeric or character square matrix with the half part (according to the grand diagonal) filled with NA (any kind of matrix), "0" (character matrix) or 0 (numeric matrix) exclusively (not a mix of 0 and NA in the empty part).}
 
-\item{empty.cell.string}{A numeric, character or NA (no quotes) indicating what empty cells are filled with.}
+\item{empty_cell_string}{A numeric, character or NA (no quotes) indicating what empty cells are filled with.}
 
-\item{warn.print}{Single logical value. Print warnings at the end of the execution? No print if no warning messages.}
+\item{warn_print}{Single logical value. Print warnings at the end of the execution? No print if no warning messages.}
 
 \item{lib_path}{Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.}
 
@@ -44,6 +44,8 @@ WARNINGS
 A plot verification using gg_heatmap() is recommanded.
 
 2x2 matrices are not supported: each sector being a single cell, the sector detection always ends with the "DETECTED AS EMPTY, IS NOT?" error, even for a valid single-empty-half matrix (pre-existing behavior, kept unchanged during the migration).
+
+The \code{empty_cell_string} argument accepts NA as only argument, which breaks the safer-r rule. The "management of NA arguments" section has been personalized accordingly and the code of this function has been checked so that \code{empty_cell_string} is not used in \code{if(empty_cell_string){}}.
 }
 \examples{
 # Warning: these examples may not work well when using the "Run examples" link
@@ -51,7 +53,7 @@ A plot verification using gg_heatmap() is recommanded.
 # bottomleft example
 mat1 <- matrix(data = c(1,NA,NA,NA, 0,2,NA,NA, NA,3,4,NA, 5,6,7,8), ncol = 4) ;
 mat1 ;
-mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE)
+mat_fill(mat = mat1, empty_cell_string = NA, warn_print = TRUE)
 }
 \author{
 Gael Millot <gael.millot@pasteur.fr>

@@ -10,9 +10,9 @@ testthat::test_that("mandatory arg block of safer-r functions (public functions)
     full_calls <- base::list(
         mat_rotate = base::quote(mat_rotate(data = base::matrix(data = 1:10, ncol = 2), safer_check = FALSE, error_text = "")),
         mat_inv = base::quote(mat_inv(mat = base::matrix(data = c(2, 1, 1, 2), ncol = 2), safer_check = FALSE, error_text = "")),
-        mat_fill = base::quote(mat_fill(mat = base::matrix(data = c(1, 1, 1, 2, 0, 2, 3, 0, NA, 3, 0, 0, 5, 0, 0, 0), ncol = 4), warn.print = FALSE, safer_check = FALSE, error_text = "")),
-        mat_num2color = base::quote(mat_num2color(mat1 = base::matrix(data = c(1/3, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/3), ncol = 4), mat.hsv.h = TRUE, notch = 1, s = 1, v = 1, forced.color = NULL, safer_check = FALSE, error_text = "")),
-        mat_op = base::quote(mat_op(mat.list = base::list(base::matrix(data = c(1, 1, 1, 2), ncol = 2), base::matrix(data = c(1, 1, 1, 2), ncol = 2)), kind.of.operation = "+", safer_check = FALSE, error_text = ""))
+        mat_fill = base::quote(mat_fill(mat = base::matrix(data = c(1, 1, 1, 2, 0, 2, 3, 0, NA, 3, 0, 0, 5, 0, 0, 0), ncol = 4), warn_print = FALSE, safer_check = FALSE, error_text = "")),
+        mat_num2color = base::quote(mat_num2color(mat1 = base::matrix(data = c(1/3, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/3), ncol = 4), mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, safer_check = FALSE, error_text = "")),
+        mat_op = base::quote(mat_op(mat_list = base::list(base::matrix(data = c(1, 1, 1, 2), ncol = 2), base::matrix(data = c(1, 1, 1, 2), ncol = 2)), kind_of_operation = "+", safer_check = FALSE, error_text = ""))
     )
     ## end data argument values
 

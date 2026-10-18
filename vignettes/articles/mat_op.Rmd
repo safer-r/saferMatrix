@@ -37,16 +37,16 @@ mat4
 ### Simple examples
 
 ```{r}
-mat_op(mat.list = list(mat1, mat2))
-mat_op(mat.list = list(mat2, mat3))
-mat_op(mat.list = list(mat2, mat2, mat4))
+mat_op(mat_list = list(mat1, mat2))
+mat_op(mat_list = list(mat2, mat3))
+mat_op(mat_list = list(mat2, mat2, mat4))
 ```
 <br>
 
 
 ### All the arguments
 ```{r}
-mat_op(mat.list = list(mat1, mat2), kind.of.operation = "*")
-mat_op(mat.list = list(mat2, mat3), kind.of.operation = "-")
-mat_op(mat.list = list(mat2, mat2, mat4), kind.of.operation = "+")
+mat_op(mat_list = list(mat1, mat2), kind_of_operation = "*")
+mat_op(mat_list = list(mat2, mat3), kind_of_operation = "-")
+mat_op(mat_list = list(mat2, mat2, mat4), kind_of_operation = "+")
 ```

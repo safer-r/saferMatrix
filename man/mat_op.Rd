@@ -5,21 +5,21 @@
 \title{mat_op}
 \usage{
 mat_op(
-  mat.list,
-  kind.of.operation = "+",
-  safer_check = TRUE,
+  mat_list,
+  kind_of_operation = "+",
   lib_path = NULL,
+  safer_check = TRUE,
   error_text = ""
 )
 }
 \arguments{
-\item{mat.list}{List of matrices (matrix class) of numerical values. NA allowed.}
+\item{mat_list}{List of matrices (matrix class) of numerical values. NA allowed.}
 
-\item{kind.of.operation}{Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).}
-
-\item{safer_check}{Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.}
+\item{kind_of_operation}{Either "+" (by case addition), "-" (by case subtraction) or "*" (by case multiplication).}
 
 \item{lib_path}{Vector of characters specifying the absolute pathways of the directories containing the required packages for the function, if not in the default directories. Useful when R packages are not installed in the default directories because of lack of admin rights. More precisely, \code{lib_path} is passed through the \code{new} argument of \code{.libPaths()} so that the new library paths are \code{unique(c(new, .Library.site, .Library))}. Warning: \code{.libPaths()} is restored to the initial paths, after function execution. Ignored if \code{NULL} (default) or if the \code{safer_check} argument is \code{FALSE}: only the pathways specified by the current \code{.libPaths()} are used for package calling.}
+
+\item{safer_check}{Single logical value. Perform the "safer" checks? If \code{TRUE}, checkings are performed before main code running (see the \href{https://github.com/safer-r}{safer-r project}): 1) correct \code{lib_path} argument value 2) required functions and related packages effectively present in local R libraries and 3) R classical operators (like \code{"<-"}) not overwritten by another package because of the R scope. Warning: must be set to \code{FALSE} if this function is used inside another "safer" function to avoid pointless multiple checkings.}
 
 \item{error_text}{Single character string used to add information in error messages returned by the function, notably if the function is inside other functions, which is practical for debugging. Example: \code{error_text = " INSIDE <PACKAGE_1>::<FUNCTION_1> INSIDE <PACKAGE_2>::<FUNCTION_2>."}. If \code{NULL}, converted into \code{""}.}
 }
@@ -27,7 +27,7 @@ mat_op(
 The assembled matrix, with row and/or column names only if all the matrices have identical row/column names.
 }
 \description{
-Assemble several matrices of same dimensions by performing by case operation. For instance, with kind.of.operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula
+Assemble several matrices of same dimensions by performing by case operation. For instance, with kind_of_operation = "+", the function will add the value of all the case 1 (row1 & column1) of the matrices and put it in the case 1 of a new matrix M, according to the formula
 
 \deqn{c_{ij} = \sum_{k=1}^{k=z}c_{ijk}}
 c: case
@@ -45,7 +45,7 @@ z: number of matrices
 # because of a particular environment. Please, copy-paste in a local environment.
 mat1 <- base::matrix(data = c(1,1,1,2,1,5,9,8), ncol = 2) ;
 mat2 <- base::matrix(data = c(1,1,1,2,1,5,9,NA), ncol = 2) ;
-mat_op(mat.list = base::list(mat1, mat2), kind.of.operation = "+")
+mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+")
 }
 \author{
 Gael Millot <gael.millot@pasteur.fr>

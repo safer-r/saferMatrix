@@ -28,21 +28,21 @@ testthat::test_that("mat_fill()", {
 
     ######## management of NULL arguments
     testthat::expect_error(mat_fill(mat = NULL, lib_path = NULL, safer_check = TRUE, error_text = ""))
-    testthat::expect_error(mat_fill(mat = mat_bl, empty.cell.string = NULL, lib_path = NULL, safer_check = TRUE, error_text = ""))
-    testthat::expect_error(mat_fill(mat = mat_bl, warn.print = NULL, lib_path = NULL, safer_check = TRUE, error_text = ""))
+    testthat::expect_error(mat_fill(mat = mat_bl, empty_cell_string = NULL, lib_path = NULL, safer_check = TRUE, error_text = ""))
+    testthat::expect_error(mat_fill(mat = mat_bl, warn_print = NULL, lib_path = NULL, safer_check = TRUE, error_text = ""))
     ######## end management of NULL arguments
 
     ######## management of empty non NULL arguments
     testthat::expect_error(mat_fill(mat = base::logical(length = 0), lib_path = NULL, safer_check = TRUE, error_text = ""))
-    testthat::expect_error(mat_fill(mat = mat_bl, empty.cell.string = base::character(length = 0), lib_path = NULL, safer_check = TRUE, error_text = ""))
-    testthat::expect_error(mat_fill(mat = mat_bl, warn.print = base::logical(length = 0), lib_path = NULL, safer_check = TRUE, error_text = ""))
+    testthat::expect_error(mat_fill(mat = mat_bl, empty_cell_string = base::character(length = 0), lib_path = NULL, safer_check = TRUE, error_text = ""))
+    testthat::expect_error(mat_fill(mat = mat_bl, warn_print = base::logical(length = 0), lib_path = NULL, safer_check = TRUE, error_text = ""))
     ######## end management of empty non NULL arguments
 
     ######## management of NA arguments
     testthat::expect_error(mat_fill(mat = NA, lib_path = NULL, safer_check = TRUE, error_text = ""))
-    testthat::expect_error(mat_fill(mat = mat_bl, warn.print = NA, lib_path = NULL, safer_check = TRUE, error_text = ""))
-    # empty.cell.string = NA is allowed by design (excluded from the generic NA rule)
-    res_na <- mat_fill(mat = mat_bl, empty.cell.string = NA, warn.print = FALSE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    testthat::expect_error(mat_fill(mat = mat_bl, warn_print = NA, lib_path = NULL, safer_check = TRUE, error_text = ""))
+    # empty_cell_string = NA is allowed by design (excluded from the generic NA rule)
+    res_na <- mat_fill(mat = mat_bl, empty_cell_string = NA, warn_print = FALSE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_equal(object = res_na$mat, expected = mat_bl) # no all-NA half in mat_bl: nothing filled
     testthat::expect_true(object = base::grepl(x = res_na$warn, pattern = "ZERO EMPTY HALF PART", fixed = TRUE))
     ######## end management of NA arguments
@@ -76,15 +76,15 @@ testthat::test_that("mat_fill()", {
     #### argument secondary checking
 
     ######## argument checking with arg_check()
-    testthat::expect_error(mat_fill(mat = base::matrix(data = base::letters[1:4], ncol = 2), lib_path = NULL, safer_check = TRUE, error_text = "")) # character matrix without the empty string cells: caught by the "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty.cell.string ARGUMENT" check (character matrices are supported, see the sector tests below)
+    testthat::expect_error(mat_fill(mat = base::matrix(data = base::letters[1:4], ncol = 2), lib_path = NULL, safer_check = TRUE, error_text = "")) # character matrix without the empty string cells: caught by the "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty_cell_string ARGUMENT" check (character matrices are supported, see the sector tests below)
     testthat::expect_error(mat_fill(mat = base::mean, lib_path = NULL, safer_check = TRUE, error_text = "")) # function rejected by arg_check
     testthat::expect_error(mat_fill(mat = base::expression(x = 1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
     testthat::expect_error(mat_fill(mat = base::as.factor(x = "a"), lib_path = NULL, safer_check = TRUE, error_text = "")) # factor rejected by arg_check
-    testthat::expect_error(mat_fill(mat = mat_bl, warn.print = "TRUE", lib_path = NULL, safer_check = TRUE, error_text = "")) # warn.print must be logical
-    testthat::expect_error(mat_fill(mat = mat_bl, warn.print = 1, lib_path = NULL, safer_check = TRUE, error_text = ""))
-    # empty.cell.string multi-tempo group: only one combined error text
-    testthat::expect_error(mat_fill(mat = mat_bl, empty.cell.string = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "empty.cell.string ARGUMENT MUST BE (1) A SINGLE NUMERIC VALUE, (2) A SINGLE CHARACTER STRING OR (3) NA", fixed = TRUE)
-    testthat::expect_error(mat_fill(mat = mat_bl, empty.cell.string = base::c(0, 1), lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST BE (1) A SINGLE NUMERIC VALUE", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = mat_bl, warn_print = "TRUE", lib_path = NULL, safer_check = TRUE, error_text = "")) # warn_print must be logical
+    testthat::expect_error(mat_fill(mat = mat_bl, warn_print = 1, lib_path = NULL, safer_check = TRUE, error_text = ""))
+    # empty_cell_string multi-tempo group: only one combined error text
+    testthat::expect_error(mat_fill(mat = mat_bl, empty_cell_string = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "empty_cell_string ARGUMENT MUST BE (1) A SINGLE NUMERIC VALUE, (2) A SINGLE CHARACTER STRING OR (3) NA", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = mat_bl, empty_cell_string = base::c(0, 1), lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST BE (1) A SINGLE NUMERIC VALUE", fixed = TRUE)
     ######## end argument checking with arg_check()
 
     #### end argument secondary checking
@@ -95,8 +95,8 @@ testthat::test_that("mat_fill()", {
     testthat::expect_error(mat_fill(mat = base::matrix(data = 1:6, ncol = 2), lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST BE A SQUARE MATRIX", fixed = TRUE)
     testthat::expect_error(mat_fill(mat = base::matrix(data = base::c(TRUE, FALSE, TRUE, FALSE), ncol = 2), lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST BE A NUMERIC OR CHARACTER MATRIX", fixed = TRUE)
     testthat::expect_error(mat_fill(mat = mat_1x1, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "CANNOT BE A SQUARE MATRIX MADE OF A SINGLE CASE", fixed = TRUE)
-    testthat::expect_error(mat_fill(mat = base::matrix(data = c(1,2,3,4), ncol = 2), empty.cell.string = 9, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST HAVE CELLS WITH THE EMPTY STRING", fixed = TRUE)
-    testthat::expect_error(mat_fill(mat = base::matrix(data = c(1,2,3,4), ncol = 2), empty.cell.string = NA, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST HAVE CELLS WITH THE EMPTY STRING", fixed = TRUE) # no NA in the matrix
+    testthat::expect_error(mat_fill(mat = base::matrix(data = c(1,2,3,4), ncol = 2), empty_cell_string = 9, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST HAVE CELLS WITH THE EMPTY STRING", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = base::matrix(data = c(1,2,3,4), ncol = 2), empty_cell_string = NA, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MUST HAVE CELLS WITH THE EMPTY STRING", fixed = TRUE) # no NA in the matrix
     ######## end other checkings
     #### end second round of checking and data preparation
 
@@ -119,7 +119,7 @@ testthat::test_that("mat_fill()", {
     }
     # bottomleft with NA
     mat_na_half <- build_sector_mat(NA, "bottomleft")
-    res_na2 <- mat_fill(mat = mat_na_half, empty.cell.string = NA, warn.print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    res_na2 <- mat_fill(mat = mat_na_half, empty_cell_string = NA, warn_print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_false(object = base::any(base::is.na(x = res_na2$mat), na.rm = FALSE)) # NA half filled
     testthat::expect_equal(object = res_na2$mat[3, 1], expected = res_na2$mat[1, 3]) # transpose symmetry: (r, c) <- (c, r)
     testthat::expect_equal(object = res_na2$mat[4, 1], expected = res_na2$mat[1, 4])
@@ -128,7 +128,7 @@ testthat::test_that("mat_fill()", {
     testthat::expect_true(object = base::grepl(x = res_na2$warn, pattern = "EMPTY SECTOR DETECTED ON THE BOTTOMLEFT CORNER, FULL OF NA", fixed = TRUE))
     testthat::expect_true(object = base::grepl(x = res_na2$warn, pattern = "BOTTOMLEFT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", fixed = TRUE))
     # topleft with 0
-    res_tl <- mat_fill(mat = build_sector_mat(0, "topleft"), empty.cell.string = 0, warn.print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    res_tl <- mat_fill(mat = build_sector_mat(0, "topleft"), empty_cell_string = 0, warn_print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_equal(object = res_tl$mat[1, 1], expected = res_tl$mat[4, 4])
     testthat::expect_equal(object = res_tl$mat[1, 2], expected = res_tl$mat[3, 4])
     testthat::expect_equal(object = res_tl$mat[1, 3], expected = res_tl$mat[2, 4])
@@ -136,7 +136,7 @@ testthat::test_that("mat_fill()", {
     testthat::expect_true(object = base::grepl(x = res_tl$warn, pattern = "EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF 0", fixed = TRUE))
     testthat::expect_true(object = base::grepl(x = res_tl$warn, pattern = "TOPLEFT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", fixed = TRUE))
     # topright with "a" (character matrix)
-    res_tr <- mat_fill(mat = build_sector_mat("a", "topright"), empty.cell.string = "a", warn.print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    res_tr <- mat_fill(mat = build_sector_mat("a", "topright"), empty_cell_string = "a", warn_print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_false(object = base::any(res_tr$mat == "a", na.rm = TRUE))
     testthat::expect_equal(object = res_tr$mat[1, 2], expected = res_tr$mat[2, 1])
     testthat::expect_equal(object = res_tr$mat[1, 3], expected = res_tr$mat[3, 1])
@@ -144,7 +144,7 @@ testthat::test_that("mat_fill()", {
     testthat::expect_true(object = base::grepl(x = res_tr$warn, pattern = "EMPTY SECTOR DETECTED ON THE TOPRIGHT CORNER, FULL OF a", fixed = TRUE))
     testthat::expect_true(object = base::grepl(x = res_tr$warn, pattern = "TOPRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", fixed = TRUE))
     # bottomright with 0
-    res_br <- mat_fill(mat = build_sector_mat(0, "bottomright"), empty.cell.string = 0, warn.print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    res_br <- mat_fill(mat = build_sector_mat(0, "bottomright"), empty_cell_string = 0, warn_print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_false(object = base::any(res_br$mat == 0, na.rm = TRUE))
     testthat::expect_equal(object = res_br$mat[2, 4], expected = res_br$mat[1, 3]) # point-reflection symmetry: (r, c) <- (n+1-c, n+1-r)
     testthat::expect_equal(object = res_br$mat[3, 4], expected = res_br$mat[1, 2]) # cells on the anti-diagonal (r + c = n + 1) map to themselves and are not filled
@@ -152,7 +152,7 @@ testthat::test_that("mat_fill()", {
     testthat::expect_true(object = base::grepl(x = res_br$warn, pattern = "EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0", fixed = TRUE))
     testthat::expect_true(object = base::grepl(x = res_br$warn, pattern = "BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", fixed = TRUE))
     # corner NA case: sector detected as both empty and full -> error with the accumulated warning
-    testthat::expect_error(mat_fill(mat = mat_corner_na, empty.cell.string = 0, warn.print = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "THE FUNCTION HAS DETECTED EMPTY AND NON EMPTY HALF PART IN THE SAME SECTOR: bottomright", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = mat_corner_na, empty_cell_string = 0, warn_print = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "THE FUNCTION HAS DETECTED EMPTY AND NON EMPTY HALF PART IN THE SAME SECTOR: bottomright", fixed = TRUE)
     # sector whose last scanned diagonal (the corner cell) breaks the loop but the whole sector check fails: "DETECTED AS EMPTY, IS NOT?" error
     mat_notqu <- base::matrix(data = c(
         "9", "a", "a", "x",
@@ -160,17 +160,17 @@ testthat::test_that("mat_fill()", {
         "a", "x", "x", "x",
         "x", "x", "x", "x"
     ), ncol = 4, byrow = TRUE)
-    testthat::expect_error(mat_fill(mat = mat_notqu, empty.cell.string = "a", lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "THE TOPLEFT SECTOR, DETECTED AS EMPTY, IS NOT?", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = mat_notqu, empty_cell_string = "a", lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "THE TOPLEFT SECTOR, DETECTED AS EMPTY, IS NOT?", fixed = TRUE)
     # more than one empty half part -> error with the accumulated warnings
-    testthat::expect_error(mat_fill(mat = mat_2empty, empty.cell.string = 0, warn.print = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MORE THAN ONE EMPTY HALF PART", fixed = TRUE)
-    testthat::expect_error(mat_fill(mat = mat_2empty, empty.cell.string = 0, warn.print = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = mat_2empty, empty_cell_string = 0, warn_print = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "MORE THAN ONE EMPTY HALF PART", fixed = TRUE)
+    testthat::expect_error(mat_fill(mat = mat_2empty, empty_cell_string = 0, warn_print = TRUE, lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER", fixed = TRUE)
     # zero empty half part -> warning only, matrix returned unchanged
     mat_noempty <- base::matrix(data = c(1,2,3,4, 5,6,7,8, 9,10,11,12, 13,14,15,16), ncol = 4)
-    res_ne <- mat_fill(mat = mat_noempty, empty.cell.string = 9, warn.print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    res_ne <- mat_fill(mat = mat_noempty, empty_cell_string = 9, warn_print = TRUE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_equal(object = res_ne$mat, expected = mat_noempty)
     testthat::expect_true(object = base::grepl(x = res_ne$warn, pattern = "ZERO EMPTY HALF PART", fixed = TRUE))
-    # warn.print = FALSE: no warning emitted (returned warn is still filled)
-    res_wp <- mat_fill(mat = build_sector_mat(0, "topleft"), empty.cell.string = 0, warn.print = FALSE, lib_path = NULL, safer_check = FALSE, error_text = "")
+    # warn_print = FALSE: no warning emitted (returned warn is still filled)
+    res_wp <- mat_fill(mat = build_sector_mat(0, "topleft"), empty_cell_string = 0, warn_print = FALSE, lib_path = NULL, safer_check = FALSE, error_text = "")
     testthat::expect_true(object = base::grepl(x = res_wp$warn, pattern = "TOPLEFT SECTOR HAS BEEN COMPLETED", fixed = TRUE))
     # options(warning.length) restored after execution
     ini_wl <- base::options()$warning.length

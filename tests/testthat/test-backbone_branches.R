@@ -14,9 +14,9 @@
 base_calls <- base::list(
     mat_rotate = base::quote(mat_rotate(data = base::matrix(data = 1:10, ncol = 2), lib_path = NULL, safer_check = FALSE, error_text = "")),
     mat_inv = base::quote(mat_inv(mat = base::matrix(data = c(2, 1, 1, 2), ncol = 2), lib_path = NULL, safer_check = FALSE, error_text = "")),
-    mat_fill = base::quote(mat_fill(mat = base::matrix(data = c(1, 1, 1, 2, 0, 2, 3, 0, NA, 3, 0, 0, 5, 0, 0, 0), ncol = 4), empty.cell.string = 0, warn.print = FALSE, lib_path = NULL, safer_check = FALSE, error_text = "")),
-    mat_num2color = base::quote(mat_num2color(mat1 = base::matrix(data = c(1/3, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/3), ncol = 4), mat.hsv.h = TRUE, notch = 1, s = 1, v = 1, forced.color = NULL, lib_path = NULL, safer_check = FALSE, error_text = "")),
-    mat_op = base::quote(mat_op(mat.list = base::list(base::matrix(data = c(1, 1, 1, 2), ncol = 2), base::matrix(data = c(1, 1, 1, 2), ncol = 2)), kind.of.operation = "+", lib_path = NULL, safer_check = FALSE, error_text = ""))
+    mat_fill = base::quote(mat_fill(mat = base::matrix(data = c(1, 1, 1, 2, 0, 2, 3, 0, NA, 3, 0, 0, 5, 0, 0, 0), ncol = 4), empty_cell_string = 0, warn_print = FALSE, lib_path = NULL, safer_check = FALSE, error_text = "")),
+    mat_num2color = base::quote(mat_num2color(mat1 = base::matrix(data = c(1/3, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/7, 1/3, 1/3, 1/9, 1/3, 1/3, 1/3), ncol = 4), mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = NULL, safer_check = FALSE, error_text = "")),
+    mat_op = base::quote(mat_op(mat_list = base::list(base::matrix(data = c(1, 1, 1, 2), ncol = 2), base::matrix(data = c(1, 1, 1, 2), ncol = 2)), kind_of_operation = "+", lib_path = NULL, safer_check = FALSE, error_text = ""))
 )
 ## end initialization of tests
 
@@ -40,7 +40,7 @@ testthat::test_that("management of NULL arguments (backbone)", {
         mat_inv = "mat",
         mat_fill = "mat",
         mat_num2color = "notch",
-        mat_op = "kind.of.operation"
+        mat_op = "kind_of_operation"
     )
     for(fn in base::names(x = null_specs)){
         msg <- run_mod(fn = fn, mod_args = stats::setNames(base::list(NULL), null_specs[[fn]]))
@@ -54,7 +54,7 @@ testthat::test_that("management of empty non NULL arguments (backbone)", {
         mat_inv = "mat",
         mat_fill = "mat",
         mat_num2color = "notch",
-        mat_op = "kind.of.operation"
+        mat_op = "kind_of_operation"
     )
     for(fn in base::names(x = empty_specs)){
         msg <- run_mod(fn = fn, mod_args = stats::setNames(base::list(base::logical(length = 0)), empty_specs[[fn]]))
@@ -71,17 +71,17 @@ testthat::test_that("management of NA arguments (backbone)", {
     na_specs <- base::list(
         mat_rotate = "data",
         mat_inv = "mat",
-        mat_fill = "warn.print", # empty.cell.string is excluded from the generic NA rule by design (it can be NA)
-        mat_num2color = "mat.hsv.h",
-        mat_op = "kind.of.operation"
+        mat_fill = "warn_print", # empty_cell_string is excluded from the generic NA rule by design (it can be NA)
+        mat_num2color = "mat_hsv_h",
+        mat_op = "kind_of_operation"
     )
     for(fn in base::names(x = na_specs)){
         msg <- run_mod(fn = fn, mod_args = stats::setNames(base::list(NA), na_specs[[fn]]))
         testthat::expect_true(object = base::grepl(x = msg, pattern = "CANNOT BE MADE OF NA ONLY", fixed = TRUE), label = base::paste0(fn, ": NA ", na_specs[[fn]]))
     }
-    # NA-only list elements also caught: mat.list = list(NA, NA)
-    msg <- run_mod(fn = "mat_op", mod_args = list(mat.list = base::list(NA, NA)))
-    testthat::expect_true(object = base::grepl(x = msg, pattern = "CANNOT BE MADE OF NA ONLY", fixed = TRUE), label = "mat_op: NA mat.list elements (element check)")
+    # NA-only list elements also caught: mat_list = list(NA, NA)
+    msg <- run_mod(fn = "mat_op", mod_args = list(mat_list = base::list(NA, NA)))
+    testthat::expect_true(object = base::grepl(x = msg, pattern = "CANNOT BE MADE OF NA ONLY", fixed = TRUE), label = "mat_op: NA mat_list elements (element check)")
     # mat.fill mat arg with NA inside: passed (NA allowed in mat)
     testthat::expect_no_error(object = run_mod(fn = "mat_fill", mod_args = list(mat = base::matrix(data = c(1, 1, 1, 2, 0, 2, 3, 0, NA, 3, 0, 0, 5, 0, 0, 0), ncol = 4)))) # identical to base call: no error
 })
@@ -140,13 +140,13 @@ testthat::test_that("check of the required functions and critical operators (bac
 
 testthat::test_that("management of empty string in character arguments (backbone)", {
     # functions having a "management of \"\" in arguments of mode character" section
-    # mat_num2color: forced.color ; mat_op: kind.of.operation
-    # kind.of.operation: "" first caught by the options arg_check ("" not in c("+", "-", "*")), so the "" section is reached only through the internal-error branch (nocov) for mat_op.
-    msg <- run_mod(fn = "mat_num2color", mod_args = list(forced.color = ""))
-    testthat::expect_true(object = base::grepl(x = msg, pattern = "CANNOT CONTAIN EMPTY STRING", fixed = TRUE), label = "mat_num2color: empty string forced.color")
-    # mat_op: "" kind.of.operation caught by arg_check options
-    msg2 <- run_mod(fn = "mat_op", mod_args = list(kind.of.operation = ""))
-    testthat::expect_true(object = base::grepl(x = msg2, pattern = "MUST BE SOME OF", fixed = TRUE), label = "mat_op: empty string kind.of.operation caught by arg_check options")
+    # mat_num2color: forced_color ; mat_op: kind_of_operation
+    # kind_of_operation: "" first caught by the options arg_check ("" not in c("+", "-", "*")), so the "" section is reached only through the internal-error branch (nocov) for mat_op.
+    msg <- run_mod(fn = "mat_num2color", mod_args = list(forced_color = ""))
+    testthat::expect_true(object = base::grepl(x = msg, pattern = "CANNOT CONTAIN EMPTY STRING", fixed = TRUE), label = "mat_num2color: empty string forced_color")
+    # mat_op: "" kind_of_operation caught by arg_check options
+    msg2 <- run_mod(fn = "mat_op", mod_args = list(kind_of_operation = ""))
+    testthat::expect_true(object = base::grepl(x = msg2, pattern = "MUST BE SOME OF", fixed = TRUE), label = "mat_op: empty string kind_of_operation caught by arg_check options")
 })
 
 testthat::test_that("arg with no default values and all-default calls (backbone)", {
@@ -154,7 +154,7 @@ testthat::test_that("arg with no default values and all-default calls (backbone)
     for(fn in base::names(x = base_calls)){
         cl <- base_calls[[fn]]
         # remove the first no-default argument from the call
-        no_def <- base::switch(EXPR = fn, mat_rotate = "data", mat_inv = "mat", mat_fill = "mat", mat_num2color = "mat1", mat_op = "mat.list")
+        no_def <- base::switch(EXPR = fn, mat_rotate = "data", mat_inv = "mat", mat_fill = "mat", mat_num2color = "mat1", mat_op = "mat_list")
         cl[no_def] <- NULL
         res <- base::tryCatch(
             expr = base::eval(expr = cl, envir = base::asNamespace(ns = "saferMatrix")),
