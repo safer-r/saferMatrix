@@ -38,13 +38,13 @@ mat_num2color(
 \value{
 A list containing:
 
-- $mat1.name: name of mat1
+- $mat1_name: name of mat1
 
-- $colored.mat: colors of mat1 in hexa
+- $colored_mat: colors of mat1 in hexa
 
 - $problem: logical. Is any colors of forced_color overlap the colors designed by the function. NULL if forced_color = NULL
 
-- $text.problem: text when overlapping colors. NULL if forced_color = NULL or problem == FALSE
+- $text_problem: text when overlapping colors. NULL if forced_color = NULL or problem == FALSE
 }
 \description{
 Convert a matrix made of numbers into a hexadecimal matrix for rgb colorization.

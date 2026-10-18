@@ -13,13 +13,13 @@
 #' @returns
 #' A list containing:
 #'
-#' - $mat1.name: name of mat1
+#' - $mat1_name: name of mat1
 #'
-#' - $colored.mat: colors of mat1 in hexa
+#' - $colored_mat: colors of mat1 in hexa
 #'
 #' - $problem: logical. Is any colors of forced_color overlap the colors designed by the function. NULL if forced_color = NULL
 #'
-#' - $text.problem: text when overlapping colors. NULL if forced_color = NULL or problem == FALSE
+#' - $text_problem: text when overlapping colors. NULL if forced_color = NULL or problem == FALSE
 #' @author Gael Millot <gael.millot@pasteur.fr>
 #' @author Yushi Han <yushi.han2000@gmail.com>
 #' @author Haiding Wang <wanghaiding442@gmail.com>
@@ -579,7 +579,7 @@ mat_num2color <- function(
     #### end warning output
 
     #### output
-    output <- base::list(mat1.name = mat1_name, colored.mat = mat1, problem = problem, text.problem = text_problem)
+    output <- base::list(mat1_name = mat1_name, colored_mat = mat1, problem = problem, text_problem = text_problem)
     base::return(output)
     #### end output
 }
