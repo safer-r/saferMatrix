@@ -464,7 +464,7 @@ mat_op <- function(
     ident_col_names <- TRUE
     for(i1 in 2:base::length(x = mat_list)){
         tempo <- saferTool::comp_2d(data1 = mat_list[[1]], data2 = mat_list[[i1]], safer_check = FALSE, lib_path = NULL, error_text = embed_error_text)
-        if(tempo$same.dim == FALSE){
+        if(tempo$same_dim == FALSE){
             tempo_cat <- base::paste0(
                 error_text_start,
                 "MATRIX ", i1, " OF mat_list ARGUMENT MUST HAVE THE SAME DIMENSION (", base::paste0(base::dim(x = mat_list[[i1]]), collapse = " ", recycle0 = FALSE), ") THAN THE MATRIX 1 IN mat_list (", base::paste0(base::dim(x = mat_list[[1]]), collapse = " ", recycle0 = FALSE), ")",
@@ -473,13 +473,13 @@ mat_op <- function(
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
         }
-        if( ! base::is.null(x = tempo$same.row.name)){
-            if(tempo$same.row.name != TRUE){ # != TRUE to deal with NA
+        if( ! base::is.null(x = tempo$same_row_name)){
+            if(tempo$same_row_name != TRUE){ # != TRUE to deal with NA
                 ident_row_names <- FALSE
             }
         }
-        if( ! base::is.null(x = tempo$same.col.name)){
-            if(tempo$same.col.name != TRUE){ # != TRUE to deal with NA
+        if( ! base::is.null(x = tempo$same_col_name)){
+            if(tempo$same_col_name != TRUE){ # != TRUE to deal with NA
                 ident_col_names <- FALSE
             }
         }
