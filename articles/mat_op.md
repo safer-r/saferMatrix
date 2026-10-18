@@ -49,19 +49,19 @@ mat4
 ### Simple examples
 
 ``` r
-mat_op(mat.list = list(mat1, mat2))
+mat_op(mat_list = list(mat1, mat2))
 >   a  b
 > A 2  2
 > B 2 10
 > C 2 18
 > D 4 NA
-mat_op(mat.list = list(mat2, mat3))
+mat_op(mat_list = list(mat2, mat3))
 >   [,1] [,2]
 > A    2    2
 > B    2   10
 > C    2   18
 > D    4   NA
-mat_op(mat.list = list(mat2, mat2, mat4))
+mat_op(mat_list = list(mat2, mat2, mat4))
 >      a  b
 > [1,] 3  3
 > [2,] 3 15
@@ -74,19 +74,19 @@ mat_op(mat.list = list(mat2, mat2, mat4))
 ### All the arguments
 
 ``` r
-mat_op(mat.list = list(mat1, mat2), kind.of.operation = "*")
+mat_op(mat_list = list(mat1, mat2), kind_of_operation = "*")
 >   a  b
 > A 1  1
 > B 1 25
 > C 1 81
 > D 4 NA
-mat_op(mat.list = list(mat2, mat3), kind.of.operation = "-")
+mat_op(mat_list = list(mat2, mat3), kind_of_operation = "-")
 >   [,1] [,2]
 > A    0    0
 > B    0    0
 > C    0    0
 > D    0   NA
-mat_op(mat.list = list(mat2, mat2, mat4), kind.of.operation = "+")
+mat_op(mat_list = list(mat2, mat2, mat4), kind_of_operation = "+")
 >      a  b
 > [1,] 3  3
 > [2,] 3 15

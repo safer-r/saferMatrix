@@ -8,11 +8,11 @@ colorization.
 ``` r
 mat_num2color(
   mat1,
-  mat.hsv.h = TRUE,
+  mat_hsv_h = TRUE,
   notch = 1,
   s = 1,
   v = 1,
-  forced.color = NULL,
+  forced_color = NULL,
   lib_path = NULL,
   safer_check = TRUE,
   error_text = ""
@@ -26,7 +26,7 @@ mat_num2color(
   Matrix 1 of non negative numerical values that has to be colored
   (matrix class). NA allowed.
 
-- mat.hsv.h:
+- mat_hsv_h:
 
   Single logical value. Is mat1 the h of hsv colors ? (if TRUE, mat1
   must be between zero and 1). If FALSE, mat1 must be made of positive
@@ -47,7 +47,7 @@ mat_num2color(
   Single numeric value between 0 and 1 (v argument of
   [`grDevices::hsv()`](https://rdrr.io/r/grDevices/hsv.html)).
 
-- forced.color:
+- forced_color:
 
   Must be NULL or hexadecimal color code or name given by
   [`grDevices::colors()`](https://rdrr.io/r/grDevices/colors.html). The
@@ -97,10 +97,10 @@ A list containing:
 
 \- \$colored.mat: colors of mat1 in hexa
 
-\- \$problem: logical. Is any colors of forced.color overlap the colors
-designed by the function. NULL if forced.color = NULL
+\- \$problem: logical. Is any colors of forced_color overlap the colors
+designed by the function. NULL if forced_color = NULL
 
-\- \$text.problem: text when overlapping colors. NULL if forced.color =
+\- \$text.problem: text when overlapping colors. NULL if forced_color =
 NULL or problem == FALSE
 
 ## Author
@@ -118,7 +118,7 @@ Haiding Wang \<wanghaiding442@gmail.com\>
 # because of a particular environment. Please, copy-paste in a local environment.
 mat1 <- base::matrix(data = c(1,1,1,2, 5,2,3,NA, 5,5,1,1, 5,5,5,1), ncol = 4) ;
 base::dimnames(x = mat1) <- base::list(LETTERS[1:4], letters[1:4]) ;
-mat_num2color(mat1 = mat1, mat.hsv.h = FALSE, notch = 1, s = 1, v = 1, forced.color = NULL)
+mat_num2color(mat1 = mat1, mat_hsv_h = FALSE, notch = 1, s = 1, v = 1, forced_color = NULL)
 #> $mat1.name
 #> [1] "mat1"
 #> 

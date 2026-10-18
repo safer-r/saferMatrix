@@ -115,19 +115,19 @@
 <div class="section level3">
 <h3 id="simple-examples">Simple examples<a class="anchor" aria-label="anchor" href="#simple-examples"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat.list =</span> <span class="fu">list</span>(mat1, mat2))</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat_list =</span> <span class="fu">list</span>(mat1, mat2))</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="sc">&gt;</span>   a  b</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="dv">2</span>  <span class="dv">2</span></span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="sc">&gt;</span> B <span class="dv">2</span> <span class="dv">10</span></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="sc">&gt;</span> C <span class="dv">2</span> <span class="dv">18</span></span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="sc">&gt;</span> D <span class="dv">4</span> <span class="cn">NA</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat.list =</span> <span class="fu">list</span>(mat2, mat3))</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat_list =</span> <span class="fu">list</span>(mat2, mat3))</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="sc">&gt;</span>   [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="sc">&gt;</span> A    <span class="dv">2</span>    <span class="dv">2</span></span>
 <span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="sc">&gt;</span> B    <span class="dv">2</span>   <span class="dv">10</span></span>
 <span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="sc">&gt;</span> C    <span class="dv">2</span>   <span class="dv">18</span></span>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="sc">&gt;</span> D    <span class="dv">4</span>   <span class="cn">NA</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat.list =</span> <span class="fu">list</span>(mat2, mat2, mat4))</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat_list =</span> <span class="fu">list</span>(mat2, mat2, mat4))</span>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="sc">&gt;</span>      a  b</span>
 <span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>,] <span class="dv">3</span>  <span class="dv">3</span></span>
 <span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">2</span>,] <span class="dv">3</span> <span class="dv">15</span></span>
@@ -138,19 +138,19 @@
 <div class="section level3">
 <h3 id="all-the-arguments">All the arguments<a class="anchor" aria-label="anchor" href="#all-the-arguments"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat.list =</span> <span class="fu">list</span>(mat1, mat2), <span class="at">kind.of.operation =</span> <span class="st">"*"</span>)</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat_list =</span> <span class="fu">list</span>(mat1, mat2), <span class="at">kind_of_operation =</span> <span class="st">"*"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="sc">&gt;</span>   a  b</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="dv">1</span>  <span class="dv">1</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="sc">&gt;</span> B <span class="dv">1</span> <span class="dv">25</span></span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="sc">&gt;</span> C <span class="dv">1</span> <span class="dv">81</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="sc">&gt;</span> D <span class="dv">4</span> <span class="cn">NA</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat.list =</span> <span class="fu">list</span>(mat2, mat3), <span class="at">kind.of.operation =</span> <span class="st">"-"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat_list =</span> <span class="fu">list</span>(mat2, mat3), <span class="at">kind_of_operation =</span> <span class="st">"-"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="sc">&gt;</span>   [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="sc">&gt;</span> A    <span class="dv">0</span>    <span class="dv">0</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="sc">&gt;</span> B    <span class="dv">0</span>    <span class="dv">0</span></span>
 <span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="sc">&gt;</span> C    <span class="dv">0</span>    <span class="dv">0</span></span>
 <span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="sc">&gt;</span> D    <span class="dv">0</span>   <span class="cn">NA</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat.list =</span> <span class="fu">list</span>(mat2, mat2, mat4), <span class="at">kind.of.operation =</span> <span class="st">"+"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="fu">mat_op</span>(<span class="at">mat_list =</span> <span class="fu">list</span>(mat2, mat2, mat4), <span class="at">kind_of_operation =</span> <span class="st">"+"</span>)</span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="sc">&gt;</span>      a  b</span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>,] <span class="dv">3</span>  <span class="dv">3</span></span>
 <span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">2</span>,] <span class="dv">3</span> <span class="dv">15</span></span>

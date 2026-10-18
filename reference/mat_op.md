@@ -1,7 +1,7 @@
 # mat_op
 
 Assemble several matrices of same dimensions by performing by case
-operation. For instance, with kind.of.operation = "+", the function will
+operation. For instance, with kind_of_operation = "+", the function will
 add the value of all the case 1 (row1 & column1) of the matrices and put
 it in the case 1 of a new matrix M, according to the formula
 
@@ -19,35 +19,24 @@ z: number of matrices
 
 ``` r
 mat_op(
-  mat.list,
-  kind.of.operation = "+",
-  safer_check = TRUE,
+  mat_list,
+  kind_of_operation = "+",
   lib_path = NULL,
+  safer_check = TRUE,
   error_text = ""
 )
 ```
 
 ## Arguments
 
-- mat.list:
+- mat_list:
 
   List of matrices (matrix class) of numerical values. NA allowed.
 
-- kind.of.operation:
+- kind_of_operation:
 
   Either "+" (by case addition), "-" (by case subtraction) or "\*" (by
   case multiplication).
-
-- safer_check:
-
-  Single logical value. Perform the "safer" checks? If `TRUE`, checkings
-  are performed before main code running (see the [safer-r
-  project](https://github.com/safer-r)): 1) correct `lib_path` argument
-  value 2) required functions and related packages effectively present
-  in local R libraries and 3) R classical operators (like `"<-"`) not
-  overwritten by another package because of the R scope. Warning: must
-  be set to `FALSE` if this function is used inside another "safer"
-  function to avoid pointless multiple checkings.
 
 - lib_path:
 
@@ -64,6 +53,17 @@ mat_op(
   pathways specified by the current
   [`.libPaths()`](https://rdrr.io/r/base/libPaths.html) are used for
   package calling.
+
+- safer_check:
+
+  Single logical value. Perform the "safer" checks? If `TRUE`, checkings
+  are performed before main code running (see the [safer-r
+  project](https://github.com/safer-r)): 1) correct `lib_path` argument
+  value 2) required functions and related packages effectively present
+  in local R libraries and 3) R classical operators (like `"<-"`) not
+  overwritten by another package because of the R scope. Warning: must
+  be set to `FALSE` if this function is used inside another "safer"
+  function to avoid pointless multiple checkings.
 
 - error_text:
 
@@ -93,7 +93,7 @@ Haiding Wang \<wanghaiding442@gmail.com\>
 # because of a particular environment. Please, copy-paste in a local environment.
 mat1 <- base::matrix(data = c(1,1,1,2,1,5,9,8), ncol = 2) ;
 mat2 <- base::matrix(data = c(1,1,1,2,1,5,9,NA), ncol = 2) ;
-mat_op(mat.list = base::list(mat1, mat2), kind.of.operation = "+")
+mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+")
 #>      [,1] [,2]
 #> [1,]    2    2
 #> [2,]    2   10

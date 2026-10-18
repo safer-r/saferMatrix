@@ -120,9 +120,9 @@
 <p><br></p>
 </div>
 <div class="section level3">
-<h3 id="argument-mat-hsv-h">Argument mat.hsv.h<a class="anchor" aria-label="anchor" href="#argument-mat-hsv-h"></a>
+<h3 id="argument-mat_hsv_h">Argument mat_hsv_h<a class="anchor" aria-label="anchor" href="#argument-mat_hsv_h"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">mat_num2color</span>(<span class="at">mat1 =</span> mat1, <span class="at">mat.hsv.h =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">mat_num2color</span>(<span class="at">mat1 =</span> mat1, <span class="at">mat_hsv_h =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat1.name</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"mat1"</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="sc">&gt;</span> </span>
@@ -139,7 +139,7 @@
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="er">&gt;</span> <span class="er">$</span>text.problem</span>
 <span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="sc">&gt;</span> <span class="cn">NULL</span></span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="fu">mat_num2color</span>(<span class="at">mat1 =</span> mat2, <span class="at">mat.hsv.h =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="fu">mat_num2color</span>(<span class="at">mat1 =</span> mat2, <span class="at">mat_hsv_h =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat1.name</span>
 <span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"mat2"</span></span>
 <span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="sc">&gt;</span> </span>
@@ -323,9 +323,9 @@
 <p><br></p>
 </div>
 <div class="section level3">
-<h3 id="argument-forced-color">Argument forced.color<a class="anchor" aria-label="anchor" href="#argument-forced-color"></a>
+<h3 id="argument-forced_color">Argument forced_color<a class="anchor" aria-label="anchor" href="#argument-forced_color"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">mat_num2color</span>(<span class="at">mat1 =</span> mat2, <span class="at">forced.color =</span> <span class="st">"snow"</span>)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">mat_num2color</span>(<span class="at">mat1 =</span> mat2, <span class="at">forced_color =</span> <span class="st">"snow"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat1.name</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"mat2"</span></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="sc">&gt;</span> </span>
@@ -348,11 +348,11 @@
 </h3>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">mat_num2color</span>(</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>        <span class="at">mat1 =</span> mat1, </span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>        <span class="at">mat.hsv.h =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>        <span class="at">mat_hsv_h =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>        <span class="at">notch =</span> <span class="dv">1</span>, </span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>        <span class="at">s =</span> <span class="dv">1</span>, </span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>        <span class="at">v =</span> <span class="dv">1</span>, </span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>        <span class="at">forced.color =</span> <span class="cn">NULL</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>        <span class="at">forced_color =</span> <span class="cn">NULL</span></span>
 <span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>)</span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat1.name</span>
 <span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"mat1"</span></span>
@@ -372,11 +372,11 @@
 <span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a></span>
 <span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="fu">mat_num2color</span>(</span>
 <span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>        <span class="at">mat1 =</span> mat2, </span>
-<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>        <span class="at">mat.hsv.h =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>        <span class="at">mat_hsv_h =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>        <span class="at">notch =</span> <span class="dv">1</span>, </span>
 <span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>        <span class="at">s =</span> <span class="dv">1</span>, </span>
 <span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a>        <span class="at">v =</span> <span class="dv">1</span>, </span>
-<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>        <span class="at">forced.color =</span> <span class="cn">NULL</span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>        <span class="at">forced_color =</span> <span class="cn">NULL</span></span>
 <span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a>)</span>
 <span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a><span class="sc">&gt;</span> <span class="er">$</span>mat1.name</span>
 <span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="sc">&gt;</span> [<span class="dv">1</span>] <span class="st">"mat2"</span></span>

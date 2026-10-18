@@ -14,8 +14,8 @@
   imported from saferDev (\>= 2.0.0) instead of being duplicated
   locally; internal_functions.R and its man page removed.
 - Bug fixes found during the migration: mat_op now restores row and
-  column names only when identical across all the matrices of mat.list;
-  mat_num2color no longer crashes on integer matrices with mat.hsv.h =
+  column names only when identical across all the matrices of mat_list;
+  mat_num2color no longer crashes on integer matrices with mat_hsv_h =
   TRUE (clear error message instead).
 - Complete test suite rewritten in the saferDev style (tests/testthat),
   including a test-mandatory_args.R replicating the saferDev pattern;

@@ -11,8 +11,8 @@ matrix.
 ``` r
 mat_fill(
   mat,
-  empty.cell.string = 0,
-  warn.print = FALSE,
+  empty_cell_string = 0,
+  warn_print = FALSE,
   lib_path = NULL,
   safer_check = TRUE,
   error_text = ""
@@ -28,12 +28,12 @@ mat_fill(
   (character matrix) or 0 (numeric matrix) exclusively (not a mix of 0
   and NA in the empty part).
 
-- empty.cell.string:
+- empty_cell_string:
 
   A numeric, character or NA (no quotes) indicating what empty cells are
   filled with.
 
-- warn.print:
+- warn_print:
 
   Single logical value. Print warnings at the end of the execution? No
   print if no warning messages.
@@ -93,6 +93,12 @@ sector detection always ends with the "DETECTED AS EMPTY, IS NOT?"
 error, even for a valid single-empty-half matrix (pre-existing behavior,
 kept unchanged during the migration).
 
+The `empty_cell_string` argument accepts NA as only argument, which
+breaks the safer-r rule. The "management of NA arguments" section has
+been personalized accordingly and the code of this function has been
+checked so that `empty_cell_string` is not used in
+`if(empty_cell_string){}`.
+
 ## Author
 
 Gael Millot \<gael.millot@pasteur.fr\>
@@ -114,7 +120,7 @@ mat1 ;
 #> [2,]   NA    2    3    6
 #> [3,]   NA   NA    4    7
 #> [4,]   NA   NA   NA    8
-mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE)
+mat_fill(mat = mat1, empty_cell_string = NA, warn_print = TRUE)
 #> Warning: FROM saferMatrix::mat_fill().
 #> 
 #> (1) EMPTY SECTOR DETECTED ON THE BOTTOMLEFT CORNER, FULL OF NA

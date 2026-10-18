@@ -55,10 +55,10 @@ mat_num2color(mat1 = mat2)
 
 \
 
-### Argument mat.hsv.h
+### Argument mat_hsv_h
 
 ``` r
-mat_num2color(mat1 = mat1, mat.hsv.h = FALSE)
+mat_num2color(mat1 = mat1, mat_hsv_h = FALSE)
 > $mat1.name
 > [1] "mat1"
 > 
@@ -75,7 +75,7 @@ mat_num2color(mat1 = mat1, mat.hsv.h = FALSE)
 > $text.problem
 > NULL
 
-mat_num2color(mat1 = mat2, mat.hsv.h = TRUE)
+mat_num2color(mat1 = mat2, mat_hsv_h = TRUE)
 > $mat1.name
 > [1] "mat2"
 > 
@@ -266,10 +266,10 @@ mat_num2color(mat1 = mat2, v = 0.7)
 
 \
 
-### Argument forced.color
+### Argument forced_color
 
 ``` r
-mat_num2color(mat1 = mat2, forced.color = "snow")
+mat_num2color(mat1 = mat2, forced_color = "snow")
 > $mat1.name
 > [1] "mat2"
 > 
@@ -294,11 +294,11 @@ mat_num2color(mat1 = mat2, forced.color = "snow")
 ``` r
 mat_num2color(
         mat1 = mat1, 
-        mat.hsv.h = FALSE, 
+        mat_hsv_h = FALSE, 
         notch = 1, 
         s = 1, 
         v = 1, 
-        forced.color = NULL
+        forced_color = NULL
 )
 > $mat1.name
 > [1] "mat1"
@@ -318,11 +318,11 @@ mat_num2color(
 
 mat_num2color(
         mat1 = mat2, 
-        mat.hsv.h = TRUE, 
+        mat_hsv_h = TRUE, 
         notch = 1, 
         s = 1, 
         v = 1, 
-        forced.color = NULL
+        forced_color = NULL
 )
 > $mat1.name
 > [1] "mat2"

@@ -68,7 +68,7 @@ mat_fill(mat = mat2)
 > [4,] "2"  NA   "0"  "0" 
 > 
 > $warn
-> [1] "(1) ACCORDING TO empty.cell.string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"
+> [1] "(1) ACCORDING TO empty_cell_string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"
 mat_fill(mat = mat3)
 > $mat
 >      [,1] [,2] [,3] [,4]
@@ -83,10 +83,10 @@ mat_fill(mat = mat3)
 
 \
 
-### Argument empty.cell.string
+### Argument empty_cell_string
 
 ``` r
-mat_fill(mat = mat1, empty.cell.string = 0)
+mat_fill(mat = mat1, empty_cell_string = 0)
 > $mat
 >      [,1] [,2] [,3] [,4]
 > [1,]    1    0   NA    5
@@ -96,7 +96,7 @@ mat_fill(mat = mat1, empty.cell.string = 0)
 > 
 > $warn
 > [1] "(1) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0\n\n(2) BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL"
-mat_fill(mat = mat2, empty.cell.string = "a")
+mat_fill(mat = mat2, empty_cell_string = "a")
 > $mat
 >      [,1] [,2] [,3] [,4]
 > [1,] "1"  "1"  "1"  "2" 
@@ -106,7 +106,7 @@ mat_fill(mat = mat2, empty.cell.string = "a")
 > 
 > $warn
 > [1] "(1) EMPTY SECTOR DETECTED ON THE TOPRIGHT CORNER, FULL OF a\n\n(2) TOPRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL"
-mat_fill(mat = mat3, empty.cell.string = 0)
+mat_fill(mat = mat3, empty_cell_string = 0)
 > $mat
 >      [,1] [,2] [,3] [,4]
 > [1,]    0    0    0    5
@@ -120,10 +120,10 @@ mat_fill(mat = mat3, empty.cell.string = 0)
 
 \
 
-### Argument warn.print
+### Argument warn_print
 
 ``` r
- mat_fill(mat = mat1, warn.print = TRUE)
+ mat_fill(mat = mat1, warn_print = TRUE)
 > Warning: FROM saferMatrix::mat_fill().
 > 
 > (1) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0
@@ -138,10 +138,10 @@ mat_fill(mat = mat3, empty.cell.string = 0)
 > 
 > $warn
 > [1] "(1) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0\n\n(2) BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL"
- mat_fill(mat = mat2, warn.print = TRUE)
+ mat_fill(mat = mat2, warn_print = TRUE)
 > Warning: FROM saferMatrix::mat_fill().
 > 
-> (1) ACCORDING TO empty.cell.string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART
+> (1) ACCORDING TO empty_cell_string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART
 > $mat
 >      [,1] [,2] [,3] [,4]
 > [1,] "1"  "a"  "a"  "a" 
@@ -150,8 +150,8 @@ mat_fill(mat = mat3, empty.cell.string = 0)
 > [4,] "2"  NA   "0"  "0" 
 > 
 > $warn
-> [1] "(1) ACCORDING TO empty.cell.string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"
- mat_fill(mat = mat3, warn.print = TRUE)
+> [1] "(1) ACCORDING TO empty_cell_string ARGUMENT (0), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"
+ mat_fill(mat = mat3, warn_print = TRUE)
 > Warning: FROM saferMatrix::mat_fill().
 > 
 > (1) EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF 0
@@ -174,7 +174,7 @@ mat_fill(mat = mat3, empty.cell.string = 0)
 
 ``` r
 # bottomright example
-mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE) 
+mat_fill(mat = mat1, empty_cell_string = 0, warn_print = TRUE) 
 > Warning: FROM saferMatrix::mat_fill().
 > 
 > (1) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0
@@ -191,7 +191,7 @@ mat_fill(mat = mat1, empty.cell.string = 0, warn.print = TRUE)
 > [1] "(1) EMPTY SECTOR DETECTED ON THE BOTTOMRIGHT CORNER, FULL OF 0\n\n(2) BOTTOMRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL"
 
 # topright example
-mat_fill(mat = mat2, empty.cell.string = "a", warn.print = TRUE) 
+mat_fill(mat = mat2, empty_cell_string = "a", warn_print = TRUE) 
 > Warning: FROM saferMatrix::mat_fill().
 > 
 > (1) EMPTY SECTOR DETECTED ON THE TOPRIGHT CORNER, FULL OF a
@@ -208,7 +208,7 @@ mat_fill(mat = mat2, empty.cell.string = "a", warn.print = TRUE)
 > [1] "(1) EMPTY SECTOR DETECTED ON THE TOPRIGHT CORNER, FULL OF a\n\n(2) TOPRIGHT SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL"
 
 # topleft example
-mat_fill(mat = mat3, empty.cell.string = 0, warn.print = TRUE) 
+mat_fill(mat = mat3, empty_cell_string = 0, warn_print = TRUE) 
 > Warning: FROM saferMatrix::mat_fill().
 > 
 > (1) EMPTY SECTOR DETECTED ON THE TOPLEFT CORNER, FULL OF 0
@@ -230,10 +230,10 @@ mat_fill(mat = mat3, empty.cell.string = 0, warn.print = TRUE)
 ### Error examples
 
 ``` r
-mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE) 
+mat_fill(mat = mat1, empty_cell_string = NA, warn_print = TRUE) 
 > Warning: FROM saferMatrix::mat_fill().
 > 
-> (1) ACCORDING TO empty.cell.string ARGUMENT (NA), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART
+> (1) ACCORDING TO empty_cell_string ARGUMENT (NA), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART
 > $mat
 >      [,1] [,2] [,3] [,4]
 > [1,]    1    0   NA    5
@@ -242,9 +242,9 @@ mat_fill(mat = mat1, empty.cell.string = NA, warn.print = TRUE)
 > [4,]    2    0    0    0
 > 
 > $warn
-> [1] "(1) ACCORDING TO empty.cell.string ARGUMENT (NA), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"
+> [1] "(1) ACCORDING TO empty_cell_string ARGUMENT (NA), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART"
 
-mat_fill(mat = mat4, empty.cell.string = 0, warn.print = TRUE) 
+mat_fill(mat = mat4, empty_cell_string = 0, warn_print = TRUE) 
 >  [1m [33mError [39m: [22m
 >  [33m! [39m 
 > 
@@ -252,7 +252,7 @@ mat_fill(mat = mat4, empty.cell.string = 0, warn.print = TRUE)
 > 
 > ERROR IN saferMatrix::mat_fill().
 > 
-> ACCORDING TO empty.cell.string ARGUMENT (0), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): topleft bottomright
+> ACCORDING TO empty_cell_string ARGUMENT (0), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): topleft bottomright
 > 
 > ================
 > 
