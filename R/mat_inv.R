@@ -407,12 +407,12 @@ mat_inv <- function(
     #### main code
     if(base::any(base::grepl(x = base::try(base::solve(a = mat), silent = TRUE), pattern = "[Ee]rror", ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE), na.rm = TRUE)){
         tempo <- base::svd(x = mat)
-        val.critique <- base::which(tempo$d < 10^-8)
-        Diag.mod <- base::diag(x = 1 / tempo$d)
-        for(i in val.critique){
-            Diag.mod[i, i] <- 0
+        val_critique <- base::which(tempo$d < 10^-8)
+        Diag_mod <- base::diag(x = 1 / tempo$d)
+        for(i in val_critique){
+            Diag_mod[i, i] <- 0
         }
-        base::return(tempo$v %*% Diag.mod %*% base::t(x = tempo$u))
+        base::return(tempo$v %*% Diag_mod %*% base::t(x = tempo$u))
     }else{
         base::return(base::solve(a = mat))
     }

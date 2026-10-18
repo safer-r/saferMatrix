@@ -156,9 +156,9 @@ testthat::test_that("mat_num2color()", {
     # values between 0 and 1 with mat_hsv_h = TRUE: no rescale (1/9 is at mat2[3,2])
     res7 <- mat_num2color(mat1 = mat2, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = NULL, safer_check = TRUE, error_text = "")
     testthat::expect_equal(object = res7$colored.mat[3, 2], expected = grDevices::hsv(h = 1/9, s = 1, v = 1, alpha = 1))
-    # forced_color collapse error: hsv(h = 0) and hsv(h = 1) give the same color (#FF0000FF), so after the first forced_color replacement, the second hexa.values.to.change entry is no longer present in mat1
+    # forced_color collapse error: hsv(h = 0) and hsv(h = 1) give the same color (#FF0000FF), so after the first forced_color replacement, the second hexa_values_to_change entry is no longer present in mat1
     mat_h01 <- base::matrix(data = c(0, 1), ncol = 1)
-    testthat::expect_error(mat_num2color(mat1 = mat_h01, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = base::c("snow", "black"), lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "THE #FF0000FF VALUE FROM hexa.values.to.change IS NOT REPRESENTED IN mat1 : snow", fixed = TRUE)
+    testthat::expect_error(mat_num2color(mat1 = mat_h01, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = base::c("snow", "black"), lib_path = NULL, safer_check = TRUE, error_text = ""), regexp = "THE #FF0000FF VALUE FROM hexa_values_to_change IS NOT REPRESENTED IN mat1 : snow", fixed = TRUE)
     #### end main code
 
     #### warning output

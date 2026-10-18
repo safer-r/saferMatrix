@@ -460,8 +460,8 @@ mat_op <- function(
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
         }
     }
-    ident.row.names <- TRUE
-    ident.col.names <- TRUE
+    ident_row_names <- TRUE
+    ident_col_names <- TRUE
     for(i1 in 2:base::length(x = mat_list)){
         tempo <- saferTool::comp_2d(data1 = mat_list[[1]], data2 = mat_list[[i1]], safer_check = FALSE, lib_path = NULL, error_text = embed_error_text)
         if(tempo$same.dim == FALSE){
@@ -475,12 +475,12 @@ mat_op <- function(
         }
         if( ! base::is.null(x = tempo$same.row.name)){
             if(tempo$same.row.name != TRUE){ # != TRUE to deal with NA
-                ident.row.names <- FALSE
+                ident_row_names <- FALSE
             }
         }
         if( ! base::is.null(x = tempo$same.col.name)){
             if(tempo$same.col.name != TRUE){ # != TRUE to deal with NA
-                ident.col.names <- FALSE
+                ident_col_names <- FALSE
             }
         }
     }
@@ -498,10 +498,10 @@ mat_op <- function(
         output <- base::get(x = kind_of_operation)(output, mat_list[[i1]]) # inherits by default: look for the operator in the classical scope
     }
     base::dimnames(x = output) <- NULL
-    if(ident.row.names == TRUE){
+    if(ident_row_names == TRUE){
         base::rownames(x = output) <- base::rownames(x = mat_list[[1]])
     }
-    if(ident.col.names == TRUE){
+    if(ident_col_names == TRUE){
         base::colnames(x = output) <- base::colnames(x = mat_list[[1]])
     }
     base::return(output)

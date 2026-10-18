@@ -95,12 +95,12 @@ testthat::test_that("mat_inv()", {
     # singular matrix: svd() fallback pathway
     inv_sing <- mat_inv(mat = mat_sing)
     tempo <- base::svd(x = mat_sing)
-    Diag.mod <- base::diag(x = 1 / tempo$d)
-    val.critique <- base::which(x = tempo$d < 10^-8)
-    for(i in val.critique){
-        Diag.mod[i, i] <- 0
+    Diag_mod <- base::diag(x = 1 / tempo$d)
+    val_critique <- base::which(x = tempo$d < 10^-8)
+    for(i in val_critique){
+        Diag_mod[i, i] <- 0
     }
-    testthat::expect_equal(object = inv_sing, expected = tempo$v %*% Diag.mod %*% base::t(x = tempo$u))
+    testthat::expect_equal(object = inv_sing, expected = tempo$v %*% Diag_mod %*% base::t(x = tempo$u))
     # 1x1 non-zero matrix
     testthat::expect_equal(object = mat_inv(mat = base::matrix(data = 2, ncol = 1)), expected = base::matrix(data = 0.5, ncol = 1))
     #### end main code

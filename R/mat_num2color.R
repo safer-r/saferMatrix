@@ -489,8 +489,8 @@ mat_num2color <- function(
 
     #### main code
     problem <- NULL
-    text.problem <- NULL
-    mat1.name <- base::deparse(expr = base::substitute(expr = mat1, env = base::environment(fun = NULL)), width.cutoff = 60L, backtick = FALSE, control = base::c("keepNA", "keepInteger", "niceNames", "showAttributes"), nlines = -1L)
+    text_problem <- NULL
+    mat1_name <- base::deparse(expr = base::substitute(expr = mat1, env = base::environment(fun = NULL)), width.cutoff = 60L, backtick = FALSE, control = base::c("keepNA", "keepInteger", "niceNames", "showAttributes"), nlines = -1L)
     # change the scale of the plotted matrix
     if(mat_hsv_h == TRUE){
         if(base::any(base::min(x = mat1, na.rm = TRUE) < 0 | base::max(x = mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
@@ -519,57 +519,57 @@ mat_num2color <- function(
         }
     }
     if(notch != 1){
-        different.color <- base::unique(x = base::as.vector(x = mat1, mode = "any"))
-        different.color <- different.color[ ! base::is.na(x = different.color)]
-        tempo.different.color <- different.color + base::c(0, base::cumsum(base::rep(x = notch, times = base::length(x = different.color) - 1L)))
-        tempo.different.color <- tempo.different.color - base::floor(x = tempo.different.color)
-        if(base::any(base::duplicated(x = tempo.different.color, incomparables = FALSE, fromLast = FALSE) == TRUE, na.rm = TRUE)){
+        different_color <- base::unique(x = base::as.vector(x = mat1, mode = "any"))
+        different_color <- different_color[ ! base::is.na(x = different_color)]
+        tempo_different_color <- different_color + base::c(0, base::cumsum(base::rep(x = notch, times = base::length(x = different_color) - 1L)))
+        tempo_different_color <- tempo_different_color - base::floor(x = tempo_different_color)
+        if(base::any(base::duplicated(x = tempo_different_color, incomparables = FALSE, fromLast = FALSE) == TRUE, na.rm = TRUE)){
             tempo_cat <- base::paste0(
                 error_text_start,
-                "DUPLICATED VALUES AFTER USING notch (", base::paste0(tempo.different.color[base::duplicated(x = tempo.different.color, incomparables = FALSE, fromLast = FALSE)], collapse = " ", recycle0 = FALSE), "). TRY ANOTHER notch VALUE",
+                "DUPLICATED VALUES AFTER USING notch (", base::paste0(tempo_different_color[base::duplicated(x = tempo_different_color, incomparables = FALSE, fromLast = FALSE)], collapse = " ", recycle0 = FALSE), "). TRY ANOTHER notch VALUE",
                 collapse = NULL,
                 recycle0 = FALSE
             )
-            base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)        }else if(base::length(x = different.color) != base::length(x = tempo.different.color)){
+            base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)        }else if(base::length(x = different_color) != base::length(x = tempo_different_color)){
             # nocov start
-            # codecov inactivated because this branch is unreachable: different.color and tempo.different.color are always of the same length by construction (cumsum of a length - 1 vector added to a length 1 initial value)
+            # codecov inactivated because this branch is unreachable: different_color and tempo_different_color are always of the same length by construction (cumsum of a length - 1 vector added to a length 1 initial value)
             tempo_cat <- base::paste0(
                 error_text_start,
-                "LENGTH OF different.color (", base::paste0(different.color, collapse = " ", recycle0 = FALSE), ") DIFFERENT FROM LENGTH OF tempo.different.color (", base::paste0(tempo.different.color, collapse = " ", recycle0 = FALSE), ")",
+                "LENGTH OF different_color (", base::paste0(different_color, collapse = " ", recycle0 = FALSE), ") DIFFERENT FROM LENGTH OF tempo_different_color (", base::paste0(tempo_different_color, collapse = " ", recycle0 = FALSE), ")",
                 collapse = NULL,
                 recycle0 = FALSE
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
             # nocov end
         }else{
-            for(i in 1:base::length(x = different.color)){
-                mat1[mat1 == different.color[i]] <- tempo.different.color[i] # no need of isTRUE(all.equal()) because different.color comes from mat1
+            for(i in 1:base::length(x = different_color)){
+                mat1[mat1 == different_color[i]] <- tempo_different_color[i] # no need of isTRUE(all.equal()) because different_color comes from mat1
             }
         }
     }
     if( ! base::is.null(x = forced_color)){
-        hexa.values.to.change <- grDevices::hsv(h = base::unique(x = base::sort(x = mat1, decreasing = FALSE, na.last = NA))[1:base::length(x = forced_color)], s = s, v = v, alpha = 1)
+        hexa_values_to_change <- grDevices::hsv(h = base::unique(x = base::sort(x = mat1, decreasing = FALSE, na.last = NA))[1:base::length(x = forced_color)], s = s, v = v, alpha = 1)
     }
     mat1[ ! base::is.na(x = mat1)] <- grDevices::hsv(h = mat1[ ! base::is.na(x = mat1)], s = s, v = v, alpha = 1)
     if( ! base::is.null(x = forced_color)){
         if(base::any(forced_color %in% mat1, na.rm = TRUE)){
             problem <- TRUE
-            text.problem <- base::paste0("THE FOLLOWING grDevices::colors WHERE INTRODUCED USING forced_color BUT WHERE ALREADY PRESENT IN THE COLORED MATRIX :", base::paste0(forced_color[forced_color %in% mat1], collapse = " ", recycle0 = FALSE), collapse = NULL, recycle0 = FALSE)
+            text_problem <- base::paste0("THE FOLLOWING grDevices::colors WHERE INTRODUCED USING forced_color BUT WHERE ALREADY PRESENT IN THE COLORED MATRIX :", base::paste0(forced_color[forced_color %in% mat1], collapse = " ", recycle0 = FALSE), collapse = NULL, recycle0 = FALSE)
         }else{
             problem <- FALSE
         }
-        for(i in 1:base::length(x = hexa.values.to.change)){
-            if( ! base::any(mat1 == hexa.values.to.change[i], na.rm = TRUE)){ # no need of isTRUE(all.equal()) because character
-                # reachable branch: hexa.values.to.change is built from the minimal unique sorted values of mat1, but values can disappear from mat1 when a previous forced_color replacement has already modified them. This notably happens when hsv() collapses different hues onto the same color (e.g. h = 0 and h = 1 both give #FF0000FF), or when the same minimal value appears only once but two forced colors must replace it
+        for(i in 1:base::length(x = hexa_values_to_change)){
+            if( ! base::any(mat1 == hexa_values_to_change[i], na.rm = TRUE)){ # no need of isTRUE(all.equal()) because character
+                # reachable branch: hexa_values_to_change is built from the minimal unique sorted values of mat1, but values can disappear from mat1 when a previous forced_color replacement has already modified them. This notably happens when hsv() collapses different hues onto the same color (e.g. h = 0 and h = 1 both give #FF0000FF), or when the same minimal value appears only once but two forced colors must replace it
                 tempo_cat <- base::paste0(
                     error_text_start,
-                    "THE ", hexa.values.to.change[i], " VALUE FROM hexa.values.to.change IS NOT REPRESENTED IN mat1 : ", base::paste0(base::unique(x = base::as.vector(x = mat1, mode = "any")), collapse = " ", recycle0 = FALSE),
+                    "THE ", hexa_values_to_change[i], " VALUE FROM hexa_values_to_change IS NOT REPRESENTED IN mat1 : ", base::paste0(base::unique(x = base::as.vector(x = mat1, mode = "any")), collapse = " ", recycle0 = FALSE),
                     collapse = NULL,
                     recycle0 = FALSE
                 )
                 base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
             }else{
-                mat1[base::which(mat1 == hexa.values.to.change[i])] <- forced_color[i] # no need of isTRUE(all.equal()) because character
+                mat1[base::which(mat1 == hexa_values_to_change[i])] <- forced_color[i] # no need of isTRUE(all.equal()) because character
             }
         }
     }
@@ -579,7 +579,7 @@ mat_num2color <- function(
     #### end warning output
 
     #### output
-    output <- base::list(mat1.name = mat1.name, colored.mat = mat1, problem = problem, text.problem = text.problem)
+    output <- base::list(mat1.name = mat1_name, colored.mat = mat1, problem = problem, text.problem = text_problem)
     base::return(output)
     #### end output
 }

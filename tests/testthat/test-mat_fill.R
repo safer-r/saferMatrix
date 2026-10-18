@@ -1,7 +1,7 @@
 testthat::test_that("mat_fill()", {
 
     ## data argument values
-    # sector geometry for a 4x4 matrix (from the diag.scan definitions):
+    # sector geometry for a 4x4 matrix (from the diag_scan definitions):
     # topleft = cells with row+col <= n ; topright = cells with col > row ;
     # bottomright = cells with row+col >= n+2 ; bottomleft = cells with row > col
     mat_bl <- base::matrix(data = c(1,1,1,2, 0,2,3,0, NA,3,0,0, 5,0,0,0), ncol = 4) # mixed sectors

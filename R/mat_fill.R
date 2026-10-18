@@ -471,39 +471,39 @@ mat_fill <- function(
     #### end second round of checking and data preparation
 
     #### main code
-    list.diag <- base::vector(mode = "list", length = base::nrow(x = mat) - 1L)
+    list_diag <- base::vector(mode = "list", length = base::nrow(x = mat) - 1L)
     for(i1 in 1:(base::nrow(x = mat) - 1L)){
-        list.diag[[i1]] <- base::numeric(length = base::nrow(x = mat) - i1) # list made of zero
+        list_diag[[i1]] <- base::numeric(length = base::nrow(x = mat) - i1) # list made of zero
     }
     sector <- base::c("topleft", "topright", "bottomright", "bottomleft")
-    diag.scan <- base::c( # same order as sector. Recover each diag from center to corner
+    diag_scan <- base::c( # same order as sector. Recover each diag from center to corner
         "mat[base::as.matrix(x = base::as.data.frame(x = base::list(1:(base::nrow(x = mat) - i2), (base::ncol(x = mat) -i2):1), row.names = NULL, optional = FALSE, make.names = TRUE, stringsAsFactors = TRUE), rownames.force = NA)]", # topleft part
         "mat[base::as.matrix(x = base::as.data.frame(x = base::list(1:(base::nrow(x = mat) - i2), (1:base::ncol(x = mat))[-(1:i2)]), row.names = NULL, optional = FALSE, make.names = TRUE, stringsAsFactors = TRUE), rownames.force = NA)]", # topright part
         "mat[base::as.matrix(x = base::as.data.frame(x = base::list((1 + i2):base::nrow(x = mat), base::ncol(x = mat):(1 + i2)), row.names = NULL, optional = FALSE, make.names = TRUE, stringsAsFactors = TRUE), rownames.force = NA)]", # bottomright part
         "mat[base::as.matrix(x = base::as.data.frame(x = base::list((1 + i2):base::nrow(x = mat), 1:(base::ncol(x = mat) -i2)), row.names = NULL, optional = FALSE, make.names = TRUE, stringsAsFactors = TRUE), rownames.force = NA)]" # bottomleft part
     )
     # empty part detection
-    empty.sector <- NULL
-    full.sector <- NULL
+    empty_sector <- NULL
+    full_sector <- NULL
     for(i1 in 1:base::length(x = sector)){
-        tempo.list.diag <- list.diag
+        tempo_list_diag <- list_diag
         for(i2 in 1:(base::nrow(x = mat) - 1L)){
-            tempo.list.diag[[i2]] <- base::eval(expr = base::parse(text = diag.scan[i1], file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-            if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::all(base::is.na(x = tempo.list.diag[[i2]])), no = ! (base::all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = TRUE) & ! (base::is.na(base::all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = FALSE)))))){ # I had to add this ! (is.na(all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = FALSE))) because all(tempo.list.diag[[i2]] == empty_cell_string, na.rm = FALSE) gives NA and not FALSE if one NA in tempo.list.diag[[i2]] -> not good for if()
-                full.sector <- base::c(full.sector, sector[i1])
+            tempo_list_diag[[i2]] <- base::eval(expr = base::parse(text = diag_scan[i1], file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+            if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::all(base::is.na(x = tempo_list_diag[[i2]])), no = ! (base::all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = TRUE) & ! (base::is.na(base::all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE)))))){ # I had to add this ! (is.na(all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE))) because all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE) gives NA and not FALSE if one NA in tempo_list_diag[[i2]] -> not good for if()
+                full_sector <- base::c(full_sector, sector[i1])
                 break
             }
         }
         if(i2 == base::nrow(x = mat) - 1L){
-            if(base::all(base::unlist(x = base::lapply(X = tempo.list.diag, FUN = function(x){if(base::is.na(x = empty_cell_string)){base::is.na(x = x)}else{x == empty_cell_string}}), recursive = TRUE, use.names = TRUE), na.rm = TRUE)){
-                empty.sector <- base::c(empty.sector, sector[i1])
+            if(base::all(base::unlist(x = base::lapply(X = tempo_list_diag, FUN = function(x){if(base::is.na(x = empty_cell_string)){base::is.na(x = x)}else{x == empty_cell_string}}), recursive = TRUE, use.names = TRUE), na.rm = TRUE)){
+                empty_sector <- base::c(empty_sector, sector[i1])
                 warn_count <- warn_count + 1
                 tempo_warn <- base::paste0("(", warn_count,") EMPTY SECTOR DETECTED ON THE ", base::toupper(x = sector[i1]), " CORNER, FULL OF ", empty_cell_string, collapse = NULL, recycle0 = FALSE)
                 warn <- base::paste0(base::ifelse(test = base::is.null(x = warn), yes = tempo_warn, no = base::paste0(warn, "\n\n", tempo_warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE)
             }else{
                 tempo_cat <- base::paste0(
                     error_text_start,
-                    "THE ", base::toupper(x = sector[i1]), " SECTOR, DETECTED AS EMPTY, IS NOT? DIFFERENT VALUES IN THIS SECTOR:\n", base::paste0(base::names(base::table(base::unlist(x = tempo.list.diag, recursive = TRUE, use.names = TRUE), useNA = "ifany")), collapse = " ", recycle0 = FALSE),
+                    "THE ", base::toupper(x = sector[i1]), " SECTOR, DETECTED AS EMPTY, IS NOT? DIFFERENT VALUES IN THIS SECTOR:\n", base::paste0(base::names(base::table(base::unlist(x = tempo_list_diag, recursive = TRUE, use.names = TRUE), useNA = "ifany")), collapse = " ", recycle0 = FALSE),
                     collapse = NULL,
                     recycle0 = FALSE
                 )
@@ -512,33 +512,33 @@ mat_fill <- function(
         }
     }
     # end empty part detection
-    if(base::length(x = empty.sector) == 0L){
+    if(base::length(x = empty_sector) == 0L){
         warn_count <- warn_count + 1
         tempo_warn <- base::paste0("(", warn_count,") ACCORDING TO empty_cell_string ARGUMENT (", empty_cell_string, "), mat ARGUMENT MATRIX HAS ZERO EMPTY HALF PART", collapse = NULL, recycle0 = FALSE)
         warn <- base::paste0(base::ifelse(test = base::is.null(x = warn), yes = tempo_warn, no = base::paste0(warn, "\n\n", tempo_warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE)
     }else{
-        if(base::length(x = empty.sector) > 1){
+        if(base::length(x = empty_sector) > 1){
             tempo_cat <- base::paste0(
                 error_text_start,
-                "ACCORDING TO empty_cell_string ARGUMENT (", empty_cell_string, "), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): ", base::paste0(empty.sector, collapse = " ", recycle0 = FALSE),
+                "ACCORDING TO empty_cell_string ARGUMENT (", empty_cell_string, "), mat ARGUMENT MATRIX HAS MORE THAN ONE EMPTY HALF PART (ACCORDING TO THE GRAND DIAGONAL): ", base::paste0(empty_sector, collapse = " ", recycle0 = FALSE),
                 collapse = NULL,
                 recycle0 = FALSE
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
-        }else if(base::any(full.sector %in% empty.sector, na.rm = TRUE)){
+        }else if(base::any(full_sector %in% empty_sector, na.rm = TRUE)){
             tempo_cat <- base::paste0(
                 error_text_start,
-                "THE FUNCTION HAS DETECTED EMPTY AND NON EMPTY HALF PART IN THE SAME SECTOR: ", base::paste0(full.sector[full.sector %in% empty.sector], collapse = " ", recycle0 = FALSE),
+                "THE FUNCTION HAS DETECTED EMPTY AND NON EMPTY HALF PART IN THE SAME SECTOR: ", base::paste0(full_sector[full_sector %in% empty_sector], collapse = " ", recycle0 = FALSE),
                 collapse = NULL,
                 recycle0 = FALSE
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
-        }else if(base::length(x = empty.sector) + base::length(x = full.sector) != 4){
+        }else if(base::length(x = empty_sector) + base::length(x = full_sector) != 4){
             # nocov start
-            # codecov inactivated because this branch is unreachable with argument values: each of the 4 sectors ends in exactly one of empty.sector or full.sector (a sector either breaks the diag loop -> full.sector, or completes the loop without break -> either passes the sector confirmation -> empty.sector, or stops the function with the "DETECTED AS EMPTY, IS NOT?" error; a sector that breaks at the last diag with NA-mixed values lands in both, which is caught by the "EMPTY AND NON EMPTY HALF PART" check above). Therefore, when length(empty.sector) == 1, full.sector always has exactly 3 entries and the sum is always 4. Note: 2x2 matrices, where each sector is a single cell, systematically take the "DETECTED AS EMPTY, IS NOT?" error path (pre-existing behavior, see the tests)
+            # codecov inactivated because this branch is unreachable with argument values: each of the 4 sectors ends in exactly one of empty_sector or full_sector (a sector either breaks the diag loop -> full_sector, or completes the loop without break -> either passes the sector confirmation -> empty_sector, or stops the function with the "DETECTED AS EMPTY, IS NOT?" error; a sector that breaks at the last diag with NA-mixed values lands in both, which is caught by the "EMPTY AND NON EMPTY HALF PART" check above). Therefore, when length(empty_sector) == 1, full_sector always has exactly 3 entries and the sum is always 4. Note: 2x2 matrices, where each sector is a single cell, systematically take the "DETECTED AS EMPTY, IS NOT?" error path (pre-existing behavior, see the tests)
             tempo_cat <- base::paste0(
                 error_text_start,
-                "THE FUNCTION HAS DETECTED MORE OR LESS SECTORS THAN 4:\nHALF SECTORS:", base::paste0(empty.sector, collapse = " ", recycle0 = FALSE), "\nFULL SECTORS:", base::paste0(full.sector, collapse = " ", recycle0 = FALSE),
+                "THE FUNCTION HAS DETECTED MORE OR LESS SECTORS THAN 4:\nHALF SECTORS:", base::paste0(empty_sector, collapse = " ", recycle0 = FALSE), "\nFULL SECTORS:", base::paste0(full_sector, collapse = " ", recycle0 = FALSE),
                 collapse = NULL,
                 recycle0 = FALSE
             )
@@ -546,19 +546,19 @@ mat_fill <- function(
             # nocov end
         }else{
             warn_count <- warn_count + 1
-            tempo_warn <- base::paste0("(", warn_count,") ", base::toupper(x = empty.sector), " SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", collapse = NULL, recycle0 = FALSE)
+            tempo_warn <- base::paste0("(", warn_count,") ", base::toupper(x = empty_sector), " SECTOR HAS BEEN COMPLETED TO BECOME SYMMETRICAL", collapse = NULL, recycle0 = FALSE)
             warn <- base::paste0(base::ifelse(test = base::is.null(x = warn), yes = tempo_warn, no = base::paste0(warn, "\n\n", tempo_warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE)
         }
         # matrix filling
         for(i2 in 1:(base::nrow(x = mat) - 1L)){
-            if(empty.sector == "topleft"){
-                base::eval(expr = base::parse(text = base::paste0(diag.scan[1], " <- ", diag.scan[3], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-            }else if(empty.sector == "topright"){
-                base::eval(expr = base::parse(text = base::paste0(diag.scan[2], " <- ", diag.scan[4], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-            }else if(empty.sector == "bottomright"){
-                base::eval(expr = base::parse(text = base::paste0(diag.scan[3], " <- ", diag.scan[1], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-            }else if(empty.sector == "bottomleft"){
-                base::eval(expr = base::parse(text = base::paste0(diag.scan[4], " <- ", diag.scan[2], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+            if(empty_sector == "topleft"){
+                base::eval(expr = base::parse(text = base::paste0(diag_scan[1], " <- ", diag_scan[3], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+            }else if(empty_sector == "topright"){
+                base::eval(expr = base::parse(text = base::paste0(diag_scan[2], " <- ", diag_scan[4], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+            }else if(empty_sector == "bottomright"){
+                base::eval(expr = base::parse(text = base::paste0(diag_scan[3], " <- ", diag_scan[1], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+            }else if(empty_sector == "bottomleft"){
+                base::eval(expr = base::parse(text = base::paste0(diag_scan[4], " <- ", diag_scan[2], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
             }
         }
         # end matrix filling
