@@ -103,16 +103,16 @@ testthat::test_that("mat_fill()", {
     #### main code
     # sector detection: each of the 4 sectors, then symmetrization
     # helper: build a 4x4 matrix filled with a value in a given sector and unique markers elsewhere
-    build_sector_mat <- function(empty.val, sector){
+    build_sector_mat <- function(empty_val, sector){
         m <- base::outer(X = 1:4, Y = 1:4, FUN = function(r, c){
             if(sector == "topleft"){
-                base::ifelse(test = r + c <= 4, yes = empty.val, no = base::paste0("V", r, "_", c))
+                base::ifelse(test = r + c <= 4, yes = empty_val, no = base::paste0("V", r, "_", c))
             }else if(sector == "topright"){
-                base::ifelse(test = c > r, yes = empty.val, no = base::paste0("V", r, "_", c))
+                base::ifelse(test = c > r, yes = empty_val, no = base::paste0("V", r, "_", c))
             }else if(sector == "bottomright"){
-                base::ifelse(test = r + c >= 6, yes = empty.val, no = base::paste0("V", r, "_", c))
+                base::ifelse(test = r + c >= 6, yes = empty_val, no = base::paste0("V", r, "_", c))
             }else{
-                base::ifelse(test = r > c, yes = empty.val, no = base::paste0("V", r, "_", c)) # bottomleft
+                base::ifelse(test = r > c, yes = empty_val, no = base::paste0("V", r, "_", c)) # bottomleft
             }
         })
         return(m)

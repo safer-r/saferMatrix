@@ -376,7 +376,7 @@ mat_fill <- function(
     text_check <- NULL
     checked_arg_names <- NULL # for function debugging: used by r_debugging_tools
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
-    ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object.name))
+    ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object_name))
     tempo <- saferDev::arg_check(data = mat, class = c("matrix", "array"), typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     tempo <- saferDev::arg_check(data = warn_print, class = NULL, typeof = "logical", mode = NULL, length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # empty_cell_string can be (1) a single numeric value, (2) a single character string or (3) NA: NA is excluded from the arg_check() calls below because saferDev::arg_check() rejects NA-only values in its own backbone NA management (before na_contain applies), so the NA case is accepted by design here and checked separately. Length check first to avoid a length > 1 condition in if()
@@ -392,7 +392,7 @@ mat_fill <- function(
             )
             text_check <- base::c(text_check, tempo_cat)
             argum_check <- base::c(argum_check, TRUE)
-            checked_arg_names <- base::c(checked_arg_names, tempo1$object.name)
+            checked_arg_names <- base::c(checked_arg_names, tempo1$object_name)
         }
     }
     # lib_path already checked above

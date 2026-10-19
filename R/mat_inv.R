@@ -349,7 +349,7 @@ mat_inv <- function(
     text_check <- NULL
     checked_arg_names <- NULL # for function debugging: used by r_debugging_tools
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
-    ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object.name))
+    ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object_name))
     # mat can be an integer matrix (typeof integer, mode numeric) or a double matrix (typeof double, mode numeric): a single mode = "numeric" arg_check covers both, whatever the R version
     tempo <- saferDev::arg_check(data = mat, class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # lib_path already checked above
