@@ -68,7 +68,7 @@ testthat::test_that("mat_inv()", {
     ######## argument checking with arg_check()
     testthat::expect_error(mat_inv(mat = "BAD", lib_path = NULL, safer_check = TRUE, error_text = "")) # character rejected
     testthat::expect_error(mat_inv(mat = base::mean, lib_path = NULL, safer_check = TRUE, error_text = "")) # function rejected by arg_check
-    testthat::expect_error(mat_inv(mat = base::expression(x = 1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
+    testthat::expect_error(mat_inv(mat = base::expression(1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
     testthat::expect_error(mat_inv(mat = base::as.factor(x = "a"), lib_path = NULL, safer_check = TRUE, error_text = "")) # factor rejected by arg_check
     ######## end argument checking with arg_check()
 

@@ -78,7 +78,7 @@ testthat::test_that("mat_fill()", {
     ######## argument checking with arg_check()
     testthat::expect_error(mat_fill(mat = base::matrix(data = base::letters[1:4], ncol = 2), lib_path = NULL, safer_check = TRUE, error_text = "")) # character matrix without the empty string cells: caught by the "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty_cell_string ARGUMENT" check (character matrices are supported, see the sector tests below)
     testthat::expect_error(mat_fill(mat = base::mean, lib_path = NULL, safer_check = TRUE, error_text = "")) # function rejected by arg_check
-    testthat::expect_error(mat_fill(mat = base::expression(x = 1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
+    testthat::expect_error(mat_fill(mat = base::expression(1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
     testthat::expect_error(mat_fill(mat = base::as.factor(x = "a"), lib_path = NULL, safer_check = TRUE, error_text = "")) # factor rejected by arg_check
     testthat::expect_error(mat_fill(mat = mat_bl, warn_print = "TRUE", lib_path = NULL, safer_check = TRUE, error_text = "")) # warn_print must be logical
     testthat::expect_error(mat_fill(mat = mat_bl, warn_print = 1, lib_path = NULL, safer_check = TRUE, error_text = ""))

@@ -145,7 +145,7 @@ mat_num2color <- function(
     ######## mandatory arg of safer-r functions
     mandat_args <- base::c("lib_path", "safer_check", "error_text")
     tempo_log <- ! mandat_args %in% arg_names
-    if(base::any(x = tempo_log, na.rm = TRUE)) {
+    if(base::any(tempo_log, na.rm = TRUE)) {
         # This check is here in case the developer has not correctly written the argument of its function. Covered by tests/testthat/test-mandatory_args.R, which builds a temporary function with the formal removed
         tempo_cat <- base::paste0(
             error_text_start,
@@ -256,7 +256,7 @@ mat_num2color <- function(
                     }
                 ),
                 FUN = function(x){
-                    base::all(x = x, na.rm = TRUE) & base::length(x = x) > 0 # if x is empty, return FALSE, so OK
+                    base::all(x, na.rm = TRUE) & base::length(x = x) > 0 # if x is empty, return FALSE, so OK
                 },
                 simplify = TRUE,
                 USE.NAMES = TRUE
@@ -493,7 +493,7 @@ mat_num2color <- function(
     mat1_name <- base::deparse(expr = base::substitute(expr = mat1, env = base::environment(fun = NULL)), width.cutoff = 60L, backtick = FALSE, control = base::c("keepNA", "keepInteger", "niceNames", "showAttributes"), nlines = -1L)
     # change the scale of the plotted matrix
     if(mat_hsv_h == TRUE){
-        if(base::any(base::min(x = mat1, na.rm = TRUE) < 0 | base::max(x = mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
+        if(base::any(base::min(mat1, na.rm = TRUE) < 0 | base::max(mat1, na.rm = TRUE) > 1, na.rm = TRUE)){
             # nocov start
             # codecov inactivated because this branch is unreachable with argument values: the arg_check() call of the "other checkings" section (line below the backbone sections), guarded by mat_hsv_h == TRUE, uses prop = TRUE on mat1, which already ensures that all the values of mat1 are between 0 and 1 (inclusive); the all-NA case is separately excluded by the backbone NA-only rule. Hence, this min/max check can never report a problem
             tempo_cat <- base::paste0(
@@ -515,7 +515,7 @@ mat_num2color <- function(
             )
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
         }else{
-            mat1 <- mat1 / base::max(x = mat1, na.rm = TRUE)
+            mat1 <- mat1 / base::max(mat1, na.rm = TRUE)
         }
     }
     if(notch != 1){

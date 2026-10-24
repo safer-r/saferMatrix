@@ -14,7 +14,7 @@ testthat::test_that("mat_op()", {
     mat_colname2 <- base::matrix(data = c(5,6,7,8), ncol = 2) ; base::colnames(x = mat_colname2) <- base::c("A", "B")
     fun1 <- base::mean
     factor1 <- base::as.factor(x = "a")
-    expr1 <- base::expression(x = 1)
+    expr1 <- base::expression(1)
     ## end data argument values
 
     ## initialization of tests

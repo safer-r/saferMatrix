@@ -63,7 +63,7 @@ testthat::test_that("mat_rotate()", {
     ######## argument checking with arg_check()
     testthat::expect_error(mat_rotate(data = "BAD", lib_path = NULL, safer_check = TRUE, error_text = "")) # character rejected
     testthat::expect_error(mat_rotate(data = base::mean, lib_path = NULL, safer_check = TRUE, error_text = "")) # function rejected by arg_check
-    testthat::expect_error(mat_rotate(data = base::expression(x = 1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
+    testthat::expect_error(mat_rotate(data = base::expression(1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
     testthat::expect_error(mat_rotate(data = base::as.factor(x = "a"), lib_path = NULL, safer_check = TRUE, error_text = "")) # factor rejected by arg_check
     ######## end argument checking with arg_check()
 
@@ -80,8 +80,8 @@ testthat::test_that("mat_rotate()", {
     mat1_rot <- mat_rotate(data = mat1)
     testthat::expect_equal(object = mat1_rot, expected = base::t(x = mat1[base::rev(x = base::seq_len(length.out = base::nrow(x = mat1))), , drop = FALSE]))
     testthat::expect_equal(object = base::dim(x = mat1_rot), expected = base::c(4L, 4L))
-    testthat::expect_equal(object = base::sum(x = mat1_rot, na.rm = TRUE), expected = base::sum(x = mat1, na.rm = TRUE))
-    testthat::expect_equal(object = base::sum(x = base::is.na(x = mat1_rot)), expected = base::sum(x = base::is.na(x = mat1)))
+    testthat::expect_equal(object = base::sum(mat1_rot, na.rm = TRUE), expected = base::sum(mat1, na.rm = TRUE))
+    testthat::expect_equal(object = base::sum(base::is.na(x = mat1_rot)), expected = base::sum(base::is.na(x = mat1)))
     # double rotation: mirror matrix
     testthat::expect_equal(object = mat_rotate(data = mat1_rot), expected = mat1[base::rev(x = base::seq_len(length.out = base::nrow(x = mat1))), base::rev(x = base::seq_len(length.out = base::ncol(x = mat1))), drop = FALSE])
     # character matrix with NA
