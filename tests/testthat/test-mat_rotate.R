@@ -63,7 +63,7 @@ testthat::test_that("mat_rotate()", {
     ######## argument checking with arg_check()
     testthat::expect_error(mat_rotate(data = "BAD", lib_path = NULL, safer_check = TRUE, error_text = "")) # character rejected
     testthat::expect_error(mat_rotate(data = base::mean, lib_path = NULL, safer_check = TRUE, error_text = "")) # function rejected by arg_check
-    testthat::expect_error(mat_rotate(data = base::expression(x = 1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
+    testthat::expect_error(mat_rotate(data = base::expression(1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
     testthat::expect_error(mat_rotate(data = base::as.factor(x = "a"), lib_path = NULL, safer_check = TRUE, error_text = "")) # factor rejected by arg_check
     ######## end argument checking with arg_check()
 
@@ -77,27 +77,27 @@ testthat::test_that("mat_rotate()", {
 
     #### main code
     # numeric matrix: full 90° clockwise rotation check
-    mat1.rot <- mat_rotate(data = mat1)
-    testthat::expect_equal(object = mat1.rot, expected = base::t(x = mat1[base::rev(x = base::seq_len(length.out = base::nrow(x = mat1))), , drop = FALSE]))
-    testthat::expect_equal(object = base::dim(x = mat1.rot), expected = base::c(4L, 4L))
-    testthat::expect_equal(object = base::sum(x = mat1.rot, na.rm = TRUE), expected = base::sum(x = mat1, na.rm = TRUE))
-    testthat::expect_equal(object = base::sum(x = base::is.na(x = mat1.rot)), expected = base::sum(x = base::is.na(x = mat1)))
+    mat1_rot <- mat_rotate(data = mat1)
+    testthat::expect_equal(object = mat1_rot, expected = base::t(x = mat1[base::rev(x = base::seq_len(length.out = base::nrow(x = mat1))), , drop = FALSE]))
+    testthat::expect_equal(object = base::dim(x = mat1_rot), expected = base::c(4L, 4L))
+    testthat::expect_equal(object = base::sum(mat1_rot, na.rm = TRUE), expected = base::sum(mat1, na.rm = TRUE))
+    testthat::expect_equal(object = base::sum(base::is.na(x = mat1_rot)), expected = base::sum(base::is.na(x = mat1)))
     # double rotation: mirror matrix
-    testthat::expect_equal(object = mat_rotate(data = mat1.rot), expected = mat1[base::rev(x = base::seq_len(length.out = base::nrow(x = mat1))), base::rev(x = base::seq_len(length.out = base::ncol(x = mat1))), drop = FALSE])
+    testthat::expect_equal(object = mat_rotate(data = mat1_rot), expected = mat1[base::rev(x = base::seq_len(length.out = base::nrow(x = mat1))), base::rev(x = base::seq_len(length.out = base::ncol(x = mat1))), drop = FALSE])
     # character matrix with NA
-    mat2.rot <- mat_rotate(data = mat2)
-    testthat::expect_equal(object = base::mode(x = mat2.rot), expected = "character")
-    testthat::expect_true(object = base::any(base::is.na(x = mat2.rot), na.rm = FALSE))
-    testthat::expect_equal(object = mat2.rot[1, 1], expected = mat2[4, 1])
-    testthat::expect_equal(object = mat2.rot[4, 4], expected = mat2[1, 4])
+    mat2_rot <- mat_rotate(data = mat2)
+    testthat::expect_equal(object = base::mode(x = mat2_rot), expected = "character")
+    testthat::expect_true(object = base::any(base::is.na(x = mat2_rot), na.rm = FALSE))
+    testthat::expect_equal(object = mat2_rot[1, 1], expected = mat2[4, 1])
+    testthat::expect_equal(object = mat2_rot[4, 4], expected = mat2[1, 4])
     # single column and single row matrices: a 4x1 becomes 1x4, a 1x4 becomes 4x1
     testthat::expect_equal(object = mat_rotate(data = base::matrix(data = 1:4, ncol = 1)), expected = base::matrix(data = c(4, 3, 2, 1), nrow = 1))
     testthat::expect_equal(object = mat_rotate(data = base::matrix(data = 1:4, nrow = 1)), expected = base::matrix(data = 1:4, ncol = 1))
     # matrix with dimnames: dimnames rotated
     matd <- base::matrix(data = 1:6, ncol = 2) ; base::dimnames(x = matd) <- base::list(base::c("r1", "r2", "r3"), base::c("A", "B"))
-    matd.rot <- mat_rotate(data = matd)
-    testthat::expect_equal(object = base::rownames(x = matd.rot), expected = base::c("A", "B"))
-    testthat::expect_equal(object = base::colnames(x = matd.rot), expected = base::c("r1", "r2", "r3")) # t() keeps the original rownames as colnames in the same order (the content is reversed, not the names)
+    matd_rot <- mat_rotate(data = matd)
+    testthat::expect_equal(object = base::rownames(x = matd_rot), expected = base::c("A", "B"))
+    testthat::expect_equal(object = base::colnames(x = matd_rot), expected = base::c("r1", "r2", "r3")) # t() keeps the original rownames as colnames in the same order (the content is reversed, not the names)
     #### end main code
 
     #### warning output

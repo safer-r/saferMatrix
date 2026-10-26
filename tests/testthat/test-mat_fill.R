@@ -78,7 +78,7 @@ testthat::test_that("mat_fill()", {
     ######## argument checking with arg_check()
     testthat::expect_error(mat_fill(mat = base::matrix(data = base::letters[1:4], ncol = 2), lib_path = NULL, safer_check = TRUE, error_text = "")) # character matrix without the empty string cells: caught by the "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty_cell_string ARGUMENT" check (character matrices are supported, see the sector tests below)
     testthat::expect_error(mat_fill(mat = base::mean, lib_path = NULL, safer_check = TRUE, error_text = "")) # function rejected by arg_check
-    testthat::expect_error(mat_fill(mat = base::expression(x = 1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
+    testthat::expect_error(mat_fill(mat = base::expression(1), lib_path = NULL, safer_check = TRUE, error_text = "")) # expression rejected by arg_check
     testthat::expect_error(mat_fill(mat = base::as.factor(x = "a"), lib_path = NULL, safer_check = TRUE, error_text = "")) # factor rejected by arg_check
     testthat::expect_error(mat_fill(mat = mat_bl, warn_print = "TRUE", lib_path = NULL, safer_check = TRUE, error_text = "")) # warn_print must be logical
     testthat::expect_error(mat_fill(mat = mat_bl, warn_print = 1, lib_path = NULL, safer_check = TRUE, error_text = ""))
@@ -103,16 +103,16 @@ testthat::test_that("mat_fill()", {
     #### main code
     # sector detection: each of the 4 sectors, then symmetrization
     # helper: build a 4x4 matrix filled with a value in a given sector and unique markers elsewhere
-    build_sector_mat <- function(empty.val, sector){
+    build_sector_mat <- function(empty_val, sector){
         m <- base::outer(X = 1:4, Y = 1:4, FUN = function(r, c){
             if(sector == "topleft"){
-                base::ifelse(test = r + c <= 4, yes = empty.val, no = base::paste0("V", r, "_", c))
+                base::ifelse(test = r + c <= 4, yes = empty_val, no = base::paste0("V", r, "_", c))
             }else if(sector == "topright"){
-                base::ifelse(test = c > r, yes = empty.val, no = base::paste0("V", r, "_", c))
+                base::ifelse(test = c > r, yes = empty_val, no = base::paste0("V", r, "_", c))
             }else if(sector == "bottomright"){
-                base::ifelse(test = r + c >= 6, yes = empty.val, no = base::paste0("V", r, "_", c))
+                base::ifelse(test = r + c >= 6, yes = empty_val, no = base::paste0("V", r, "_", c))
             }else{
-                base::ifelse(test = r > c, yes = empty.val, no = base::paste0("V", r, "_", c)) # bottomleft
+                base::ifelse(test = r > c, yes = empty_val, no = base::paste0("V", r, "_", c)) # bottomleft
             }
         })
         return(m)

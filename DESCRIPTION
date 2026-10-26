@@ -18,11 +18,11 @@ Depends:
 Config/roxygen2/version: 8.0.0
 Imports: 
     saferDev (>= 2.0.0),
-    saferTool (>= 1.0.0),
+    saferTool (>= 1.2.0),
     grDevices
 Remotes: 
     safer-r/saferDev,
-    safer-r/saferTool@migration-v20.0
+    safer-r/saferTool
 Suggests: 
     knitr,
     rmarkdown,
