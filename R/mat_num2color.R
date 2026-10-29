@@ -463,7 +463,7 @@ mat_num2color <- function(
     ######## end graphic device checking
 
     ######## other checkings
-    if(mat_hsv_h == TRUE & saferDev::arg_check(data = mat1, class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = TRUE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = FALSE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text)$problem == TRUE){
+    if(mat_hsv_h == TRUE & saferDev::arg_check(data = mat1, class = NULL, typeof = NULL, mode = NULL, length = NULL, prop = TRUE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text)$problem == TRUE){
         tempo_cat <- base::paste0(
             error_text_start,
             "mat1 ARGUMENT MUST BE A MATRIX OF PROPORTIONS SINCE THE mat_hsv_h ARGUMENT IS SET TO TRUE",
