@@ -67,6 +67,8 @@ testthat::test_that("mat_op()", {
     testthat::expect_no_error(mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+", safer_check = TRUE, lib_path = NULL, error_text = ""))
     testthat::expect_error(mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+", safer_check = TRUE, lib_path = 1, error_text = ""))
     testthat::expect_error(mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+", safer_check = TRUE, lib_path = "PATH_NOT_GOOD", error_text = ""))
+    # lib_path is checked even when safer_check is FALSE (backbone v21.2: lib_path used outside if(safer_check == TRUE){}, so the lib_path check is always executed)
+    testthat::expect_error(mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+", safer_check = FALSE, lib_path = "PATH_NOT_GOOD", error_text = ""))
     testthat::expect_no_error(mat_op(mat_list = base::list(mat1, mat2), kind_of_operation = "+", safer_check = TRUE, lib_path = base::tempdir(), error_text = ""))
     ######## end check of lib_path
 

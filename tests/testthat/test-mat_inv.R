@@ -50,6 +50,8 @@ testthat::test_that("mat_inv()", {
     testthat::expect_no_error(mat_inv(mat = mat_ok, lib_path = NULL, safer_check = TRUE, error_text = ""))
     testthat::expect_error(mat_inv(mat = mat_ok, lib_path = 1, safer_check = TRUE, error_text = ""))
     testthat::expect_error(mat_inv(mat = mat_ok, lib_path = "PATH_NOT_GOOD", safer_check = TRUE, error_text = ""))
+    # lib_path is checked even when safer_check is FALSE (backbone v21.2: lib_path used outside if(safer_check == TRUE){}, so the lib_path check is always executed)
+    testthat::expect_error(mat_inv(mat = mat_ok, lib_path = "PATH_NOT_GOOD", safer_check = FALSE, error_text = ""))
     testthat::expect_no_error(mat_inv(mat = mat_ok, lib_path = base::tempdir(), safer_check = TRUE, error_text = ""))
     ######## end check of lib_path
 

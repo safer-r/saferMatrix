@@ -71,6 +71,8 @@ testthat::test_that("mat_num2color()", {
     testthat::expect_no_error(mat_num2color(mat1 = mat2, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = NULL, safer_check = TRUE, error_text = ""))
     testthat::expect_error(mat_num2color(mat1 = mat2, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = 1, safer_check = TRUE, error_text = ""))
     testthat::expect_error(mat_num2color(mat1 = mat2, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = "PATH_NOT_GOOD", safer_check = TRUE, error_text = ""))
+    # lib_path is checked even when safer_check is FALSE (backbone v21.2: lib_path used outside if(safer_check == TRUE){}, so the lib_path check is always executed)
+    testthat::expect_error(mat_num2color(mat1 = mat2, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = "PATH_NOT_GOOD", safer_check = FALSE, error_text = ""))
     testthat::expect_no_error(mat_num2color(mat1 = mat2, mat_hsv_h = TRUE, notch = 1, s = 1, v = 1, forced_color = NULL, lib_path = base::tempdir(), safer_check = TRUE, error_text = ""))
     ######## end check of lib_path
 
