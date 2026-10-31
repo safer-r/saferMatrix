@@ -328,7 +328,8 @@ mat_op <- function(
 
     ######## check of the required functions from the required packages
     if(safer_check == TRUE){
-        saferDev:::.pack_and_function_check(
+        .pack_and_function_check <- utils::getFromNamespace(x = ".pack_and_function_check", ns = "saferDev", pos = -1, envir = )
+        .pack_and_function_check(
             fun = base::c(
                 # functions required in this code
                 "saferDev::arg_check"
@@ -345,12 +346,16 @@ mat_op <- function(
     ######## end check of the required functions from the required packages
 
     ######## escaping CRAN submission NOTE for internal functions
-    # not required: the internal functions of saferDev are used through saferDev:::.base_op_check() (and saferDev:::.pack_and_function_check() above), which does not trigger the CRAN NOTE about ::: usage inside the CRAN-checking code of the saferDev package itself. Only ::: usage of the developed package own internal functions would trigger the NOTE.
+
+    .base_op_check <- utils::getFromNamespace(x = ".base_op_check", ns = "saferDev", pos = -1, envir = )
+    # add here in the internal functions that are used in your main code (copy-paste the line above and replace .base_op_check by the name of the internal function
+    # not mandatory if your function is not designed for submission to the CRAN
+
     ######## end escaping CRAN submission NOTE for internal functions
 
     ######## critical operator checking
     if(safer_check == TRUE){
-        saferDev:::.base_op_check(
+        .base_op_check(
             error_text = embed_error_text
         )
     }
@@ -448,8 +453,8 @@ mat_op <- function(
         )
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
     }
-    for(i1 in 1:base::length(x = mat_list)){
-        tempo <- saferDev::arg_check(data = mat_list[[i1]], class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text)
+    for(i1 in base::seq_along(along.with = mat_list)){
+        tempo <- saferDev::arg_check(data = mat_list[[i1]], class = base::c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text)
         if(tempo$problem == TRUE){
             tempo_cat <- base::paste0(
                 error_text_start,
@@ -462,7 +467,8 @@ mat_op <- function(
     }
     ident_row_names <- TRUE
     ident_col_names <- TRUE
-    for(i1 in 2:base::length(x = mat_list)){
+    for(i0 in base::seq_len(length.out = base::length(x = mat_list) - 1)){ # i1 from 2 to the last matrix of mat_list (at least 2 matrices, checked above)
+        i1 <- i0 + 1
         tempo <- saferTool::comp_2d(data1 = mat_list[[1]], data2 = mat_list[[i1]], safer_check = FALSE, lib_path = NULL, error_text = embed_error_text)
         if(tempo$same_dim == FALSE){
             tempo_cat <- base::paste0(
@@ -490,23 +496,24 @@ mat_op <- function(
     #### end second round of checking and data preparation
 
     #### main code
-    # output
-    # warning output
-    # end warning output
     output <- mat_list[[1]]
-    for(i1 in 2:base::length(x = mat_list)){
-        output <- base::get(x = kind_of_operation)(output, mat_list[[i1]]) # inherits by default: look for the operator in the classical scope
+    for(i0 in base::seq_len(length.out = base::length(x = mat_list) - 1)){ # i1 from 2 to the last matrix of mat_list
+        i1 <- i0 + 1
+        output <- base::get(x = kind_of_operation, pos = -1L, envir = , mode = "any", inherits = TRUE)(output, mat_list[[i1]]) # inherits by default: look for the operator in the classical scope
     }
-    base::dimnames(x = output) <- NULL
-    if(ident_row_names == TRUE){
-        base::rownames(x = output) <- base::rownames(x = mat_list[[1]])
-    }
-    if(ident_col_names == TRUE){
-        base::colnames(x = output) <- base::colnames(x = mat_list[[1]])
-    }
-    base::return(output)
-    # end output
+    # row and column names of the first matrix kept if identical in all the matrices of mat_list. Written with dimnames() instead of rownames(x = output) <- and colnames(x = output) <-, because saferDev::all_args_here() adds the do.NULL and prefix arguments of rownames() and colnames(), which are not arguments of the replacement functions rownames<-() and colnames<-()
+    base::dimnames(x = output) <- base::list(
+        if(ident_row_names == TRUE){base::rownames(x = mat_list[[1]], do.NULL = TRUE, prefix = "row")}else{NULL},
+        if(ident_col_names == TRUE){base::colnames(x = mat_list[[1]], do.NULL = TRUE, prefix = "col")}else{NULL}
+    )
     #### end main code
+
+    #### warning output
+    #### end warning output
+
+    #### output
+    base::return(output)
+    #### end output
 }
 
 #### end of function

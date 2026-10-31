@@ -314,7 +314,8 @@ mat_rotate <- function(
 
     ######## check of the required functions from the required packages
     if(safer_check == TRUE){
-        saferDev:::.pack_and_function_check(
+        .pack_and_function_check <- utils::getFromNamespace(x = ".pack_and_function_check", ns = "saferDev", pos = -1, envir = )
+        .pack_and_function_check(
             fun = base::c(
                 # functions required in this code
                 "saferDev::arg_check"
@@ -330,12 +331,16 @@ mat_rotate <- function(
     ######## end check of the required functions from the required packages
 
     ######## escaping CRAN submission NOTE for internal functions
-    # not required: the internal functions of saferDev are used through saferDev:::.base_op_check() (and saferDev:::.pack_and_function_check() above), which does not trigger the CRAN NOTE about ::: usage inside the CRAN-checking code of the saferDev package itself. Only ::: usage of the developed package own internal functions would trigger the NOTE.
+
+    .base_op_check <- utils::getFromNamespace(x = ".base_op_check", ns = "saferDev", pos = -1, envir = )
+    # add here in the internal functions that are used in your main code (copy-paste the line above and replace .base_op_check by the name of the internal function
+    # not mandatory if your function is not designed for submission to the CRAN
+
     ######## end escaping CRAN submission NOTE for internal functions
 
     ######## critical operator checking
     if(safer_check == TRUE){
-        saferDev:::.base_op_check(
+        .base_op_check(
             error_text = embed_error_text
         )
     }
@@ -351,7 +356,7 @@ mat_rotate <- function(
     checked_arg_names <- NULL # for function debugging: used by r_debugging_tools
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
     ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object_name))
-    tempo <- saferDev::arg_check(data = data, class = c("matrix", "array"), typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    tempo <- saferDev::arg_check(data = data, class = base::c("matrix", "array"), typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # lib_path already checked above
     # safer_check already checked above
     # error_text converted to single string above

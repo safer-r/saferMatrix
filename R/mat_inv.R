@@ -313,7 +313,8 @@ mat_inv <- function(
 
     ######## check of the required functions from the required packages
     if(safer_check == TRUE){
-        saferDev:::.pack_and_function_check(
+        .pack_and_function_check <- utils::getFromNamespace(x = ".pack_and_function_check", ns = "saferDev", pos = -1, envir = )
+        .pack_and_function_check(
             fun = base::c(
                 # functions required in this code
                 "saferDev::arg_check"
@@ -329,12 +330,16 @@ mat_inv <- function(
     ######## end check of the required functions from the required packages
 
     ######## escaping CRAN submission NOTE for internal functions
-    # not required: the internal functions of saferDev are used through saferDev:::.base_op_check() (and saferDev:::.pack_and_function_check() above), which does not trigger the CRAN NOTE about ::: usage inside the CRAN-checking code of the saferDev package itself. Only ::: usage of the developed package own internal functions would trigger the NOTE.
+
+    .base_op_check <- utils::getFromNamespace(x = ".base_op_check", ns = "saferDev", pos = -1, envir = )
+    # add here in the internal functions that are used in your main code (copy-paste the line above and replace .base_op_check by the name of the internal function
+    # not mandatory if your function is not designed for submission to the CRAN
+
     ######## end escaping CRAN submission NOTE for internal functions
 
     ######## critical operator checking
     if(safer_check == TRUE){
-        saferDev:::.base_op_check(
+        .base_op_check(
             error_text = embed_error_text
         )
     }
@@ -351,7 +356,7 @@ mat_inv <- function(
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
     ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object_name))
     # mat can be an integer matrix (typeof integer, mode numeric) or a double matrix (typeof double, mode numeric): a single mode = "numeric" arg_check covers both, whatever the R version
-    tempo <- saferDev::arg_check(data = mat, class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    tempo <- saferDev::arg_check(data = mat, class = base::c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # lib_path already checked above
     # safer_check already checked above
     # error_text converted to single string above
@@ -405,16 +410,16 @@ mat_inv <- function(
     #### end second round of checking and data preparation
 
     #### main code
-    if(base::any(base::grepl(x = base::try(base::solve(a = mat), silent = TRUE), pattern = "[Ee]rror", ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE), na.rm = TRUE)){
-        tempo <- base::svd(x = mat)
-        val_critique <- base::which(tempo$d < 10^-8)
-        Diag_mod <- base::diag(x = 1 / tempo$d)
-        for(i in val_critique){
-            Diag_mod[i, i] <- 0
+    if(base::any(base::grepl(x = base::try(expr = base::solve(a = mat, b = ), silent = TRUE, outFile = base::getOption(x = "try.outFile", default = base::stderr())), pattern = "[Ee]rror", ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE), na.rm = TRUE)){
+        tempo <- base::La.svd(x = mat, nu = , nv = ) # La.svd() (called by svd()) instead of svd(), whose defunct LINPACK argument returns an error if written
+        val_critique <- base::which(x = tempo$d < 10^-8, arr.ind = FALSE, useNames = TRUE)
+        Diag_mod <- base::diag(x = 1 / tempo$d, nrow = , ncol = , names = TRUE)
+        for(i1 in base::seq_along(along.with = val_critique)){
+            Diag_mod[val_critique[i1], val_critique[i1]] <- 0
         }
-        base::return(tempo$v %*% Diag_mod %*% base::t(x = tempo$u))
+        output <- base::t(x = tempo$vt) %*% Diag_mod %*% base::t(x = tempo$u) # t(vt) is the v matrix of svd() (mat is not complex)
     }else{
-        base::return(base::solve(a = mat))
+        output <- base::solve(a = mat, b = )
     }
     #### end main code
 
@@ -422,6 +427,7 @@ mat_inv <- function(
     #### end warning output
 
     #### output
+    base::return(output)
     #### end output
 }
 

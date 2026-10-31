@@ -343,12 +343,11 @@ mat_num2color <- function(
 
     ######## check of the required functions from the required packages
     if(safer_check == TRUE){
-        saferDev:::.pack_and_function_check(
+        .pack_and_function_check <- utils::getFromNamespace(x = ".pack_and_function_check", ns = "saferDev", pos = -1, envir = )
+        .pack_and_function_check(
             fun = base::c(
                 # functions required in this code
                 "saferDev::arg_check"
-                , "grDevices::colors"
-                , "grDevices::hsv"
                 # end functions required in this code
                 # internal functions required in this code
                 , "saferDev:::.base_op_check"
@@ -361,12 +360,16 @@ mat_num2color <- function(
     ######## end check of the required functions from the required packages
 
     ######## escaping CRAN submission NOTE for internal functions
-    # not required: the internal functions of saferDev are used through saferDev:::.base_op_check() (and saferDev:::.pack_and_function_check() above), which does not trigger the CRAN NOTE about ::: usage inside the CRAN-checking code of the saferDev package itself. Only ::: usage of the developed package own internal functions would trigger the NOTE.
+
+    .base_op_check <- utils::getFromNamespace(x = ".base_op_check", ns = "saferDev", pos = -1, envir = )
+    # add here in the internal functions that are used in your main code (copy-paste the line above and replace .base_op_check by the name of the internal function
+    # not mandatory if your function is not designed for submission to the CRAN
+
     ######## end escaping CRAN submission NOTE for internal functions
 
     ######## critical operator checking
     if(safer_check == TRUE){
-        saferDev:::.base_op_check(
+        .base_op_check(
             error_text = embed_error_text
         )
     }
@@ -382,7 +385,7 @@ mat_num2color <- function(
     checked_arg_names <- NULL # for function debugging: used by r_debugging_tools
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
     ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object_name))
-    tempo <- saferDev::arg_check(data = mat1, class = c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = FALSE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    tempo <- saferDev::arg_check(data = mat1, class = base::c("matrix", "array"), typeof = NULL, mode = "numeric", length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = FALSE, inf_values = FALSE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     tempo <- saferDev::arg_check(data = mat_hsv_h, class = NULL, typeof = "logical", mode = NULL, length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # notch, s and v must be a single numeric value between 0 and 1 (1 included): prop = TRUE covers the whole range, so a single arg_check() call is enough
     tempo <- saferDev::arg_check(data = notch, class = NULL, typeof = NULL, mode = NULL, length = 1, prop = TRUE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = FALSE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
@@ -473,7 +476,7 @@ mat_num2color <- function(
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
     }
     if( ! base::is.null(x = forced_color)){
-        if( ! base::all(forced_color %in% grDevices::colors() | base::grepl(pattern = "^#", x = forced_color, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE), na.rm = TRUE)){ # check that all strings of forced_color start by #
+        if( ! base::all(forced_color %in% grDevices::colors(distinct = FALSE) | base::grepl(pattern = "^#", x = forced_color, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE), na.rm = TRUE)){ # check that all strings of forced_color start by #
             tempo_cat <- base::paste0(
                 error_text_start,
                 "forced_color ARGUMENT MUST BE A HEXADECIMAL COLOR VECTOR STARTING BY # AND/OR COLOR NAMES GIVEN BY grDevices::colors()",
@@ -519,9 +522,9 @@ mat_num2color <- function(
         }
     }
     if(notch != 1){
-        different_color <- base::unique(x = base::as.vector(x = mat1, mode = "any"))
+        different_color <- base::unique(x = base::as.vector(x = mat1, mode = "any"), incomparables = FALSE)
         different_color <- different_color[ ! base::is.na(x = different_color)]
-        tempo_different_color <- different_color + base::c(0, base::cumsum(base::rep(x = notch, times = base::length(x = different_color) - 1L)))
+        tempo_different_color <- different_color + base::c(0, base::cumsum(x = base::rep(x = notch, times = base::length(x = different_color) - 1L)))
         tempo_different_color <- tempo_different_color - base::floor(x = tempo_different_color)
         if(base::any(base::duplicated(x = tempo_different_color, incomparables = FALSE, fromLast = FALSE) == TRUE, na.rm = TRUE)){
             tempo_cat <- base::paste0(
@@ -542,13 +545,13 @@ mat_num2color <- function(
             base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
             # nocov end
         }else{
-            for(i in 1:base::length(x = different_color)){
+            for(i in base::seq_along(along.with = different_color)){
                 mat1[mat1 == different_color[i]] <- tempo_different_color[i] # no need of isTRUE(all.equal()) because different_color comes from mat1
             }
         }
     }
     if( ! base::is.null(x = forced_color)){
-        hexa_values_to_change <- grDevices::hsv(h = base::unique(x = base::sort(x = mat1, decreasing = FALSE, na.last = NA))[1:base::length(x = forced_color)], s = s, v = v, alpha = 1)
+        hexa_values_to_change <- grDevices::hsv(h = base::unique(x = base::sort(x = mat1, decreasing = FALSE, na.last = NA), incomparables = FALSE)[1:base::length(x = forced_color)], s = s, v = v, alpha = 1)
     }
     mat1[ ! base::is.na(x = mat1)] <- grDevices::hsv(h = mat1[ ! base::is.na(x = mat1)], s = s, v = v, alpha = 1)
     if( ! base::is.null(x = forced_color)){
@@ -558,18 +561,18 @@ mat_num2color <- function(
         }else{
             problem <- FALSE
         }
-        for(i in 1:base::length(x = hexa_values_to_change)){
+        for(i in base::seq_along(along.with = hexa_values_to_change)){
             if( ! base::any(mat1 == hexa_values_to_change[i], na.rm = TRUE)){ # no need of isTRUE(all.equal()) because character
                 # reachable branch: hexa_values_to_change is built from the minimal unique sorted values of mat1, but values can disappear from mat1 when a previous forced_color replacement has already modified them. This notably happens when hsv() collapses different hues onto the same color (e.g. h = 0 and h = 1 both give #FF0000FF), or when the same minimal value appears only once but two forced colors must replace it
                 tempo_cat <- base::paste0(
                     error_text_start,
-                    "THE ", hexa_values_to_change[i], " VALUE FROM hexa_values_to_change IS NOT REPRESENTED IN mat1 : ", base::paste0(base::unique(x = base::as.vector(x = mat1, mode = "any")), collapse = " ", recycle0 = FALSE),
+                    "THE ", hexa_values_to_change[i], " VALUE FROM hexa_values_to_change IS NOT REPRESENTED IN mat1 : ", base::paste0(base::unique(x = base::as.vector(x = mat1, mode = "any"), incomparables = FALSE), collapse = " ", recycle0 = FALSE),
                     collapse = NULL,
                     recycle0 = FALSE
                 )
                 base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
             }else{
-                mat1[base::which(mat1 == hexa_values_to_change[i])] <- forced_color[i] # no need of isTRUE(all.equal()) because character
+                mat1[base::which(x = mat1 == hexa_values_to_change[i], arr.ind = FALSE, useNames = TRUE)] <- forced_color[i] # no need of isTRUE(all.equal()) because character
             }
         }
     }

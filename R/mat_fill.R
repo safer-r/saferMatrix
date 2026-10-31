@@ -340,7 +340,8 @@ mat_fill <- function(
 
     ######## check of the required functions from the required packages
     if(safer_check == TRUE){
-        saferDev:::.pack_and_function_check(
+        .pack_and_function_check <- utils::getFromNamespace(x = ".pack_and_function_check", ns = "saferDev", pos = -1, envir = )
+        .pack_and_function_check(
             fun = base::c(
                 # functions required in this code
                 "saferDev::arg_check"
@@ -356,12 +357,16 @@ mat_fill <- function(
     ######## end check of the required functions from the required packages
 
     ######## escaping CRAN submission NOTE for internal functions
-    # not required: the internal functions of saferDev are used through saferDev:::.base_op_check() (and saferDev:::.pack_and_function_check() above), which does not trigger the CRAN NOTE about ::: usage inside the CRAN-checking code of the saferDev package itself. Only ::: usage of the developed package own internal functions would trigger the NOTE.
+
+    .base_op_check <- utils::getFromNamespace(x = ".base_op_check", ns = "saferDev", pos = -1, envir = )
+    # add here in the internal functions that are used in your main code (copy-paste the line above and replace .base_op_check by the name of the internal function
+    # not mandatory if your function is not designed for submission to the CRAN
+
     ######## end escaping CRAN submission NOTE for internal functions
 
     ######## critical operator checking
     if(safer_check == TRUE){
-        saferDev:::.base_op_check(
+        .base_op_check(
             error_text = embed_error_text
         )
     }
@@ -377,7 +382,7 @@ mat_fill <- function(
     checked_arg_names <- NULL # for function debugging: used by r_debugging_tools
     arg_check_error_text <- base::paste0("ERROR ", embed_error_text, "\n\n", collapse = NULL, recycle0 = FALSE) # must be used instead of error_text = embed_error_text when several arg_check are performed on the same argument (tempo1, tempo2, see below)
     ee <- base::expression(argum_check <- base::c(argum_check, tempo$problem) , text_check <- base::c(text_check, tempo$text) , checked_arg_names <- base::c(checked_arg_names, tempo$object_name))
-    tempo <- saferDev::arg_check(data = mat, class = c("matrix", "array"), typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
+    tempo <- saferDev::arg_check(data = mat, class = base::c("matrix", "array"), typeof = NULL, mode = NULL, length = NULL, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = TRUE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     tempo <- saferDev::arg_check(data = warn_print, class = NULL, typeof = "logical", mode = NULL, length = 1, prop = FALSE, options = NULL, double_as_integer_allowed = FALSE, all_options_in_data = FALSE, na_contain = FALSE, neg_values = TRUE, inf_values = TRUE, print = FALSE, data_name = NULL, data_arg = TRUE, safer_check = FALSE, lib_path = lib_path, error_text = embed_error_text) ; base::eval(expr = ee, envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
     # empty_cell_string can be (1) a single numeric value, (2) a single character string or (3) NA: NA is excluded from the arg_check() calls below because saferDev::arg_check() rejects NA-only values in its own backbone NA management (before na_contain applies), so the NA case is accepted by design here and checked separately. Length check first to avoid a length > 1 condition in if()
     if( ! (base::length(x = empty_cell_string) == 1L && base::is.na(x = empty_cell_string))){
@@ -457,7 +462,7 @@ mat_fill <- function(
         )
         base::stop(base::paste0("\n\n================\n\n", tempo_cat, "\n\n================\n\n", base::ifelse(test = base::is.null(x = warn), yes = "", no = base::paste0("IN ADDITION\nWARNING", base::ifelse(test = warn_count > 1, yes = "S", no = ""), ":\n\n", warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE), call. = FALSE, domain = NULL)
     }
-    if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::any(base::is.na(x = mat)), no = ! base::any(mat == empty_cell_string, na.rm = TRUE))){
+    if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::any(base::is.na(x = mat), na.rm = FALSE), no = ! base::any(mat == empty_cell_string, na.rm = TRUE))){
         tempo_cat <- base::paste0(
             error_text_start,
             "mat ARGUMENT MATRIX MUST HAVE CELLS WITH THE EMPTY STRING SPECIFIED IN empty_cell_string ARGUMENT",
@@ -472,7 +477,7 @@ mat_fill <- function(
 
     #### main code
     list_diag <- base::vector(mode = "list", length = base::nrow(x = mat) - 1L)
-    for(i1 in 1:(base::nrow(x = mat) - 1L)){
+    for(i1 in base::seq_len(length.out = base::nrow(x = mat) - 1L)){
         list_diag[[i1]] <- base::numeric(length = base::nrow(x = mat) - i1) # list made of zero
     }
     sector <- base::c("topleft", "topright", "bottomright", "bottomleft")
@@ -485,11 +490,11 @@ mat_fill <- function(
     # empty part detection
     empty_sector <- NULL
     full_sector <- NULL
-    for(i1 in 1:base::length(x = sector)){
+    for(i1 in base::seq_along(along.with = sector)){
         tempo_list_diag <- list_diag
-        for(i2 in 1:(base::nrow(x = mat) - 1L)){
+        for(i2 in base::seq_len(length.out = base::nrow(x = mat) - 1L)){
             tempo_list_diag[[i2]] <- base::eval(expr = base::parse(text = diag_scan[i1], file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
-            if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::all(base::is.na(x = tempo_list_diag[[i2]])), no = ! (base::all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = TRUE) & ! (base::is.na(base::all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE)))))){ # I had to add this ! (is.na(all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE))) because all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE) gives NA and not FALSE if one NA in tempo_list_diag[[i2]] -> not good for if()
+            if(base::ifelse(test = base::is.na(x = empty_cell_string), yes = ! base::all(base::is.na(x = tempo_list_diag[[i2]]), na.rm = FALSE), no = ! (base::all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = TRUE) & ! (base::is.na(x = base::all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE)))))){ # I had to add this ! (is.na(all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE))) because all(tempo_list_diag[[i2]] == empty_cell_string, na.rm = FALSE) gives NA and not FALSE if one NA in tempo_list_diag[[i2]] -> not good for if()
                 full_sector <- base::c(full_sector, sector[i1])
                 break
             }
@@ -503,7 +508,7 @@ mat_fill <- function(
             }else{
                 tempo_cat <- base::paste0(
                     error_text_start,
-                    "THE ", base::toupper(x = sector[i1]), " SECTOR, DETECTED AS EMPTY, IS NOT? DIFFERENT VALUES IN THIS SECTOR:\n", base::paste0(base::names(base::table(base::unlist(x = tempo_list_diag, recursive = TRUE, use.names = TRUE), useNA = "ifany")), collapse = " ", recycle0 = FALSE),
+                    "THE ", base::toupper(x = sector[i1]), " SECTOR, DETECTED AS EMPTY, IS NOT? DIFFERENT VALUES IN THIS SECTOR:\n", base::paste0(base::names(x = base::table(base::unlist(x = tempo_list_diag, recursive = TRUE, use.names = TRUE), useNA = "ifany", exclude = , dnn = , deparse.level = 1)), collapse = " ", recycle0 = FALSE),
                     collapse = NULL,
                     recycle0 = FALSE
                 )
@@ -550,7 +555,7 @@ mat_fill <- function(
             warn <- base::paste0(base::ifelse(test = base::is.null(x = warn), yes = tempo_warn, no = base::paste0(warn, "\n\n", tempo_warn, collapse = NULL, recycle0 = FALSE)), collapse = NULL, recycle0 = FALSE)
         }
         # matrix filling
-        for(i2 in 1:(base::nrow(x = mat) - 1L)){
+        for(i2 in base::seq_len(length.out = base::nrow(x = mat) - 1L)){
             if(empty_sector == "topleft"){
                 base::eval(expr = base::parse(text = base::paste0(diag_scan[1], " <- ", diag_scan[3], collapse = NULL, recycle0 = FALSE), file = "", n = NULL, prompt = "?", keep.source = base::getOption(x = "keep.source", default = NULL), srcfile = NULL, encoding = "unknown"), envir = base::environment(fun = NULL), enclos = base::environment(fun = NULL))
             }else if(empty_sector == "topright"){
