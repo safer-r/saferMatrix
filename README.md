@@ -1,5 +1,5 @@
 
-# saferMatrix <a href="https://safer-r.github.io/saferMatrix">[<img src="man/figures/saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix/)</a>
+# saferMatrix <a href="https://safer-r.github.io/saferMatrix/">[<img src="man/figures/saferMatrix.png" align="right" height="140" />](https://safer-r.github.io/saferMatrix/)</a>
 
 <br />
 
@@ -61,11 +61,11 @@ The different *saferMatrix* releases are tagged [here](https://github.com/safer-
 
 ## Installation
 
-*saferMatrix* can be currently be installed from GitHub:
+*saferMatrix* can be currently be installed from GitHub, together with its *saferTool* dependency, which is not on CRAN yet:
 
 ```r
 install.packages("remotes")
-remotes::install_github("https://github.com/safer-r/saferMatrix") # or open R as admin and remotes::install_github("https://github.com/safer-r/saferMatrix", lib = "C:/Program Files/R/R-4.5.2/library")
+remotes::install_github(c("https://github.com/safer-r/saferTool", "https://github.com/safer-r/saferMatrix")) # or open R as admin and add lib = "C:/Program Files/R/R-4.5.2/library"
 ```
 
 Older versions can be installed like this:
